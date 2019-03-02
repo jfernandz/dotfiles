@@ -1,4 +1,7 @@
 # WyRe's dot-stuff
+
+![](https://github.com/WyRe/dotfiles/blob/master/screenshots/Screenshot_2019-03-02_22-43-23.png)
+
 ## Table of Contents
 - [Introduction](#introduction)
 - [Getting started](#getting-started)
@@ -92,3 +95,4 @@ I think this could be an unlicensed repo. They are just setups.
 ## Work in progress <a name="wip"></a>
 
 At this time I'm working on it, so it may looks like a bit empty.
+
