@@ -160,7 +160,8 @@ label-font = 3
 type = custom/script
 exec = uname -r
 interval = 1024
-format-prefix = %{T10} %{T}
+format-prefix = %{T10} %{T}
+;format-prefix = %{T10} %{T}
 
 [module/info-softwarecounter]
 type = custom/script
