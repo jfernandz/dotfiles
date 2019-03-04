@@ -7,7 +7,7 @@ allow_bold = true
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
-font = Go Mono 11
+font = DejaVu Sans Mono 11
 scrollback_lines = 10000
 search_wrap = false
 #icon_name = terminal
@@ -39,7 +39,7 @@ filter_unmatched_urls = true
 foreground      = #9dff2c
 foreground_bold = #9dff2c
 cursor          = #9dff2c
-background      = rgba(0, 0, 0, 0.975)
+background      = #000000
 
 # black
 color0  = #2e3436
@@ -54,24 +54,24 @@ color2  = #447241
 color10 = #27a343
 
 # yellow
-color3  = #c1951a
-color11 = #d5a30e
+color3  = #b48b18
+color11 = #e5b00f
 
 # blue
-color4  = #12bccb
-color12 = #4a5a8d
+color4  = #0088cc
+color12 = #004466
 
 # magenta
-color5  = #965d98
-color13 = #893c8c
+color5  = #5c285e
+color13 = #965d98
 
 # cyan
 color6  = #06989a
-color14 = #425387
+color14 = #046666
 
 # white
-color7  = #d3d7cf
-color15 = #eeeeec
+color7  = #c8ccc6
+color15 = #b3b3b1
 
 
 #[hints]
