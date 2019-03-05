@@ -134,6 +134,10 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 #bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% #increase sound volume 
 #bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5% #decrease sound volume
 
+# Suspend keybinding
+bindsym XF86Sleep exec --no-startup-id systemctl suspend
+
+
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1 Sys"
