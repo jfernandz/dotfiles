@@ -21,7 +21,7 @@ neofetch
 alias sudo='sudo ' rm='rm -i'  # causes 'sudo rm' to expand to 'sudo rm -i'
 alias rm='rm -I'
 alias i="curl -F 'f:1=<-' ix.io"
-alias pyh="curl -F 'f:1=<-' paste.pound-python.org"
+alias ptpb="curl -F c=@- https://ptpb.pw/"
 alias ls='ls --color'
 
 # ZIM
