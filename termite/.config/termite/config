@@ -7,7 +7,8 @@ allow_bold = true
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
-font = DejaVu Sans Mono 20
+font = DejaVu Sans Mono 15
+#font = DejaVu Sans Mono 20
 scrollback_lines = 10000
 search_wrap = false
 #icon_name = terminal
@@ -39,7 +40,7 @@ filter_unmatched_urls = true
 foreground      = #9dff2c
 foreground_bold = #9dff2c
 cursor          = #9dff2c
-background      = #000000
+background      = rgba(0, 0, 0, 0.98)
 
 # black
 color0  = #2e3436
