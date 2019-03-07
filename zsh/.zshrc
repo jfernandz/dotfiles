@@ -114,7 +114,7 @@ POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR=$'\ue0b7'
 #POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir newline vcs)
 #POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user dir dir_writable vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs history time)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs history time battery)
 
 source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
 
