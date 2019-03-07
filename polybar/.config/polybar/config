@@ -18,8 +18,10 @@
 
 [colors]
 ;background = ${xrdb:color0:#222}
-background = #222
-background-alt = #444
+background = #00000000
+background-alt = #00000000
+;background = #222
+;background-alt = #444
 ;foreground = ${xrdb:color7:#222}
 foreground = #dfdfdf
 foreground-alt = #555
@@ -69,7 +71,7 @@ modules-right = system-usb-udev pulseaudio openweathermap-fullfeatured date powe
 
 tray-position = center 
 tray-padding = 2
-;tray-background = #0063ff
+tray-background = #00000000
 
 ;wm-restack = bspwm
 ;wm-restack = i3
