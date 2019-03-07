@@ -248,7 +248,8 @@ client.urgent           #2f343a #900000 #ffffff #900000
 #--------------------------------------------------------------------------
 # WallPaper
 #--------------------------------------------------------------------------
-exec --no-startup-id feh --bg-scale ~/MEGA/CONFS/WP/chernobyl1.jpg
+exec --no-startup-id feh --bg-scale ~/MEGA/CONFS/WP/cern/cern3_WP.jpeg
+#exec --no-startup-id feh --bg-scale ~/MEGA/CONFS/WP/material1_WP.jpg
 
 
 #--------------------------------------------------------------------------
