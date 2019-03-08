@@ -15,6 +15,10 @@ SAVEHIST=1000
 
 neofetch
 
+# $PATH
+#
+export PATH="$PATH:$HOME/.config/polybar/"
+
 # Aliases
 #
 
@@ -42,6 +46,8 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=value'
 
 # Bind for `Del` (`Supr`) key
 bindkey "\e[3~" delete-char
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
 #bindkey "^[[A" history-beginning-search-backward
 #bindkey "^[[B" history-beginning-search-forward
 

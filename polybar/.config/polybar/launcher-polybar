@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+script_parent=$(readlink -f "${BASH_SOURCE%/*}"/.)
+
+#echo "$script_parent/ejemplo"
+printf '%s\n%s\n' "Current \$HOSTNAME found:" "$HOSTNAME"
+
+# Terminate already running bar instances
+killall -q polybar
+killall -q megasync
+
+# Wait until the processes have been shut down
+while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+
+case $HOSTNAME in
+  (GibyArch) printf '\n%s\n' "Loading polybar for Desktop PC"
+             polybar -c "$script_parent"/config.desktop main &
+             polybar -c "$script_parent"/config.desktop sysinfo &;;
+  (AcerC1NP) printf '\n%s\n' "Loading polybar for Laptop"
+             polybar -c "$script_parent"/config.laptop main &;;
+  (*)        printf '\n%s\n' "$HOSTNAME" "not found in launcher-polybar";;
+esac
+
+printf '\n%s\n%s\n\n' "Bars launched..." "Reloading megasync client..."
+
+megasync &
+
