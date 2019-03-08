@@ -23,16 +23,15 @@ neofetch
 # but is not secure.
 #source /etc/environment
 
+# The most appropriate way to setup the $PATH varible is inside 
+# ~/.zprofile, but to fetch that info you need to setup the following
+# command in order to source that ~/.zprofile, So you must add the 
+# following to your ~/.xprofile (which is fetched by GDM)
+        
+        # command="/bin/zsh -l -c gnome-session-i3"
 
-# 19:11 <SardemFF7> you put the env (PATH) in ~/.zprofile, as expected, then use ~/.xprofile to make sure the WM is launched in a login shell 
-# no why would you do that?
-# zprofile and zlogin are used at the exact same moment (well, zprofile then right after zlogin), and the usual convention is zprofile to change env and zlogin to launch stuff
-# zshrc is used for interactive shells only, but when you get one, you should already have the correct env anyway, because your *whole session* has the right env
-# (at least we’re trying to get your whole session the right env :-) )
-# so the right time to change the env is zprofile, when the session starts
-# and the command= line in ~/.xprofile is there to ensure a login shell is used to do all that stuff for X sessions
-command="/bin/zsh -l -c i3"
-
+# Then ~/.zlogin will be fetched and you have your new $PATH stablished
+        
 # Aliases
 #
 
