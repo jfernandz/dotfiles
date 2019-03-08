@@ -26,12 +26,12 @@ alias ptpbsh="curl -F c=@- https://ptpb.pw/u"
 alias ls='ls --color'
 
 # ZIM
-#
+#       system-wide? 
 # Define zim location
-export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+#export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 
 # Start zim
-[[ -s ${ZIM_HOME}/init.zsh ]] && source ${ZIM_HOME}/init.zsh
+#[[ -s ${ZIM_HOME}/init.zsh ]] && source ${ZIM_HOME}/init.zsh
 
 
 # ZSH custom options
@@ -61,6 +61,7 @@ POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 POWERLEVEL9K_RPROMPT_ON_FIRST_LINE=true
 #POWERLEVEL9K_PROMPT_PREFIX="%K{default} A %k"
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%K{default}%k"
+#POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%K{default}%F{blue} \uFBE2 %f%k" # infinity symbol
 POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%K{default}%F{blue} \uF054 %f%k"
 #POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_PREFIX="%K{default}%F{blue}\ue0b0%f%k "
 #POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%K{blue}%F{black} \uf155 %f%F{lightgreen}%k\ue0b0%f "
