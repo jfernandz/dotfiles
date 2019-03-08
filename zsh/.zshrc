@@ -17,7 +17,21 @@ neofetch
 
 # $PATH
 #
-export PATH="$PATH:$HOME/.config/polybar/"
+# This one is not proper for a system-wide (rofi needs that)
+#export PATH="$PATH:$HOME/.config/polybar/"
+# This other one seems like more system-wide
+# but is not secure.
+#source /etc/environment
+
+
+# 19:11 <SardemFF7> you put the env (PATH) in ~/.zprofile, as expected, then use ~/.xprofile to make sure the WM is launched in a login shell 
+# no why would you do that?
+# zprofile and zlogin are used at the exact same moment (well, zprofile then right after zlogin), and the usual convention is zprofile to change env and zlogin to launch stuff
+# zshrc is used for interactive shells only, but when you get one, you should already have the correct env anyway, because your *whole session* has the right env
+# (at least we’re trying to get your whole session the right env :-) )
+# so the right time to change the env is zprofile, when the session starts
+# and the command= line in ~/.xprofile is there to ensure a login shell is used to do all that stuff for X sessions
+command="/bin/zsh -l -c i3"
 
 # Aliases
 #
