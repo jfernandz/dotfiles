@@ -65,7 +65,7 @@ font-8 = 3270Medium Nerd Font:pixelsize=15;3
 
 modules-left = battery i3
 modules-center = 
-modules-right = updates-arch-combined filesystem pulseaudio memory cpu wlan eth temperature openweathermap-fullfeatured date powermenu
+modules-right = updates-arch-combined pulseaudio memory cpu wlan eth temperature date powermenu
 
 
 tray-position = left 
@@ -223,7 +223,7 @@ interval = 2
 ;   <bar-load>
 ;   <ramp-load>
 ;   <ramp-coreload>
-format = <label> <ramp-coreload>
+format = <ramp-coreload>
 ;format = <label> <ramp-load> 
 ;format = <bar-load>
 
@@ -255,7 +255,7 @@ format-underline = #f90000
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = " "
+;format-prefix = " "
 ;format-prefix = " "
 format-prefix-padding = 2
 ;format-prefix-foreground = ${colors.foreground-alt}
@@ -379,13 +379,15 @@ battery = BAT1
 adapter = ACAD
 full-at = 98
 
-format-charging = <label-charging> <animation-charging>
+format-charging = <animation-charging>
+;format-charging = <label-charging> <animation-charging>
 format-charging-underline = #ffb52a
 
-format-discharging = <label-discharging> <ramp-capacity>
+format-discharging = <ramp-capacity>
+;format-discharging = <label-discharging> <ramp-capacity>
 format-discharging-underline = ${self.format-charging-underline}
 
-format-full = <label-full>  
+format-full =  
 
 ;format-full-prefix = " "
 ;format-full-padding = 4
