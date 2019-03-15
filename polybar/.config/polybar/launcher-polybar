@@ -22,7 +22,7 @@ case $HOSTNAME in
 esac
 
 # Fetching wallpaper
-exec --no-startup-id feh --bg-scale ~/MEGA/CONFS/WP/cern/cern3_WP.jpeg
+feh --bg-scale ~/MEGA/CONFS/WP/cern/cern3_WP.jpeg &
 
 printf '\n%s\n%s\n\n' "Wallpapers and bars launched..." "Reloading megasync client..."
 
