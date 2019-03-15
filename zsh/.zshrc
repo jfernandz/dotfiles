@@ -42,6 +42,12 @@ alias ptpb="curl -F c=@- https://ptpb.pw/"
 alias ptpbsh="curl -F c=@- https://ptpb.pw/u"
 alias ls='ls --color'
 
+# ibus
+#
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
+
 # ZIM
 #       system-wide? 
 # Define zim location

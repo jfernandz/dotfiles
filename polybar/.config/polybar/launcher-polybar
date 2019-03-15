@@ -21,7 +21,10 @@ case $HOSTNAME in
   (*)        printf '\n%s\n' "$HOSTNAME" "not found in launcher-polybar";;
 esac
 
-printf '\n%s\n%s\n\n' "Bars launched..." "Reloading megasync client..."
+# Fetching wallpaper
+exec --no-startup-id feh --bg-scale ~/MEGA/CONFS/WP/cern/cern3_WP.jpeg
+
+printf '\n%s\n%s\n\n' "Wallpapers and bars launched..." "Reloading megasync client..."
 
 megasync &
 
