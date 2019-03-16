@@ -45,7 +45,7 @@ I'm Arch Linux user, a great part of software listed in [dedependencies](#depend
     - [ttf-go-mono-git](https://aur.archlinux.org/packages/ttf-go-mono-git/) - AUR
 #### Usage (Clone/Fork) <a name="usage"></a>
   - ##### You are free to fork/clone this repo for personal usage, they are _simple_ config files.
-  - ##### The main script is launcher-polybar, it is launching the following resources:
+  - ##### The main script is [launcher-polybar](https://github.com/WyRe/dotfiles/blob/master/polybar/.config/polybar/launcher-polybar), it is launching the following resources:
     - `polybar`
     - `megasync`
     - `feh`
