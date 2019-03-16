@@ -1,1 +1,2 @@
+#command="/bin/zsh -l -c gnome-session"
 command="/bin/zsh -l -c gnome-session-i3"
