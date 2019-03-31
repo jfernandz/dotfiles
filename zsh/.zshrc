@@ -15,6 +15,10 @@ SAVEHIST=1000
 
 neofetch
 
+# Colors
+export TERM="xterm-256color"
+
+
 # $PATH
 #
 # This one is not proper for a system-wide (rofi needs that)
