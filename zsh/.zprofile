@@ -3,6 +3,4 @@ export LC_NUMERIC=C
 
 
 
-if [[ ! $DISPLAY && $XDG_VTNE -eq 1 ]]; then
-    exec startx
-fi
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx
