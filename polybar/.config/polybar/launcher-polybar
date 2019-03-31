@@ -12,6 +12,8 @@ killall -q megasync
 # Wait until the processes have been shut down
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
+#export HOSTNAME=$HOST
+
 case $HOSTNAME in
   (GibyArch) printf '\n%s\n' "Loading polybar for Desktop PC"
              polybar -c "$script_parent"/config.desktop main &
