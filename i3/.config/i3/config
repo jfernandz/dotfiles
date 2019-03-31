@@ -61,7 +61,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec rofi -show combi
 
 # Binding locker
-#bindsym $mod+$alt+l exec --no-startup-id i3lockmore --pixelate
+bindsym $mod+$alt+l exec --no-startup-id i3lockmore --pixelate
 bindsym Print exec xfce4-screenshooter -mf
 bindsym $Shift+Print exec xfce4-screenshooter -mr
 
@@ -297,12 +297,12 @@ for_window [class="^.*"] border pixel 5
 smart_borders on
 
 #--------------------------------------------------------------------------
-# Enabling screen locker    (Ya que he cambiado a i3-gnome no necesito i3lock ni i3lockmore)
+# Enabling screen locker    (estoy en i3-gnome pero no uso GDM y i3lock y i3lockmore)
 #--------------------------------------------------------------------------
 #exec --no-startup-id xautolock -corners 0-00 -time 10 -locker 'i3lockmore --pixelate'
 
 # ejemplo de cómo sería para suspender también la sesión en el tiempo especificado
-#exec --no-startup-id xautolock -corners 0-00 -time 10 -locker 'i3lockmore --pixelate; systemctl suspend'
+exec --no-startup-id xautolock -corners 0-00 -time 10 -locker 'i3lockmore --pixelate; systemctl suspend'
 
 
 
