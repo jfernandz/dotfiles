@@ -3,4 +3,4 @@ export LC_NUMERIC=C
 
 
 
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx && exit
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
