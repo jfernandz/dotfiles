@@ -443,7 +443,7 @@ mode "$mode_gaps_left" {
 #--------------------------------------------------------------------------
 # POLYBAR
 #--------------------------------------------------------------------------
-exec_always --no-startup-id $HOME/.config/polybar/launcher-polybar
+exec_always --no-startup-id $HOME/.config/polybar/launcher-plybr
  
 #--------------------------------------------------------------------------
 # Trying gnome polkit agent for auth dialogs (Parece que lo necesitas para algunas apps como gparted)

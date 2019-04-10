@@ -1,4 +1,5 @@
 export PATH="$PATH:$HOME/.config/polybar/"
+export PATH="$PATH:$HOME/.screenlayout/"
 export LC_NUMERIC=C
 
 

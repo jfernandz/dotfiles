@@ -20,7 +20,7 @@ case $HOSTNAME in
              polybar -c "$script_parent"/config.desktop sysinfo &;;
   (AcerC1NP) printf '\n%s\n' "Loading polybar for Laptop"
              polybar -c "$script_parent"/config.laptop main &;;
-  (*)        printf '\n%s\n' "$HOSTNAME" "not found in launcher-polybar";;
+  (*)        printf '\n%s\n' "$HOSTNAME" "not found.";;
 esac
 
 # Fetching wallpaper
