@@ -59,7 +59,7 @@ font-0 = fixed:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = FontAwesome:pixelsize=10;1 
 font-3 = Font Awesome 5 Free Solid:pixelsize=10;1
-font-4 = Wuncon Siji:pixelsize=10;1
+font-4 = Siji:pixelsize=10;1
 font-5 = Noto Color Emoji:pixelsize=1;1
 font-6 = DejaVu Sans:pixelsize=10;1
 font-7 = Weather Icons:size=12;1
@@ -117,7 +117,7 @@ font-0 = fixed:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = FontAwesome:pixelsize=10;1 
 font-3 = Font Awesome 5 Free Solid:pixelsize=10;1
-font-4 = Wuncon Siji:pixelsize=10;1
+font-4 = Siji:pixelsize=10;1
 font-5 = Noto Color Emoji:pixelsize=1;1
 font-6 = DejaVu Sans:pixelsize=10;1
 font-7 = Weather Icons:size=12;1
@@ -528,9 +528,9 @@ label = %temperature-c%
 label-warn = %temperature-c%
 label-warn-foreground = ${colors.secondary}
 
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
+ramp-0 =%{T5}%{T}
+ramp-1 =%{T5}%{T}
+ramp-2 =%{T5}%{T}
 ramp-foreground = ${colors.foreground-alt}
 
 ; Laptop PC
