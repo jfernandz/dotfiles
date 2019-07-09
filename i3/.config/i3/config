@@ -65,6 +65,8 @@ bindsym $mod+$alt+l exec --no-startup-id i3lockmore --pixelate
 bindsym Print exec xfce4-screenshooter -mf
 bindsym $Shift+Print exec xfce4-screenshooter -mr
 
+# Mouse focus
+focus_follows_mouse no
 
 # change focus
 bindsym $mod+j focus left
