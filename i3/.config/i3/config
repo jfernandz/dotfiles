@@ -62,8 +62,15 @@ bindsym $mod+d exec rofi -show combi
 
 # Binding locker
 bindsym $mod+$alt+l exec --no-startup-id i3lockmore --pixelate
+
+# Screenshoots (I like much more xfce4-screenshooter because it allows me 
+# to store in imgur and when I'm not using parcellite I'm able to also store
+# in clipboard)
 bindsym Print exec xfce4-screenshooter -mf
 bindsym $Shift+Print exec xfce4-screenshooter -mr
+
+#bindsym Print exec gnome-screenshot -pi
+#bindsym $Shift+Print exec gnome-screenshot -api
 
 # Mouse focus
 focus_follows_mouse no
@@ -268,7 +275,14 @@ exec --no-startup-id ibus-daemon -xdr
 #--------------------------------------------------------------------------
 # Parcellite (Clipboard Manager) / xfce4-clipman (with i3-gnome i3 is using gnome's clipboard, so I dont need enable this)
 #--------------------------------------------------------------------------
-#exec --no-startup-id xfce4-clipman
+exec --no-startup-id xfce4-clipman
+# gpaste does not work without gnome, and that's why I sometimes
+# use i3-gnome-session (which does have already gnome clipboard
+# manager, and I don't need to install gpaste, so I've uninstalled
+# it for now)
+#exec --no-startup-id gpaste
+# xfce4-screenshot does not store screenshots in clipboard when
+# parcellite is working, so I do not like parcellite
 #exec --no-startup-id parcellite
 
 #--------------------------------------------------------------------------
