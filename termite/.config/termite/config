@@ -8,7 +8,6 @@ dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
 font = DejaVu Sans Mono 15
-font = NotoEmoji Nerd Font Mono 15
 #font = DejaVu Sans Mono 20
 scrollback_lines = 10000
 search_wrap = false
