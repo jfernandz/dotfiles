@@ -68,6 +68,7 @@ bindsym $mod+$alt+l exec --no-startup-id i3lockmore --pixelate
 # in clipboard)
 bindsym Print exec xfce4-screenshooter -mf
 bindsym $Shift+Print exec xfce4-screenshooter -mr
+bindsym $ctrl+$Shift+Print exec xfce4-screenshooter -mw
 
 #bindsym Print exec gnome-screenshot -pi
 #bindsym $Shift+Print exec gnome-screenshot -api
