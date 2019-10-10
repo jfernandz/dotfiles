@@ -53,6 +53,8 @@ alias ptpbsh="curl -F c=@- https://ptpb.pw/u"
 
 alias ls='ls --color'
 
+alias vim='nvim'
+
 # ibus
 #
 export GTK_IM_MODULE=ibus
