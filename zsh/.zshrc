@@ -43,8 +43,8 @@ neofetch
 alias sudo='sudo ' rm='rm -i'  # causes 'sudo rm' to expand to 'sudo rm -i'
 
 #alias rm='rm -I'
-alias trash='rmtrash'
-alias del='rmtrash'
+alias trash='trash-put'
+alias del='trash-put'
 alias rm="echo Use 'del' or the full path i.e. '/bin/rm'"
 
 alias i="curl -F 'f:1=<-' ix.io"
