@@ -23,10 +23,12 @@ case $HOSTNAME in
   (*)        printf '\n%s\n' "$HOSTNAME" "not found.";;
 esac
 
-# Fetching wallpaper
-feh --bg-scale ~/MEGA/CONFS/WP/cern/cern3_WP.jpeg &
 
 printf '\n%s\n%s\n\n' "Wallpapers and bars launched..." "Reloading megasync client..."
+
+# Fetching wallpaper
+#feh --bg-scale ~/MEGA/CONFS/WP/cern/cern3_WP.jpeg
+feh --bg-scale --no-xinerama ~/MEGA/CONFS/WP/cern/cern3_WP.jpeg
 
 megasync &
 

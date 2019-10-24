@@ -150,6 +150,12 @@ bindsym XF86Sleep exec --no-startup-id systemctl suspend
 # Rhythmbox keybindings
 bindsym $ctrl+$alt+5 exec --no-startup-id rhythmbox-client --play-pause
 
+# Putting workspaces on specific screens
+workspace $ws1 output HDMI1
+workspace $ws2 output HDMI1
+workspace $ws3 output HDMI1
+workspace $ws4 output HDMI1
+workspace $ws5 output HDMI1
 
 
 # Define names for default workspaces for which we configure key bindings later on.
@@ -267,7 +273,7 @@ client.urgent           #2f343a #900000 #ffffff #900000
 
 
 #--------------------------------------------------------------------------
-# WallPaper
+# Ibus Daemon
 #--------------------------------------------------------------------------
 exec --no-startup-id ibus-daemon -xdr
 
