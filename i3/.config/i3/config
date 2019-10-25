@@ -58,7 +58,7 @@ bindsym $mod+Shift+q kill
 #--------------------------------------------------------------------------
 # start rofi [ rofi is configured in config.rasi but I need a symlink pointing to ~/.config/rofi ]
 #--------------------------------------------------------------------------
-bindsym $mod+d exec rofi -show combi
+bindsym $mod+d exec LC_NUMERIC=C rofi -show combi
 
 # Binding locker
 bindsym $mod+$alt+l exec --no-startup-id i3lockmore --pixelate
