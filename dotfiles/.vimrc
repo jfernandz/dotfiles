@@ -1,31 +1,10 @@
 """"""""""""""""""""""""""""""""""""""""""
-" My personal configs parameters for vim.
+" Init vim-plug plugins (You need to install vim-plug from AUR)
+" I don't need another plugin manager and people in IRC did 
+" recommended me this one, all plugin manager do basically the
+" same.
 """"""""""""""""""""""""""""""""""""""""""
-
-" to edit cfg file with '\init' command
-nnoremap <Leader>init :e<Space>~/.vimrc<CR>
-set number
-set relativenumber
-set ignorecase
-"set clipboard=unnamed
-set clipboard=unnamedplus
-set listchars+=space:␣ 
-set nowrap
-set cursorline
-set cursorcolumn
-"colorscheme solarized
-colorscheme cobalt
-" to powerline properly working
-let g:powerline_pycmd = 'py3'
-"set rtp+=/usr/lib/python3.7/site-packages/powerline/bindings/vim
-
-
-
-
-""""""""""""""""""""""""""""""""""""""""""
-" Init vim-plug plugins
-""""""""""""""""""""""""""""""""""""""""""
-call plug#begin('~/.vim/my_plugins')
+call plug#begin('~/.vim/vim-plug')
 """"""""""""""""""""""""""""""""""""""""""
 " General purpose plugins
 """"""""""""""""""""""""""""""""""""""""""
@@ -64,6 +43,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 """"""""""""""""""""""""""""""""""""""""""
 Plug 'morhetz/gruvbox'
 Plug 'jaapie/vim-colours-dusk'
+Plug 'flazz/vim-colorschemes'
 call plug#end()
 
 
@@ -102,3 +82,34 @@ let g:vimtex_view_automatic = 0
 let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ }
+
+
+
+
+""""""""""""""""""""""""""""""""""""""""""
+" My personal configs parameters for vim.
+" they must be at the end of the file, because
+" vim needs to load first the plugins and then 
+" configure them, so ... the first thing in 
+" the whole cfg file is TO LOAD THE PLUGINS
+""""""""""""""""""""""""""""""""""""""""""
+
+" to edit cfg file with '\init' command
+nnoremap <Leader>init :e<Space>~/.vimrc<CR>
+
+set number
+set relativenumber
+set ignorecase
+"set clipboard=unnamed
+set clipboard=unnamedplus
+set listchars+=space:␣ 
+set nowrap
+set cursorline
+set cursorcolumn
+"colorscheme solarized
+colorscheme cobalt
+"colorscheme molokai
+" to powerline properly working
+let g:powerline_pycmd = 'py3'
+"set rtp+=/usr/lib/python3.7/site-packages/powerline/bindings/vim
+
