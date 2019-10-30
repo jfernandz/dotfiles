@@ -273,9 +273,9 @@ client.urgent           #2f343a #900000 #ffffff #900000
 
 
 #--------------------------------------------------------------------------
-# Ibus Daemon
+# Ibus Daemon (I don't need it when I'm using gnome-flashback)
 #--------------------------------------------------------------------------
-exec --no-startup-id ibus-daemon -xdr
+#exec --no-startup-id ibus-daemon -xdr
 
 
 
@@ -305,7 +305,8 @@ exec --no-startup-id xfce4-clipman
 exec --no-startup-id nm-applet
 
 #--------------------------------------------------------------------------
-# Pasystray applet (i3-gnome package is starting pasystray)
+# Pasystray applet (is starting pasystray by itself when is installed
+# it has a .desktop file inside /etc/xdg/autostart; like blueman applet)
 #--------------------------------------------------------------------------
 #exec --no-startup-id pasystray
 
@@ -476,6 +477,7 @@ exec_always --no-startup-id $HOME/.config/polybar/launcher-plybr
 # Trying gnome polkit agent for auth dialogs (apparently you need this for some apps like gparted)
 #--------------------------------------------------------------------------
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+# I do need gnome-flashback to get gnome-control-center working
 exec --no-startup-id gnome-flashback
 #exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-xsettings
 #exec --no-startup-id xrandr --output HDMI-0 --primary
