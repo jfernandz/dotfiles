@@ -28,7 +28,7 @@ printf '\n%s\n%s\n\n' "Wallpapers and bars launched..." "Reloading megasync clie
 
 # Fetching wallpaper
 #feh --bg-scale ~/MEGA/CONFS/WP/cern/cern3_WP.jpeg
-feh --bg-scale --no-xinerama ~/MEGA/CONFS/WP/cern/cern3_WP.jpeg
+feh --bg-scale --no-fehbg --no-xinerama ~/MEGA/CONFS/WP/cern/cern3_WP.jpeg
 
 megasync &
 
