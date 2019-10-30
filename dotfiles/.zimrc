@@ -19,14 +19,14 @@ zmodules=(directory environment git git-info history input utility custom \
 ###################
 
 #
-# Prompt
+# Prompt (I'm using powerlevel10k apart, in fact prompt is disabled in zmodules)
 #
 
 # Set your desired prompt here
 #zprompt_theme='steeef'
 #zprompt_theme='eriner'
 #zprompt_theme='minimal'
-zprompt_theme='liquidprompt'
+#zprompt_theme='liquidprompt'
 #zprompt_theme='gitster'
 #zprompt_theme='magicmace'
 
@@ -97,9 +97,9 @@ zhighlighters=(main brackets)
 #
 
 # Set (optional) pacman front-end.
-zpacman_frontend='powerpill'
+#zpacman_frontend='pacman'
 
 # Load any helper scripts as defined here
-zpacman_helper=(aur)
+#zpacman_helper=(aur)
 
 
