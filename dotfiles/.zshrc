@@ -51,7 +51,8 @@ alias i="curl -F 'f:1=<-' ix.io"
 alias ptpb="curl -F c=@- https://ptpb.pw/"
 alias ptpbsh="curl -F c=@- https://ptpb.pw/u"
 
-alias ls='ls --color'
+alias ls='lsd'
+#alias ls='ls --color'
 
 alias vim='nvim'
 
