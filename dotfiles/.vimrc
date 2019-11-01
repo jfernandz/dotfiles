@@ -112,4 +112,12 @@ colorscheme cobalt
 " to powerline properly working
 let g:powerline_pycmd = 'py3'
 "set rtp+=/usr/lib/python3.7/site-packages/powerline/bindings/vim
+"""""""""""""""""""""
+" Comment the following to prevent Vim jump to the last position when                                                       
+" reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
+"""""""""""""""""""""
 
