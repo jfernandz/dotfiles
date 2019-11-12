@@ -50,7 +50,7 @@ call plug#end()
 
 
 """"""""""""""""""""""""""""""""""""""""""
-" vim-arduino.
+" Vim-arduino.
 """"""""""""""""""""""""""""""""""""""""""
 let g:arduino_cmd = '/usr/share/arduino/arduino'
 let g:arduino_dir = '/usr/share/arduino'
@@ -87,11 +87,11 @@ let g:lightline = {
 
 
 """"""""""""""""""""""""""""""""""""""""""
-" My personal configs parameters for vim.
+" My personal configuration parameters for Vim.
 " they must be at the end of the file, because
-" vim needs to load first the plugins and then 
+" Vim needs to load first the plugins and then 
 " configure them, so ... the first thing in 
-" the whole cfg file is TO LOAD THE PLUGINS
+" the whole config file is TO LOAD THE PLUGINS
 """"""""""""""""""""""""""""""""""""""""""
 
 " to edit cfg file with '\init' command
@@ -120,4 +120,6 @@ if has("autocmd")
     \| exe "normal! g'\"" | endif
 endif
 """""""""""""""""""""
-
+setlocal spell spelllang=en,es
+let g:mkdp_markdown_css = '/home/wyre/.vim/vim-plug/markdown-preview.nvim/app/_static/markdown2.css'
+"let g:mkdp_highlight_css = '/home/wyre/AUR/CSS_Styles/retro/css/retro.css'
