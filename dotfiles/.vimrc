@@ -121,5 +121,5 @@ if has("autocmd")
 endif
 """""""""""""""""""""
 setlocal spell spelllang=en,es
-let g:mkdp_markdown_css = '/home/wyre/.vim/vim-plug/markdown-preview.nvim/app/_static/markdown2.css'
+let g:mkdp_markdown_css = '/home/wyre/MEGA/CONFS/markdown2.css'
 "let g:mkdp_highlight_css = '/home/wyre/AUR/CSS_Styles/retro/css/retro.css'
