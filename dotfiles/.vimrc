@@ -9,6 +9,7 @@ call plug#begin('~/.vim/vim-plug')
 " General purpose plugins
 """"""""""""""""""""""""""""""""""""""""""
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-dispatch'
 Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ap/vim-buftabline'
@@ -84,6 +85,16 @@ let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ }
 
+
+
+
+""""""""""""""""""""""""""""""""""""""""""
+" Auto build on save for Asciidoctor files
+" It is using `vim-dispatch` (:compiler)
+""""""""""""""""""""""""""""""""""""""""""
+augroup ON_ASCIIDOCTOR_SAVE | au!
+	au BufWritePost *.adoc :compiler asciidoctor2html | Make!
+augroup end
 
 
 
