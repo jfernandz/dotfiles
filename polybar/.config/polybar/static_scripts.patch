@@ -1,0 +1,215 @@
+diff -ruN --color ./polybar-scripts/info-hackspeed.sh ./polybar-scripts_custom/info-hackspeed.sh
+--- ./polybar-scripts/info-hackspeed.sh	2019-11-21 21:58:28.632488131 +0100
++++ ./polybar-scripts_custom/info-hackspeed.sh	2019-11-21 21:58:28.174488341 +0100
+@@ -1,12 +1,12 @@
+ #!/bin/sh
+ # shellcheck disable=SC2016,SC2059
+ 
+-KEYBOARD_ID="AT Translated Set 2 keyboard"
++KEYBOARD_ID="11"
+ 
+ # cpm: characters per minute
+ # wpm: words per minute (1 word = 5 characters)
+ METRIC=cpm
+-FORMAT="# %d $METRIC"
++FORMAT="%d $METRIC"
+ 
+ INTERVAL=20
+ 
+diff -ruN --color ./polybar-scripts/info-softwarecounter.py ./polybar-scripts_custom/info-softwarecounter.py
+--- ./polybar-scripts/info-softwarecounter.py	2019-11-21 21:58:28.335488267 +0100
++++ ./polybar-scripts_custom/info-softwarecounter.py	2019-11-21 21:58:28.174488341 +0100
+@@ -14,36 +14,36 @@
+ 
+ # program/process names and corresponding gylphs
+ guis = OrderedDict({
+-    'terminals': '#',
+-    'chromes': '#',
+-    'firefox': '#',
+-    'skypeforlinux': '#',
+-    'filemanager': '#',
+-    'remote-desktop': '#',
+-    'pdfviewer': '#',
+-    'image': '#',
++    'terminals': '%{T10}%{T}',
++    'chromes': '%{T10}%{T}',
++    'firefox': '%{T10}%{T}',
++    'skypeforlinux': '%{T10}瑩%{T}',
++    'filemanager': '%{T10}%{T}',
++    'remote-desktop': '%{T10}ﲾ%{T}',
++    'pdfviewer': '%{T10}%{T}',
++    'image': '%{T10}%{T}',
+ })
+ 
+ processes = OrderedDict({
+-    'vims': '#',
+-    'ssh': '#',
+-    'updater': '#',
++    'vims': '%{T10}%{T}',
++    'ssh': '%{T10}%{T}',
++    'updater': '%{T10}%{T}',
+ })
+ 
+ # combine counts of program/process names in the tuple
+ # the resulting glpyh used will be that of the corresponding key
+ combine_guis = {
+-    'terminals': ('termite', 'terminator', 'urxvt'),
++    'terminals': ('xfce4-terminal', 'termite', 'terminator', 'urxvt'),
+     'chromes': ('chromium', 'chrome'),
+-    'filemanger': ('nemo', 'thunar', 'dolphin', 'nautilus', 'pcmanfm'),
++    'filemanger': ('nemo', 'thunar', 'dolphin', 'nautilus', 'pcmanfm', 'Archivos'),
+     'remote-desktop': ('TeamViewer', ),
+     'pdfviewer': ('evince', 'okular', 'zathura'),
+     'image': ('gthumb', 'shotwell', 'deepin-image-vi'),
+ }
+ 
+ combine_proccesses = {
+-    'vims': ('nvim', 'vim'),
+-    'updater': ('pacman', 'yay', 'trizen', 'yaourt'),
++    'vims': ('nvim', 'vim', 'atom'),
++    'updater': ('pacman', 'yay', 'trizen', 'yaourt', 'makepkg', 'auracle'),
+ }
+ 
+ 
+diff -ruN --color ./polybar-scripts/openweathermap-fullfeatured.sh ./polybar-scripts_custom/openweathermap-fullfeatured.sh
+--- ./polybar-scripts/openweathermap-fullfeatured.sh	2019-11-21 21:58:28.494488194 +0100
++++ ./polybar-scripts_custom/openweathermap-fullfeatured.sh	2019-11-21 21:58:28.173488341 +0100
+@@ -2,26 +2,26 @@
+ 
+ get_icon() {
+     case $1 in
+-        01d) icon="";;
+-        01n) icon="";;
+-        02d) icon="";;
+-        02n) icon="";;
+-        03*) icon="";;
+-        04*) icon="";;
+-        09d) icon="";;
+-        09n) icon="";;
+-        10d) icon="";;
+-        10n) icon="";;
+-        11d) icon="";;
+-        11n) icon="";;
+-        13d) icon="";;
+-        13n) icon="";;
+-        50d) icon="";;
+-        50n) icon="";;
+-        *) icon="";
++        01d) icon="%{T8} %{T}";;
++        01n) icon="%{T8} %{T}";;
++        02d) icon="%{T8} %{T}";;
++        02n) icon="%{T8} %{T}";;
++        03n) icon="%{T8} %{T}";;
++        04n) icon="%{T8} %{T}";;
++        09d) icon="%{T8} %{T}";;
++        09n) icon="%{T8} %{T}";;
++        10d) icon="%{T8} %{T}";;
++        10n) icon="%{T8} %{T}";;
++        11d) icon="%{T8} %{T}";;
++        11n) icon="%{T8} %{T}";;
++        13d) icon="%{T8} %{T}";;
++        13n) icon="%{T8} %{T}";;
++        50d) icon="%{T8} %{T}";;
++        50n) icon="%{T8} %{T}";;
++        *) icon="%{T8} %{T}";
+     esac
+ 
+-    echo $icon
++    echo "$icon"
+ }
+ 
+ get_duration() {
+@@ -35,8 +35,8 @@
+ 
+ }
+ 
+-KEY=""
+-CITY=""
++KEY="a94a5e59327331833dd5e93d9b64885c"
++CITY="Badajoz,ES"
+ UNITS="metric"
+ SYMBOL="°"
+ 
+@@ -72,11 +72,11 @@
+ 
+ 
+     if [ "$current_temp" -gt "$forecast_temp" ]; then
+-        trend=""
++        trend="%{T8}%{T}"
+     elif [ "$forecast_temp" -gt "$current_temp" ]; then
+-        trend=""
++        trend="%{T8} %{T}"
+     else
+-        trend=""
++        trend="%{T8}%{T}"
+     fi
+ 
+ 
+diff -ruN --color ./polybar-scripts/system-cpu-temppercore.sh ./polybar-scripts_custom/system-cpu-temppercore.sh
+--- ./polybar-scripts/system-cpu-temppercore.sh	2019-11-21 21:58:28.937487991 +0100
++++ ./polybar-scripts_custom/system-cpu-temppercore.sh	2019-11-21 21:58:28.173488341 +0100
+@@ -1,3 +1,8 @@
+ #!/bin/sh
+ 
+-sensors | grep Core | awk '{print substr($3, 2, length($3)-5)}' | tr "\\n" " " | sed 's/ /°C  /g' | sed 's/  $//'
++#sensors | grep Core | awk '{print substr($3, 2, length($3)-5)}' | tr "\\n" " " | sed 's/ /°C  /g' | sed 's/  $//'
++
++# This is a more accurate way attending to my `sensors` output,
++# though I don't think these the core temperatures, I would say
++# these are another chipsets temps; but at least is something.
++sensors | grep "temp[0-9]" | awk '{print substr($2, 2, length($2)-3)}' | tr "\\n" " " | sed 's/ /°C /g' | sed 's/  $//'
+diff -ruN --color ./polybar-scripts/system-nvidia-smi.sh ./polybar-scripts_custom/system-nvidia-smi.sh
+--- ./polybar-scripts/system-nvidia-smi.sh	2019-11-21 21:58:29.083487924 +0100
++++ ./polybar-scripts_custom/system-nvidia-smi.sh	2019-11-21 21:58:28.173488341 +0100
+@@ -1,3 +1,7 @@
+ #!/bin/sh
+ 
+-nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits | awk '{ print "GPU",""$1"","%"}'
++# nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits | awk '{ print "GPU",""$1"","%"}'
++
++# My system does not support the flag --query-gpu=utilization.gpu
++# That's why I modify the flag to show instead the used video memory.
++nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits | awk '{ print ""$1"","MiB"}'
+diff -ruN --color ./polybar-scripts/system-usb-udev.sh ./polybar-scripts_custom/system-usb-udev.sh
+--- ./polybar-scripts/system-usb-udev.sh	2019-11-21 21:58:29.236487854 +0100
++++ ./polybar-scripts_custom/system-usb-udev.sh	2019-11-21 21:58:28.173488341 +0100
+@@ -17,7 +17,7 @@
+         fi
+         counter=$((counter + 1))
+ 
+-        output="$output$space#1 $unmounted"
++        output="$output$space%{T4} %{T} $unmounted"
+     done
+ 
+     for mounted in $(echo "$devices" | jq -r '.blockdevices[] | select(.type == "part") | select(.rm == true) | select(.mountpoint != null) | .size'); do
+@@ -28,7 +28,7 @@
+         fi
+         counter=$((counter + 1))
+ 
+-        output="$output$space#2 $mounted"
++        output="$output$space%{T4}%{T} $mounted"
+     done
+ 
+     echo "$output"
+@@ -60,7 +60,8 @@
+ 
+             mountpoint=$(udisksctl mount --no-user-interaction -b "$mount")
+             mountpoint=$(echo "$mountpoint" | cut -d " " -f 4 | tr -d ".")
+-            termite -e "bash -lc 'mc $mountpoint'" &
++            # termite -e "bash -lc 'nautilus $mountpoint'" &
++            nautilus "$mountpoint"
+         done
+ 
+         usb_update
+diff -ruN --color ./polybar-scripts/updates-arch-combined.sh ./polybar-scripts_custom/updates-arch-combined.sh
+--- ./polybar-scripts/updates-arch-combined.sh	2019-11-21 21:58:29.406487776 +0100
++++ ./polybar-scripts_custom/updates-arch-combined.sh	2019-11-21 21:58:28.173488341 +0100
+@@ -15,7 +15,7 @@
+ updates=$(("$updates_arch" + "$updates_aur"))
+ 
+ if [ "$updates" -gt 0 ]; then
+-    echo "# $updates"
++    echo "  $updates"
+ else
+     echo ""
+ fi

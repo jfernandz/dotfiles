@@ -19,7 +19,6 @@ guis = OrderedDict({
     'firefox': '%{T10}%{T}',
     'skypeforlinux': '%{T10}瑩%{T}',
     'filemanager': '%{T10}%{T}',
-#    'filemanager': '%{T10}%{T}',
     'remote-desktop': '%{T10}ﲾ%{T}',
     'pdfviewer': '%{T10}%{T}',
     'image': '%{T10}%{T}',

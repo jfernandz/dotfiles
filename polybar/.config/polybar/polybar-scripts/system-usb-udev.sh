@@ -42,7 +42,7 @@ usb_update() {
     fi
 }
 
-path_pid="/home/wyre/.config/polybar/polybar-scripts/system-usb-udev.pid"
+path_pid="/tmp/polybar-system-usb-udev.pid"
 
 case "$1" in
     --update)
@@ -60,8 +60,8 @@ case "$1" in
 
             mountpoint=$(udisksctl mount --no-user-interaction -b "$mount")
             mountpoint=$(echo "$mountpoint" | cut -d " " -f 4 | tr -d ".")
+            # termite -e "bash -lc 'nautilus $mountpoint'" &
             nautilus "$mountpoint"
-            #xfce4-terminal -e "bash -lc 'nautilus $mountpoint'" &
         done
 
         usb_update
