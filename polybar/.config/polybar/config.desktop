@@ -126,7 +126,7 @@ font-9 = FuraMono Nerd Font Mono:pixelsize=20;3
 
 modules-left = info-hackspeed info-softwarecounter
 modules-center = info-kernel 
-modules-right = updates-arch-combined filesystem memory system-nvidia-smi cpu system-cpu-frequency eth temperature 
+modules-right = updates-arch-combined filesystem memory system-nvidia-smi cpu system-cpu-temppercore system-cpu-frequency eth temperature 
 #modules-right = updates-arch-combined filesystem memory system-nvidia-smi cpu system-cpu-frequency eth system-cpu-temppercore 
 
 tray-position = none 
@@ -202,6 +202,7 @@ click-right = ~/.config/polybar/polybar-scripts/system-usb-udev.sh --unmount
 type = custom/script
 exec = ~/.config/polybar/polybar-scripts/system-cpu-temppercore.sh
 interval = 60
+format-underline = #f90000
 
 ;-------------------------
 
