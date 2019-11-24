@@ -133,5 +133,6 @@ if has("autocmd")
 endif
 """""""""""""""""""""
 setlocal spell spelllang=en,es
+set nospell
 let g:mkdp_markdown_css = '/home/wyre/MEGA/CONFS/markdown2.css'
 "let g:mkdp_highlight_css = '/home/wyre/AUR/CSS_Styles/retro/css/retro.css'
