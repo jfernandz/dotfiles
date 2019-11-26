@@ -24,6 +24,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'cjrh/vim-conda'
 Plug 'wakatime/vim-wakatime'
 "Plug 'dhruvasagar/vim-table-mode'
+Plug 'mg979/vim-visual-multi'
 """"""""""""""""""""""""""""""""""""""""""
 " Language support
 """"""""""""""""""""""""""""""""""""""""""
