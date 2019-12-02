@@ -1,12 +1,13 @@
 diff -ruN --color ./polybar-scripts/info-hackspeed.sh ./polybar-scripts_custom/info-hackspeed.sh
 --- ./polybar-scripts/info-hackspeed.sh	2019-11-21 21:58:28.632488131 +0100
 +++ ./polybar-scripts_custom/info-hackspeed.sh	2019-11-21 21:58:28.174488341 +0100
-@@ -1,12 +1,12 @@
+@@ -1,12 +1,13 @@
  #!/bin/sh
  # shellcheck disable=SC2016,SC2059
  
 -KEYBOARD_ID="AT Translated Set 2 keyboard"
-+KEYBOARD_ID=$(xinput list | grep "Logitech Wireless Keyboard PID:4023" | cut -d '=' -f 2 | awk '{ print $1 }' | tail -1)
++KEYBOARD_NAME="Logitech Wireless Keyboard PID:4023"
++KEYBOARD_ID=$(xinput list | grep "$KEYBOARD_NAME" | cut -d '=' -f 2 | awk '{ print $1 }' | tail -1)
  
  # cpm: characters per minute
  # wpm: words per minute (1 word = 5 characters)

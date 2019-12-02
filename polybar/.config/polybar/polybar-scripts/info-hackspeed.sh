@@ -1,7 +1,8 @@
 #!/bin/sh
 # shellcheck disable=SC2016,SC2059
 
-KEYBOARD_ID=$(xinput list | grep "Logitech Wireless Keyboard PID:4023" | cut -d '=' -f 2 | awk '{ print $1 }' | tail -1)
+KEYBOARD_NAME="Logitech Wireless Keyboard PID:4023"
+KEYBOARD_ID=$(xinput list | grep "$KEYBOARD_NAME" | cut -d '=' -f 2 | awk '{ print $1 }' | tail -1)
 
 # cpm: characters per minute
 # wpm: words per minute (1 word = 5 characters)
