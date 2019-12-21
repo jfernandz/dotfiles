@@ -7,9 +7,13 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+# Modifying the shell history path and giving 
+# The largest size possible [which is $((1<<63 - 1))]
+HISTFILE="$HOME/.zhs_history"
+HISTSIZE=$((1<<63 - 1))
+SAVEHIST=$HISTSIZE
+setopt EXTENDED_HISTORY
+setopt INC_APPEND_HISTORY
 #bindkey -v
 # End of lines configured by zsh-newuser-install
 
