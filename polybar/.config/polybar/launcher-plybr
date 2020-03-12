@@ -27,7 +27,7 @@ esac
 printf '\n%s\n%s\n\n' "Wallpapers and bars launched..." "Reloading megasync client..."
 
 # Fetching wallpaper (I don't need this because I'm using i3-gnome with gnome-flashback)
-feh --bg-scale ~/MEGA/CONFS/WP/cern/cern3_WP.jpeg
+#feh --bg-scale ~/MEGA/CONFS/WP/cern/cern3_WP.jpeg
 #feh --bg-scale --no-fehbg --no-xinerama ~/MEGA/CONFS/WP/cern/cern3_WP.jpeg
 
 megasync &
