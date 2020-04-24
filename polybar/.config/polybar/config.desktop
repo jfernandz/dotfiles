@@ -277,12 +277,12 @@ label-separator = |
 
 ; ws-icon-[0-9]+ = label;icon
 ; NOTE: The label needs to match the name of the i3 workspace
-ws-icon-0 = "1 Sys;%{T9}%{T}"
-ws-icon-1 = "2 Comm;%{T9}%{T}"
-ws-icon-2 = "3 Web;%{T9}爵%{T}"
-ws-icon-3 = "4 Work;%{T9}華%{T}"
-ws-icon-4 = "5 Games;%{T9}%{T}"
-ws-icon-default = "%{T9}%{T}"
+ws-icon-0 = "1 Sys;%{T9} %{T}"
+ws-icon-1 = "2 Comm;%{T9} %{T}"
+ws-icon-2 = "3 Web;%{T9}爵 %{T}"
+ws-icon-3 = "4 Work;%{T9}華 %{T}"
+ws-icon-4 = "5 Games;%{T9} %{T}"
+ws-icon-default = "%{T9} %{T}"
 ; NOTE: You cannot skip icons, e.g. to get a ws-icon-6
 ; you must also define a ws-icon-5.
 
