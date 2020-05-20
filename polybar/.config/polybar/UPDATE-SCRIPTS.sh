@@ -27,7 +27,7 @@ wget -q --show-progress -O ./polybar-scripts/system-cpu-frequency.sh https://raw
 wget -q --show-progress -O ./polybar-scripts/system-cpu-temppercore.sh https://raw.githubusercontent.com/WyRe/polybar-scripts/master/polybar-scripts/system-cpu-temppercore/system-cpu-temppercore.sh
 wget -q --show-progress -O ./polybar-scripts/system-nvidia-smi.sh https://raw.githubusercontent.com/WyRe/polybar-scripts/master/polybar-scripts/system-nvidia-smi/system-nvidia-smi.sh
 wget -q --show-progress -O ./polybar-scripts/system-usb-udev.sh https://raw.githubusercontent.com/WyRe/polybar-scripts/master/polybar-scripts/system-usb-udev/system-usb-udev.sh
-wget -q --show-progress -O ./polybar-scripts/updates-arch-combined.sh https://raw.githubusercontent.com/WyRe/polybar-scripts/master/polybar-scripts/updates-arch-combined/updates-arch-combined.sh
+wget -q --show-progress -O ./polybar-scripts/updates-pacman-aurhelper.sh https://raw.githubusercontent.com/WyRe/polybar-scripts/master/polybar-scripts/updates-pacman-aurhelper/updates-pacman-aurhelper.sh
 
 #echo -e "\e[1m\e[31mCreating the patch file:\e[0m"
 #diff -ruN --color ./polybar-scripts/ ./polybar-scripts_custom/ > ./scripts.patch

@@ -1,0 +1,13 @@
+*.BAK
+polybar/.config/polybar/polybar-scripts/system-usb-udev.pid
+weechat/.weechat/logs/
+weechat/.weechat/sec.conf
+weechat/.weechat/weechat.log
+weechat/.weechat/python/
+weechat/.weechat/lua/
+weechat/.weechat/ruby/
+weechat/.weechat/perl/
+weechat/.weechat/xfer/
+weechat/.weechat/tcl/
+weechat/.weechat/guile/
+weechat/.weechat/script
