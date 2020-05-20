@@ -126,8 +126,8 @@ font-9 = FuraMono Nerd Font Mono:pixelsize=20;3
 
 modules-left = info-hackspeed info-softwarecounter
 modules-center = info-kernel 
-modules-right = updates-arch-combined filesystem memory system-nvidia-smi cpu system-cpu-temppercore system-cpu-frequency eth temperature 
-#modules-right = updates-arch-combined filesystem memory system-nvidia-smi cpu system-cpu-frequency eth system-cpu-temppercore 
+modules-right = updates-pacman-aurhelper filesystem memory system-nvidia-smi cpu system-cpu-temppercore system-cpu-frequency eth temperature 
+#modules-right = updates-pacman-aurhelper filesystem memory system-nvidia-smi cpu system-cpu-frequency eth system-cpu-temppercore 
 
 tray-position = none 
 ;tray-padding = 2
@@ -146,9 +146,9 @@ cursor-scroll = ns-resize
 ;-------------------------
 ;Custom modules:
 
-[module/updates-arch-combined]
+[module/updates-pacman-aurhelper]
 type = custom/script
-exec = ~/.config/polybar/polybar-scripts/updates-arch-combined.sh
+exec = ~/.config/polybar/polybar-scripts/updates-pacman-aurhelper.sh
 interval = 600
 
 
