@@ -16,10 +16,10 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 case $HOSTNAME in
   (GibyArch) printf '\n%s\n' "Loading polybar for Desktop PC"
-             polybar -c "$script_parent"/config.desktop main &
-             polybar -c "$script_parent"/config.desktop sysinfo &;;
+             polybar -c "$script_parent"/desktop.config main &
+             polybar -c "$script_parent"/desktop.config sysinfo &;;
   (AcerC1NP) printf '\n%s\n' "Loading polybar for Laptop"
-             polybar -c "$script_parent"/config.laptop main &;;
+             polybar -c "$script_parent"/laptop.config main &;;
   (*)        printf '\n%s\n' "$HOSTNAME" "not found.";;
 esac
 
