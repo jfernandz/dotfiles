@@ -1,11 +1,19 @@
 # The following lines were added by compinstall
 
-zstyle ':completion:*' completer _complete _ignored
+#zstyle ':completion:*' completer _complete _ignored
+zstyle ':completion:*' menu select
+zstyle ':completion:*:default' list-colors \
+  "di=1;36" "ln=35" "so=32" "pi=33" "ex=31" "bd=34;46" "cd=34;43" \
+  "su=30;41" "sg=30;46" "tw=30;42" "ow=30;43"
+
 zstyle :compinstall filename '/home/wyre/.zshrc'
 
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Lines configured by zsh-newuser-install
 # Modifying the shell history path and giving 
 # The largest size possible [which is $((1<<63 - 1))]
