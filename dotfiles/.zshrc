@@ -1,5 +1,12 @@
-# The following lines were added by compinstall
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
+# The following lines were added by compinstall
+#
 #zstyle ':completion:*' completer _complete _ignored
 zstyle ':completion:*' menu select
 zstyle ':completion:*:default' list-colors \
@@ -12,9 +19,13 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+# Sourcing syntax-highlighting and autosuggestions
+#
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 # Lines configured by zsh-newuser-install
+#
 # Modifying the shell history path and giving 
 # The largest size possible [which is $((1<<63 - 1))]
 HISTFILE="$HOME/.zhs_history"
@@ -27,7 +38,9 @@ setopt INC_APPEND_HISTORY
 
 neofetch
 
+
 # Colors
+#
 #export TERM="xterm-256color"
 
 
@@ -47,26 +60,22 @@ neofetch
         # command="/bin/zsh -l -c gnome-session-i3"
 
 # Then ~/.zlogin will be fetched and you have your new $PATH stablished
-        
+
+
 # Aliases
 #
-
-
 alias sudo='sudo ' rm='rm -i'  # causes 'sudo rm' to expand to 'sudo rm -i'
-
 #alias rm='rm -I'
 alias trash='trash-put'
 alias del='trash-put'
 alias rm="echo Use 'del' or the full path i.e. '/bin/rm'"
-
 alias i="curl -F 'f:1=<-' ix.io"
 alias ptpb="curl -F c=@- https://ptpb.pw/"
 alias ptpbsh="curl -F c=@- https://ptpb.pw/u"
-
 alias ls='lsd'
 #alias ls='ls --color'
-
 alias vim='nvim'
+
 
 # ibus
 #
@@ -74,102 +83,29 @@ export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 
+
 # ZIM
 #       system-wide? 
 # Define zim location
 #export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
-
 # Start zim
 #[[ -s ${ZIM_HOME}/init.zsh ]] && source ${ZIM_HOME}/init.zsh
 
 
 # ZSH custom options
 #
-
 # Colors in autocomplete
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=value'
-
 # Bind for `Del` (`Supr`) key
 bindkey "\e[3~" delete-char
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
-#bindkey "^[[A" history-beginning-search-backward
-#bindkey "^[[B" history-beginning-search-forward
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
 
 
-# PowerLevel9k options
+# powerlevel10K prompt theme 
 #
-
-# Font mode for powerlevel9k
-POWERLEVEL9K_MODE="nerdfont-complete"
-DEFAULT_USER="$USER"
-POWERLEVEL9K_ALWAYS_SHOW_USER=true
-
-# Prompt settings
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-#POWERLEVEL9K_RPROMPT_ON_NEWLINE=false
-POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
-POWERLEVEL9K_RPROMPT_ON_FIRST_LINE=true
-#POWERLEVEL9K_PROMPT_PREFIX="%K{default} A %k"
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%K{default}%k"
-#POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%K{default}%F{blue} \uFBE2 %f%k" # infinity symbol
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%K{default}%F{blue} \uF054 %f%k"
-#POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_PREFIX="%K{default}%F{blue}\ue0b0%f%k "
-#POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%K{blue}%F{black} \uf155 %f%F{lightgreen}%k\ue0b0%f "
-#POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="↱"
-#POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="↳ "
-
-# Colors
-#   context
-POWERLEVEL9K_CONTEXT_ROOT_BACKGROUND='red'
-POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND='blue'
-#   root_indicator
-POWERLEVEL9K_ROOT_INDICATOR_BACKGROUND='red'
-POWERLEVEL9K_ROOT_INDICATOR_FOREGROUND='blue'
-#   os_icon
-POWERLEVEL9K_OS_ICON_BACKGROUND='default'
-POWERLEVEL9K_OS_ICON_FOREGROUND='blue'
-#POWERLEVEL9K_LINUX_ARCH_ICON=$'\uF303 '
-#POWERLEVEL9K_LINUX_ARCH_ICON='%F{blue} \uf303 %f'
-#POWERLEVEL9K_LINUX_ICON='%F{cyan} \uf303 %F{white} arch %F{cyan}linux%f'
-#   user
-POWERLEVEL9K_USER_ICON="\uF303 " # 
-POWERLEVEL9K_USER_DEFAULT_BACKGROUND='024'
-POWERLEVEL9K_USER_DEFAULT_FOREGROUND='black'
-POWERLEVEL9K_USER_ROOT_BACKGROUND='red'
-POWERLEVEL9K_USER_ROOT_FOREGROUND='blue'
-#POWERLEVEL9K_ROOT_ICON="#"
-#POWERLEVEL9K_SUDO_ICON=$'\uF09C' # 
-#   time
-POWERLEVEL9K_TIME_BACKGROUND='024'
-#   dir
-POWERLEVEL9K_FOLDER_ICON=$'\uf07c' #  
-#POWERLEVEL9K_FOLDER_ICON='%F{black} \ufc6e %f' # ﱮ
-POWERLEVEL9K_DIR_HOME_BACKGROUND='243'
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND='247'
-#POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='243'
-POWERLEVEL9K_LOCK_ICON="\uf456"
-#   status
-POWERLEVEL9K_STATUS_OK_FOREGROUND='190'
-
-# Separators
-POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=$'\ue0b0'
-POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR=$'\ue0b1'
-POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=$'\ue0b2'
-POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR=$'\ue0b7'
-
-
-# Prompt elements
-#
-# Testing
-#POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(icons_test)
-#
-# Defaults
-#POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir newline vcs)
-#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user dir dir_writable vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs history time battery)
-
-#source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
