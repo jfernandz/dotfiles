@@ -36,7 +36,7 @@ setopt INC_APPEND_HISTORY
 #bindkey -v
 # End of lines configured by zsh-newuser-install
 
-neofetch
+#neofetch
 
 
 # Colors
