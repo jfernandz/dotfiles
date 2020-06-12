@@ -38,9 +38,6 @@ setopt INC_APPEND_HISTORY
 
 #neofetch
 
-# To prevent '%' spawn when terminal opens
-unsetopt PROMPT_SP
-
 # Colors
 #
 #export TERM="xterm-256color"
