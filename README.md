@@ -1,6 +1,6 @@
 # My personal dotfiles
 
-![](https://github.com/WyRe/dotfiles/blob/master/screenshots/Screenshot_2019-03-02_22-43-23.png)
+![](https://github.com/jfernandz/dotfiles/blob/master/screenshots/Screenshot_2019-03-02_22-43-23.png)
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -45,7 +45,7 @@ I'm Arch Linux user, a great part of software listed in [dedependencies](#depend
     - [ttf-go-mono-git](https://aur.archlinux.org/packages/ttf-go-mono-git/) - AUR
 #### Usage (Clone/Fork) <a name="usage"></a>
   - ##### You are free to fork/clone this repo for personal usage, they are _simple_ config files.
-  - ##### The main script is [launcher-polybar](https://github.com/WyRe/dotfiles/blob/master/polybar/.config/polybar/launcher-polybar), it is launching the following resources:
+  - ##### The main script is [launcher-polybar](https://github.com/jfernandz/dotfiles/blob/master/polybar/.config/polybar/launcher-polybar), it is launching the following resources:
     - `polybar`
     - `megasync`
     - `feh`
@@ -56,7 +56,7 @@ The most important thing to mention in here is that, this is a conventional git 
 
 ```
 $ cd ~/
-$ git clone https://github.com/WyRe/dotfiles/tree/desktop
+$ git clone https://github.com/jfernandz/dotfiles/tree/desktop
 $ cd ~/dotfiles
 $ stow i3
 ```
@@ -71,10 +71,10 @@ ____
 You are free to fork this project, but since these are personal cfgs, I think I won't accept pull requests. Obviously you might want to fork it and customize. To get it clear, my workflow is like I've described in [usage](#usage) and the contents are described below.
 #### Contents <a name="contents"></a>
 In detail, this repo does contain my personal configs for my two personal computers. This repo only needs a branch to at the moment.
-  - [master](https://github.com/WyRe/dotfiles/tree/master)
+  - [master](https://github.com/jfernandz/dotfiles/tree/master)
 
     It does contain the general/shared cfg files, specifically **config files for** these programs
-    - `i3` / `i3-gaps` (`i3-gaps` is a fork of `i3`, so it you cannot install both at the same time. You must chose `i3-gaps` or disable inside [i3 conf file](https://github.com/WyRe/dotfiles/blob/master/i3/.config/i3/config) the lines from 305 to 427)
+    - `i3` / `i3-gaps` (`i3-gaps` is a fork of `i3`, so it you cannot install both at the same time. You must chose `i3-gaps` or disable inside [i3 conf file](https://github.com/jfernandz/dotfiles/blob/master/i3/.config/i3/config) the lines from 305 to 427)
     - `compton`
     - `rofi` + `rofi-calc`
     - `termite`
