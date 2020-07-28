@@ -22,14 +22,14 @@ echo -e "\e[1m\e[31mAfter this process you should be able to remove it manually 
 
 
 echo -e "\n\e[1m\e[31mCloning raw scripts from Github repo.\e[0m"
-wget -q --show-progress -O ./polybar-scripts/info-softwarecounter.py https://raw.githubusercontent.com/WyRe/polybar-scripts/master/polybar-scripts/info-softwarecounter/info-softwarecounter.py
-wget -q --show-progress -O ./polybar-scripts/openweathermap-fullfeatured.sh https://raw.githubusercontent.com/WyRe/polybar-scripts/master/polybar-scripts/openweathermap-fullfeatured/openweathermap-fullfeatured.sh
-wget -q --show-progress -O ./polybar-scripts/info-hackspeed.sh https://raw.githubusercontent.com/WyRe/polybar-scripts/master/polybar-scripts/info-hackspeed/info-hackspeed.sh
-wget -q --show-progress -O ./polybar-scripts/system-cpu-frequency.sh https://raw.githubusercontent.com/WyRe/polybar-scripts/master/polybar-scripts/system-cpu-frequency/system-cpu-frequency.sh
-wget -q --show-progress -O ./polybar-scripts/system-cpu-temppercore.sh https://raw.githubusercontent.com/WyRe/polybar-scripts/master/polybar-scripts/system-cpu-temppercore/system-cpu-temppercore.sh
-wget -q --show-progress -O ./polybar-scripts/system-nvidia-smi.sh https://raw.githubusercontent.com/WyRe/polybar-scripts/master/polybar-scripts/system-nvidia-smi/system-nvidia-smi.sh
-wget -q --show-progress -O ./polybar-scripts/system-usb-udev.sh https://raw.githubusercontent.com/WyRe/polybar-scripts/master/polybar-scripts/system-usb-udev/system-usb-udev.sh
-wget -q --show-progress -O ./polybar-scripts/updates-pacman-aurhelper.sh https://raw.githubusercontent.com/WyRe/polybar-scripts/master/polybar-scripts/updates-pacman-aurhelper/updates-pacman-aurhelper.sh
+wget -q --show-progress -O ./polybar-scripts/info-softwarecounter.py https://raw.githubusercontent.com/jfernandz/polybar-scripts/master/polybar-scripts/info-softwarecounter/info-softwarecounter.py
+wget -q --show-progress -O ./polybar-scripts/openweathermap-fullfeatured.sh https://raw.githubusercontent.com/jfernandz/polybar-scripts/master/polybar-scripts/openweathermap-fullfeatured/openweathermap-fullfeatured.sh
+wget -q --show-progress -O ./polybar-scripts/info-hackspeed.sh https://raw.githubusercontent.com/jfernandz/polybar-scripts/master/polybar-scripts/info-hackspeed/info-hackspeed.sh
+wget -q --show-progress -O ./polybar-scripts/system-cpu-frequency.sh https://raw.githubusercontent.com/jfernandz/polybar-scripts/master/polybar-scripts/system-cpu-frequency/system-cpu-frequency.sh
+wget -q --show-progress -O ./polybar-scripts/system-cpu-temppercore.sh https://raw.githubusercontent.com/jfernandz/polybar-scripts/master/polybar-scripts/system-cpu-temppercore/system-cpu-temppercore.sh
+wget -q --show-progress -O ./polybar-scripts/system-nvidia-smi.sh https://raw.githubusercontent.com/jfernandz/polybar-scripts/master/polybar-scripts/system-nvidia-smi/system-nvidia-smi.sh
+wget -q --show-progress -O ./polybar-scripts/system-usb-udev.sh https://raw.githubusercontent.com/jfernandz/polybar-scripts/master/polybar-scripts/system-usb-udev/system-usb-udev.sh
+wget -q --show-progress -O ./polybar-scripts/updates-pacman-aurhelper.sh https://raw.githubusercontent.com/jfernandz/polybar-scripts/master/polybar-scripts/updates-pacman-aurhelper/updates-pacman-aurhelper.sh
 
 
 echo -e "\n\e[1m\e[31mDo you want to create the patch (y/N)?\e[0m"
