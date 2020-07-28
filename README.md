@@ -1,4 +1,4 @@
-# My dot files
+# My personal dotfiles
 
 ![](https://github.com/WyRe/dotfiles/blob/master/screenshots/Screenshot_2019-03-02_22-43-23.png)
 
