@@ -10,4 +10,4 @@ weechat/.weechat/perl/
 weechat/.weechat/xfer/
 weechat/.weechat/tcl/
 weechat/.weechat/guile/
-weechat/.weechat/script
+#weechat/.weechat/script
