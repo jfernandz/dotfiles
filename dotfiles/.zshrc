@@ -104,6 +104,7 @@ bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
+bindkey "^[[Z" reverse-menu-complete
 
 
 # powerlevel10K prompt theme 
