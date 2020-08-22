@@ -14,7 +14,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ap/vim-buftabline'
 Plug 'mattn/emmet-vim'
-"Plug 'editorconfig/editorconfig-vim'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'mileszs/ack.vim'
 Plug 'vimwiki/vimwiki'
@@ -37,10 +37,11 @@ Plug 'alvan/vim-closetag'
 Plug 'racer-rust/vim-racer'
 Plug 'elixir-editors/vim-elixir'
 Plug 'slashmili/alchemist.vim'
-Plug 'stevearc/vim-arduino'
+" Plug 'stevearc/vim-arduino'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'habamax/vim-asciidoctor'
 " Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 """"""""""""""""""""""""""""""""""""""""""
 " Colorschemes
 """"""""""""""""""""""""""""""""""""""""""
@@ -75,7 +76,7 @@ let g:arduino_serial_port = '/dev/ttyACM0'
 " VimTex
 """"""""""""""""""""""""""""""""""""""""""
 let g:vimtex_view_automatic = 0
-
+let g:tex_flavor = 'latex'
 
 
 
