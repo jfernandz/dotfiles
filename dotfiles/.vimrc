@@ -5,6 +5,8 @@
 " same.
 """"""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/vim-plug')
+
+
 """"""""""""""""""""""""""""""""""""""""""
 " General purpose plugins
 """"""""""""""""""""""""""""""""""""""""""
@@ -25,6 +27,8 @@ Plug 'cjrh/vim-conda'
 Plug 'wakatime/vim-wakatime'
 "Plug 'dhruvasagar/vim-table-mode'
 Plug 'mg979/vim-visual-multi'
+
+
 """"""""""""""""""""""""""""""""""""""""""
 " Language support
 """"""""""""""""""""""""""""""""""""""""""
@@ -42,6 +46,8 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'habamax/vim-asciidoctor'
 " Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+
+
 """"""""""""""""""""""""""""""""""""""""""
 " Colorschemes
 """"""""""""""""""""""""""""""""""""""""""
@@ -51,6 +57,12 @@ Plug 'flazz/vim-colorschemes'
 call plug#end()
 
 
+""""""""""""""""""""""""""""""""""""""""""
+" python-mode
+""""""""""""""""""""""""""""""""""""""""""
+"let g:pymode_rope = 1
+"let g:pymode_rope_completion = 1
+"let g:pymode_rope_completion_bind = '<C-Space>'
 
 
 """"""""""""""""""""""""""""""""""""""""""
@@ -70,14 +82,11 @@ let g:arduino_auto_baud = 1
 let g:arduino_serial_port = '/dev/ttyACM0'
 
 
-
-
 """"""""""""""""""""""""""""""""""""""""""
 " VimTex
 """"""""""""""""""""""""""""""""""""""""""
 let g:vimtex_view_automatic = 0
 let g:tex_flavor = 'latex'
-
 
 
 """"""""""""""""""""""""""""""""""""""""""
@@ -88,8 +97,6 @@ let g:lightline = {
       \ }
 
 
-
-
 """"""""""""""""""""""""""""""""""""""""""
 " Auto build on save for Asciidoctor files
 " It is using `vim-dispatch` (:compiler)
@@ -97,7 +104,6 @@ let g:lightline = {
 augroup ON_ASCIIDOCTOR_SAVE | au!
 	au BufWritePost *.adoc :compiler asciidoctor2html | Make!
 augroup end
-
 
 
 """"""""""""""""""""""""""""""""""""""""""
