@@ -1,3 +1,12 @@
+# Screen Locking
+gsd-screensaver-proxy is triggered when using lighdm. To prevent this behaviour you need to disable the gnome-flashback screensaver by performing:
+
+`gsettings set org.gnome.gnome-flashback screensaver false`
+
+or using `dconf-editor`
+
+**This will disable the gnome-flashback screensaver** and will allow you to use i3lockmore through the systemd service
+
 # Template systemd services
 
 - The service must be placed into `/etc/systemd/system/` because when is enabled it creates a symlink inside `/etc/systemd/system/sleep.target.wants/`
