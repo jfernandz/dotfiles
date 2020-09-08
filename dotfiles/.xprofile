@@ -1,3 +1,19 @@
 #command="/bin/zsh -l -c gnome-session"
 #command="/bin/zsh -l -c gnome-session-i3"
 #command="/bin/zsh -l -c i3"
+
+
+# Configuring PATH variable
+# This is needed to set up PATH variable in graphical
+# loging, because lightdm will not source .zprofile
+# but it will source this .xprofile
+export PATH="$PATH:$HOME/.config/polybar/"
+export PATH="$PATH:$HOME/.screenlayout/"
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"
+
+
+# Atom does need this one to delete files sending them to 
+# trash, AUR atom version does not work properly in Arch
+# cause cannot find gvfs-trash
+export ELECTRON_TRASH=gio

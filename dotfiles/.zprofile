@@ -1,12 +1,14 @@
 # Configuring PATH variable
-export PATH="$PATH:$HOME/.config/polybar/"
-export PATH="$PATH:$HOME/.screenlayout/"
-export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"
+# I don't like this way because when .zprofile is properly sourced
+# you can use the zsh syntax in line 11: path+=(...)
+#export PATH="$PATH:$HOME/.config/polybar/"
+#export PATH="$PATH:$HOME/.screenlayout/"
+#export PATH="$PATH:$HOME/.local/bin"
+#export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"
 # Another way to set up PATH variable, this is only useful
 # when loging via terminal because zsh will parse this .zprofile
 # for graphical logins this is not suitable
-#path+=($HOME/.local/bin $HOME/.screenlayout $HOME/.gem/ruby/2.7.0/bin $HOME/.config/polybar)
+path+=($HOME/.local/bin $HOME/.screenlayout $HOME/.gem/ruby/2.7.0/bin $HOME/.config/polybar)
 
 
 # Atom does need this one to delete files sending them to 
