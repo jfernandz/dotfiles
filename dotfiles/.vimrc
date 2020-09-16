@@ -63,6 +63,7 @@ call plug#end()
 "let g:pymode_rope = 1
 "let g:pymode_rope_completion = 1
 "let g:pymode_rope_completion_bind = '<C-Space>'
+let g:pymode_preview_position = 'botright'
 
 
 """"""""""""""""""""""""""""""""""""""""""
@@ -106,6 +107,13 @@ augroup ON_ASCIIDOCTOR_SAVE | au!
 augroup end
 
 
+"""""""""""""""""""""""""""""""""""""""""
+" Markdown plugin
+"""""""""""""""""""""""""""""""""""""""""
+let g:mkdp_markdown_css = '/home/wyre/MEGA/CONFS/markdown2.css'
+"let g:mkdp_highlight_css = '/home/wyre/AUR/CSS_Styles/retro/css/retro.css'
+
+
 """"""""""""""""""""""""""""""""""""""""""
 " My personal configuration parameters for Vim.
 " they must be at the end of the file, because
@@ -132,15 +140,29 @@ colorscheme cobalt
 " to powerline properly working
 let g:powerline_pycmd = 'py3'
 "set rtp+=/usr/lib/python3.7/site-packages/powerline/bindings/vim
+
 """""""""""""""""""""
 " Comment the following to prevent Vim jump to the last position when                                                       
 " reopening a file see `:h last-position-jump`
+"""""""""""""""""""""
 if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal! g'\"" | endif
 endif
+
+"""""""""""""""""""""
+" Spell settings
 """""""""""""""""""""
 setlocal spell spelllang=en,es
 set nospell
-let g:mkdp_markdown_css = '/home/wyre/MEGA/CONFS/markdown2.css'
-"let g:mkdp_highlight_css = '/home/wyre/AUR/CSS_Styles/retro/css/retro.css'
+
+"""""""""""""""""""""
+" Key mapping to move lines up or down
+"""""""""""""""""""""
+"nnoremap <A-j> :m .+1<CR>==
+"nnoremap <A-k> :m .-2<CR>==
+inoremap <A-Up> <Esc>:m .-2<CR>==gi
+inoremap <A-Down> <Esc>:m .+1<CR>==gi
+vnoremap <A-Up> :m '<-2<CR>gv=gv
+vnoremap <A-Down> :m '>+1<CR>gv=gv
+
