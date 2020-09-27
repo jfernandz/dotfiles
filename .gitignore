@@ -1,4 +1,5 @@
 *.BAK
+*.html
 polybar/.config/polybar/polybar-scripts/system-usb-udev.pid
 weechat/.weechat/logs/
 weechat/.weechat/sec.conf
@@ -10,4 +11,3 @@ weechat/.weechat/perl/
 weechat/.weechat/xfer/
 weechat/.weechat/tcl/
 weechat/.weechat/guile/
-#weechat/.weechat/script

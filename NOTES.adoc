@@ -1,0 +1,13 @@
+:font: icons
+
+
+= Important notes about some configs
+
+== Neovim
+
+NOTE: Though all `vim` config is placed in `~/.vimrc` file is it also necessary to fetch the `neovim` configuration because this config is linking that `~/.vimrc` file and `vim` is aliased in `~/.zshrc` to run `nvim`
+
+IMPORTANT: All plugins require first to install `vim-plug`, this can be installed from AUR
+
+
+python-mode plugin depends on `pylama`, `python-pylint` and `python-pynvim` which are in community and extra repos
