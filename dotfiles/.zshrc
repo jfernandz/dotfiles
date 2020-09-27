@@ -44,7 +44,7 @@ setopt INC_APPEND_HISTORY
 # Colors
 #
 #export TERM="xterm-256color"
-
+export PAGER='most'
 
 # $PATH
 #
