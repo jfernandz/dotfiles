@@ -11,7 +11,7 @@ or using `dconf-editor`
 
 - The service must be placed into `/etc/systemd/system/` because when is enabled it creates a symlink inside `/etc/systemd/system/sleep.target.wants/`
 
-- This kind of services has an `@` because you must specify something after the `@`, for instance in this case `i3lock@.service` could be activated performing `sudo systemctl enable i3lock@wyre.service` 
+- This kind of services has an `@` because you must specify something after the `@` (an argument), for instance in this case `i3lock@.service` could be activated performing `sudo systemctl enable i3lock@wyre.service`, but not necessary the argument must be a username, it could also be a path for a config file, etc. 
 
 - The service can include `%I` or `%i` as [this post explains](https://superuser.com/questions/393423/the-symbol-and-systemctl-and-vsftpd).
 
