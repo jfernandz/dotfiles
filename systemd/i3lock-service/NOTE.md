@@ -12,7 +12,8 @@ or using `dconf-editor`
 - The service must be placed into `/etc/systemd/system/` because when is enabled it creates a symlink inside `/etc/systemd/system/sleep.target.wants/`
 
 - This kind of services has an `@` because you must specify something after the `@` (an argument), for instance in this case `i3lock@.service` could be activated performing `sudo systemctl enable i3lock@wyre.service`, but not necessary the argument must be a username, it could also be a path for a config file, etc 
-  - For example, for [rsnapshot-systemd package](https://aur.archlinux.org/packages/rsnapshot-systemd) containing `rsnapshot` timers and services you would have to use `/etc/rsnapshot.conf` as argument, though people in `#archlinux` did not recommend me them unless to run multiple instances with multiple configs
+  - For example, for [rsnapshot-systemd package](https://aur.archlinux.org/packages/rsnapshot-systemd) containing `rsnapshot` timers and services you would have to use `/etc/rsnapshot.conf` as argument, though people in `#archlinux` did not recommend me them unless to run multiple instances with multiple configs.
+  - Also according to the [rsnapshot wiki](https://wiki.archlinux.org/index.php/Rsnapshot#Automation) the service is created using an argument in order to get passed the `daily` value by the timer (`Unit=rsnapshot@daily.service`)
 </p>
 
 - The service can include `%I` or `%i` as [this post explains](https://superuser.com/questions/393423/the-symbol-and-systemctl-and-vsftpd).
