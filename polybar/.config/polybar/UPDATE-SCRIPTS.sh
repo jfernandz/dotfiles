@@ -62,8 +62,8 @@ case ${answer:0:1} in
 esac
 
 
-echo -e "\n\e[1m\e[31mScripts has been patched with 'static_scripts.path'\e[0m"
-echo -e "\e[1m\e[34mIMPORTANT!! => \e[31mYou can now check how was the update and if all is right remove the './polybar-script_custom' folder\e[0m"
+#echo -e "\n\e[1m\e[31mScripts has been patched with 'static_scripts.path'\e[0m"
+echo -e "\e[1m\e[34mIMPORTANT!! => \e[31mYou can now check how was the update in the case you applied it and if all is right remove the './polybar-script_custom' folder\e[0m"
 
 #trash-put ./polybar-scripts_custom ./scripts.patch
 
