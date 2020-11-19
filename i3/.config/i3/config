@@ -132,8 +132,11 @@ bindsym $mod+c focus child
 bindsym $mod+x [urgent=latest] focus
 
 # Binding brigtness and volume keys
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 20 
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 20
+# If you bind the keys in that way possible will not work
+# out of the box in Lenovo ThinkPad, that's because I'm
+# managing this from gnome-control-center
+#bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 20 
+#bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 20
 
 # Binding volume keys
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% #increase sound volume
