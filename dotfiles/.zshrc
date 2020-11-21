@@ -72,6 +72,7 @@ alias trash='trash-put'
 alias del='trash-put'
 alias rm="echo Use 'del' or the full path i.e. '/bin/rm'"
 alias i="curl -F 'f:1=<-' ix.io"
+alias rs="curl --data-binary @- https://paste.rs"
 alias ptpb="curl -F c=@- https://ptpb.pw/"
 alias ptpbsh="curl -F c=@- https://ptpb.pw/u"
 alias ls='lsd'
