@@ -96,7 +96,8 @@ let g:tex_flavor = 'latex'
 let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ }
-
+set laststatus=2
+set noshowmode
 
 """"""""""""""""""""""""""""""""""""""""""
 " Auto build on save for Asciidoctor files
