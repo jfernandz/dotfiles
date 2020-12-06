@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-script_parent=$(readlink -f "${BASH_SOURCE%/*}"/.)
+SCRIPT_PARENT=$(readlink -f "${BASH_SOURCE%/*}"/.)
 
-#echo "$script_parent/ejemplo"
+#echo "$SCRIPT_PARENT/ejemplo"
 printf '%s\n%s\n' "Current \$HOSTNAME found:" "$HOSTNAME"
 
 # Terminate already running bar instances
@@ -15,18 +15,19 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 case $HOSTNAME in
   (GibyArch) printf '\n%s\n' "Loading polybar for Desktop PC"
-             polybar -c "$script_parent"/desktop.config main &
-             polybar -c "$script_parent"/desktop.config sysinfo &
-             if [ -n `xrandr | grep -F " connected " | awk '{print $1}' | grep  "VGA"` ]; then
-               bash Both-Alongside-5_4.sh
-             else
-               bash HDMI-Alone.sh
-             fi &;;
+    sleep 5s &
+    polybar -c "$SCRIPT_PARENT"/desktop.config main &
+    polybar -c "$SCRIPT_PARENT"/desktop.config sysinfo &
+    if [ -n `xrandr | grep -F " connected " | awk '{print $1}' | grep  "VGA"` ]; then
+      bash Both-Alongside-5_4.sh
+    else
+      bash HDMI-Alone.sh
+    fi &;;
   (jfthkpad) printf '\n%s\n' "Loading polybar for Work PC"
-             polybar -c "$script_parent"/work.config main &
-             polybar -c "$script_parent"/work.config sysinfo &;;
+             polybar -c "$SCRIPT_PARENT"/work.config main &
+             polybar -c "$SCRIPT_PARENT"/work.config sysinfo &;;
   (AcerC1NP) printf '\n%s\n' "Loading polybar for Laptop"
-             polybar -c "$script_parent"/laptop.config main &;;
+             polybar -c "$SCRIPT_PARENT"/laptop.config main &;;
   (*)        printf '\n%s\n' "$HOSTNAME" "not found.";;
 esac
 
