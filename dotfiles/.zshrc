@@ -45,6 +45,8 @@ setopt INC_APPEND_HISTORY
 #
 #export TERM="xterm-256color"
 export PAGER='most'
+export EDITOR='nvim'
+export VISUAL=${EDITOR}
 
 # $PATH
 #
