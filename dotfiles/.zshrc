@@ -49,6 +49,10 @@ export EDITOR='/usr/bin/nvim'
 export SUDO_EDITOR=${EDITOR}
 export VISUAL=${EDITOR}
 
+if [[ $HOST == *"$CTBO_HOST"* ]]; then                                                                                                                                                  ─╯
+  export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+fi
+
 # $PATH
 #
 # This one is not proper for a system-wide (rofi needs that)
