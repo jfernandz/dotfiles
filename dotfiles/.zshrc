@@ -49,9 +49,17 @@ export EDITOR='/usr/bin/nvim'
 export SUDO_EDITOR=${EDITOR}
 export VISUAL=${EDITOR}
 
+######################################
+# I only need to export SSH_AUTH_SOCK
+# variable in Contabo's server because
+# for desktop PCs or laptos I'm using
+# gnome-keyring instead ssh-agent
+#
+CTBO_HOST="contabo"
 if [[ $HOST == *"$CTBO_HOST"* ]]; then                                                                                                                                                  ─╯
   export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 fi
+######################################
 
 # $PATH
 #
