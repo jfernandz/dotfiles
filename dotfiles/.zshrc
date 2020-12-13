@@ -56,8 +56,8 @@ export VISUAL=${EDITOR}
 # gnome-keyring instead ssh-agent
 #
 CTBO_HOST="contabo"
-if [[ $HOST == *"$CTBO_HOST"* ]]; then                                                                                                                                                  ─╯
-  export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+if [[ $HOST == *"$CTBO_HOST"* ]]; then
+	export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 fi
 ######################################
 
