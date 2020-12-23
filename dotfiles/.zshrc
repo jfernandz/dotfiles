@@ -121,7 +121,9 @@ bindkey "^[[1;5D" backward-word
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
 bindkey "^[[Z" reverse-menu-complete
-
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+bindkey "^[[3~" delete-char
 
 # powerlevel10K prompt theme 
 #
