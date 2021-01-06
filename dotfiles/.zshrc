@@ -44,7 +44,6 @@ setopt INC_APPEND_HISTORY
 # Colors
 #
 #export TERM="xterm-256color"
-export PAGER='most'
 export EDITOR='/usr/bin/nvim'
 export SUDO_EDITOR=${EDITOR}
 export VISUAL=${EDITOR}
