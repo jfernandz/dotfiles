@@ -53,7 +53,7 @@ get_duration() {
 }
 
 KEY="a94a5e59327331833dd5e93d9b64885c"
-CITY="Badajoz,ES"
+CITY="Getafe,ES"
 UNITS="metric"
 SYMBOL="°"
 
