@@ -85,6 +85,7 @@ alias sudo='sudo ' rm='rm -i'  # causes 'sudo rm' to expand to 'sudo rm -i'
 alias trash='trash-put'
 alias del='trash-put'
 alias rm="echo Use 'del' or the full path i.e. '/bin/rm'"
+alias bp="curl -X POST https://bpa.st/curl -F 'raw=<-' -F 'lexer=python'"
 alias i="curl -F 'f:1=<-' ix.io"
 alias rs="curl --data-binary @- https://paste.rs"
 alias ptpb="curl -F c=@- https://ptpb.pw/"
