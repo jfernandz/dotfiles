@@ -47,6 +47,7 @@ setopt INC_APPEND_HISTORY
 export EDITOR='/usr/bin/nvim'
 export SUDO_EDITOR=${EDITOR}
 export VISUAL=${EDITOR}
+export PYTHONFAULTHANDLER=1
 
 ######################################
 # I only need to export SSH_AUTH_SOCK
