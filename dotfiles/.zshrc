@@ -56,8 +56,7 @@ export PYTHONFAULTHANDLER=1
 # gnome-keyring instead ssh-agent
 #
 CTBO_HOST="contabo"
-RPI_HOST="raspberrypi"
-if [[ $HOST == *"$CTBO_HOST"* ]] || [[ $HOST == *"$RPI_HOST"* ]]; then
+if [[ $HOST == *"$CTBO_HOST"* ]]; then
   if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
   fi
