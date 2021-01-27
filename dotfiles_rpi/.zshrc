@@ -16,7 +16,7 @@ zstyle ':completion:*:default' list-colors \
 # Small letters will match small and capital letters. (i.e. capital letters match only capital letters.)
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
-zstyle :compinstall filename "$HOME/.zshrc"
+zstyle :compinstall filename '~/.zshrc'
 
 autoload -Uz compinit
 compinit
@@ -24,8 +24,10 @@ compinit
 
 # Sourcing syntax-highlighting and autosuggestions
 #
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /home/pi/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/pi/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Lines configured by zsh-newuser-install
 #
@@ -43,11 +45,12 @@ setopt INC_APPEND_HISTORY
 
 # Colors
 #
-#export TERM="xterm-256color"
+export TERM="xterm-256color"
+export LANG="en_US.UTF-8"
+export PAGER='most'
 export EDITOR='/usr/bin/nvim'
 export SUDO_EDITOR=${EDITOR}
 export VISUAL=${EDITOR}
-export PYTHONFAULTHANDLER=1
 
 ######################################
 # I only need to export SSH_AUTH_SOCK
@@ -95,8 +98,8 @@ alias i="curl -F 'f:1=<-' ix.io"
 alias rs="curl --data-binary @- https://paste.rs"
 alias ptpb="curl -F c=@- https://ptpb.pw/"
 alias ptpbsh="curl -F c=@- https://ptpb.pw/u"
-alias ls='lsd'
-#alias ls='ls --color'
+#alias ls='lsd'
+alias ls='ls --color'
 alias vim='nvim'
 alias ytdl-mp3='youtube-dl -x --audio-quality 0 --audio-format mp3'
 
@@ -208,9 +211,9 @@ bindkey "^[[1;5D" backward-word
 bindkey "^[[Z" reverse-menu-complete
 ##################################################################
 
-
 # powerlevel10K prompt theme 
 #
 source ~/powerlevel10k/powerlevel10k.zsh-theme
+# source /usr/share/powerlevel9k/powerlevel9k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
