@@ -24,10 +24,8 @@ compinit
 
 # Sourcing syntax-highlighting and autosuggestions
 #
-source /home/pi/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /home/pi/zsh-autosuggestions/zsh-autosuggestions.zsh
-#source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-#source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Lines configured by zsh-newuser-install
 #
