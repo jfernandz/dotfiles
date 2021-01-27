@@ -16,7 +16,7 @@ zstyle ':completion:*:default' list-colors \
 # Small letters will match small and capital letters. (i.e. capital letters match only capital letters.)
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
-zstyle :compinstall filename '/home/wyre/.zshrc'
+zstyle :compinstall filename "$HOME/.zshrc"
 
 autoload -Uz compinit
 compinit
@@ -119,16 +119,95 @@ export QT_IM_MODULE=ibus
 #
 # Colors in autocomplete
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=value'
-# Bind for `Del` (`Supr`) key
-bindkey "\e[3~" delete-char
+##################################################################
+# Suggestion from osse in #zsh (freenode), The problem between my
+# laptop and my rpi is that my laptop reports "^[[A" when for up 
+# arrow in the keyboard whil the rpi reports "^[OA" so I need a 
+# better way to set up the bindkeys.
+# 
+# I just actually need to bind key for history-beginning-search-backward
+# but due this difference in the keymodes ("^[[A" vs "^[OA") it was
+# not working as expected.
+#
+# Code for sane binding of keys and handling of terminal modes {{{
+# Adapted from Debian's /etc/zshrc
+typeset -A key
+key=( BackSpace  "${terminfo[kbs]}"
+      Home       "${terminfo[khome]}"
+      End        "${terminfo[kend]}"
+      Insert     "${terminfo[kich1]}"
+      Delete     "${terminfo[kdch1]}"
+      Up         "${terminfo[kcuu1]}"
+      Down       "${terminfo[kcud1]}"
+      Left       "${terminfo[kcub1]}"
+      Right      "${terminfo[kcuf1]}"
+      PageUp     "${terminfo[kpp]}"
+      PageDown   "${terminfo[knp]}"
+)
+
+function bind2maps () {
+    local i sequence widget
+    local -a maps
+
+    while [[ "$1" != "--" ]]; do
+        maps+=( "$1" )
+        shift
+    done
+    shift
+
+    sequence="${key[$1]}"
+    widget="$2"
+
+    [[ -z "$sequence" ]] && return 1
+
+    for i in "${maps[@]}"; do
+        bindkey -M "$i" "$sequence" "$widget"
+    done
+}
+
+bind2maps emacs             -- BackSpace   backward-delete-char
+bind2maps       viins       -- BackSpace   vi-backward-delete-char
+bind2maps             vicmd -- BackSpace   vi-backward-char
+bind2maps emacs             -- Home        beginning-of-line
+bind2maps       viins vicmd -- Home        vi-beginning-of-line
+bind2maps emacs             -- End         end-of-line
+bind2maps       viins vicmd -- End         vi-end-of-line
+bind2maps emacs viins       -- Insert      overwrite-mode
+bind2maps             vicmd -- Insert      vi-insert
+bind2maps emacs             -- Delete      delete-char
+bind2maps       viins vicmd -- Delete      vi-delete-char
+bind2maps emacs viins vicmd -- Up          history-beginning-search-backward
+bind2maps emacs viins vicmd -- Down        history-beginning-search-forward
+bind2maps emacs             -- Left        backward-char
+bind2maps       viins vicmd -- Left        vi-backward-char
+bind2maps emacs             -- Right       forward-char
+bind2maps       viins vicmd -- Right       vi-forward-char
+bind2maps       viins vicmd -- PageUp      ''
+bind2maps       viins vicmd -- PageDown    ''
+
+# Make sure the terminal is in application mode, when zle is
+# active. Only then are the values from $terminfo valid.
+if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
+    function zle-line-init () {
+        emulate -L zsh
+        # indicate-mode
+        printf '%s' ${terminfo[smkx]}
+    }
+    zle -N zle-line-init
+    function zle-line-finish () {
+        emulate -L zsh
+        printf '%s' ${terminfo[rmkx]}
+    }
+    zle -N zle-line-finish
+fi
+
+unfunction bind2maps
+##################################################################
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
-bindkey "^[[A" history-beginning-search-backward
-bindkey "^[[B" history-beginning-search-forward
 bindkey "^[[Z" reverse-menu-complete
-bindkey "^[[H" beginning-of-line
-bindkey "^[[F" end-of-line
-bindkey "^[[3~" delete-char
+##################################################################
+
 
 # powerlevel10K prompt theme 
 #
