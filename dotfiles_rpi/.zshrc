@@ -130,6 +130,10 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=value'
 # but due this difference in the keymodes ("^[[A" vs "^[OA") it was
 # not working as expected.
 #
+# the original code is in here:
+# https://github.com/Osse/dotfiles/blob/55cefc925f22988ed9088e5cdb9f3c0fb995649f/.zshrc#L123-L195
+#
+####################################
 # Code for sane binding of keys and handling of terminal modes {{{
 # Adapted from Debian's /etc/zshrc
 typeset -A key
@@ -203,7 +207,7 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
 fi
 
 unfunction bind2maps
-##################################################################
+####################################
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 bindkey "^[[Z" reverse-menu-complete
