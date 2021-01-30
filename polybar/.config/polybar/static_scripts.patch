@@ -1,6 +1,6 @@
 diff -ruN --color ./polybar-scripts/info-hackspeed.sh ./polybar-scripts_custom/info-hackspeed.sh
---- ./polybar-scripts/info-hackspeed.sh	2021-01-26 12:04:38.868387101 +0100
-+++ ./polybar-scripts_custom/info-hackspeed.sh	2021-01-26 12:04:38.431722831 +0100
+--- ./polybar-scripts/info-hackspeed.sh	2021-01-30 16:50:16.408915278 +0100
++++ ./polybar-scripts_custom/info-hackspeed.sh	2021-01-30 16:50:14.668924826 +0100
 @@ -1,12 +1,13 @@
  #!/bin/sh
  # shellcheck disable=SC2016,SC2059
@@ -28,8 +28,8 @@ diff -ruN --color ./polybar-scripts/info-hackspeed.sh ./polybar-scripts_custom/i
  esac
  
 diff -ruN --color ./polybar-scripts/info-softwarecounter.py ./polybar-scripts_custom/info-softwarecounter.py
---- ./polybar-scripts/info-softwarecounter.py	2021-01-26 12:04:38.555055487 +0100
-+++ ./polybar-scripts_custom/info-softwarecounter.py	2021-01-26 12:04:38.431722831 +0100
+--- ./polybar-scripts/info-softwarecounter.py	2021-01-30 16:50:15.025589536 +0100
++++ ./polybar-scripts_custom/info-softwarecounter.py	2021-01-30 16:50:14.668924826 +0100
 @@ -14,36 +14,36 @@
  
  # program/process names and corresponding gylphs
@@ -83,8 +83,8 @@ diff -ruN --color ./polybar-scripts/info-softwarecounter.py ./polybar-scripts_cu
  
  
 diff -ruN --color ./polybar-scripts/openweathermap-fullfeatured.sh ./polybar-scripts_custom/openweathermap-fullfeatured.sh
---- ./polybar-scripts/openweathermap-fullfeatured.sh	2021-01-26 12:04:38.728387869 +0100
-+++ ./polybar-scripts_custom/openweathermap-fullfeatured.sh	2021-01-26 12:04:38.431722831 +0100
+--- ./polybar-scripts/openweathermap-fullfeatured.sh	2021-01-30 16:50:15.755585530 +0100
++++ ./polybar-scripts_custom/openweathermap-fullfeatured.sh	2021-01-30 16:50:14.668924826 +0100
 @@ -3,24 +3,24 @@
  get_icon() {
      case $1 in
@@ -116,7 +116,7 @@ diff -ruN --color ./polybar-scripts/openweathermap-fullfeatured.sh ./polybar-scr
 +        09d) icon="%{T8} %{T}";;
 +        09n) icon="%{T8} %{T}";;
 +        10d) icon="%{T8} %{T}";;
-+        10n) icon="%{T8} %{T}";;
++        10n) icon="%{T8} %{T}";;
 +        11d) icon="%{T8} %{T}";;
 +        11n) icon="%{T8} %{T}";;
 +        13d) icon="%{T8} %{T}";;
@@ -179,8 +179,8 @@ diff -ruN --color ./polybar-scripts/openweathermap-fullfeatured.sh ./polybar-scr
  
      echo "$(get_icon "$current_icon") $current_temp$SYMBOL  $trend  $(get_icon "$forecast_icon") $forecast_temp$SYMBOL   $daytime"
 diff -ruN --color ./polybar-scripts/system-cpu-temppercore.sh ./polybar-scripts_custom/system-cpu-temppercore.sh
---- ./polybar-scripts/system-cpu-temppercore.sh	2021-01-26 12:04:39.138385619 +0100
-+++ ./polybar-scripts_custom/system-cpu-temppercore.sh	2021-01-26 12:04:38.431722831 +0100
+--- ./polybar-scripts/system-cpu-temppercore.sh	2021-01-30 16:50:17.252243984 +0100
++++ ./polybar-scripts_custom/system-cpu-temppercore.sh	2021-01-30 16:50:14.668924826 +0100
 @@ -1,3 +1,8 @@
  #!/bin/sh
  
@@ -192,8 +192,8 @@ diff -ruN --color ./polybar-scripts/system-cpu-temppercore.sh ./polybar-scripts_
 +# these are another chipsets temps; but at least is something.
 +sensors | grep "temp[0-9]" | awk '{print substr($2, 2, length($2)-3)}' | tr "\\n" " " | sed 's/ /°C /g' | sed 's/  $//'
 diff -ruN --color ./polybar-scripts/system-nvidia-smi.sh ./polybar-scripts_custom/system-nvidia-smi.sh
---- ./polybar-scripts/system-nvidia-smi.sh	2021-01-26 12:04:39.278384851 +0100
-+++ ./polybar-scripts_custom/system-nvidia-smi.sh	2021-01-26 12:04:38.431722831 +0100
+--- ./polybar-scripts/system-nvidia-smi.sh	2021-01-30 16:50:17.732241350 +0100
++++ ./polybar-scripts_custom/system-nvidia-smi.sh	2021-01-30 16:50:14.668924826 +0100
 @@ -1,3 +1,7 @@
  #!/bin/sh
  
@@ -204,8 +204,8 @@ diff -ruN --color ./polybar-scripts/system-nvidia-smi.sh ./polybar-scripts_custo
 +# That's why I modify the flag to show instead the used video memory.
 +nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits | awk '{ print ""$1"","MiB"}'
 diff -ruN --color ./polybar-scripts/system-usb-udev.sh ./polybar-scripts_custom/system-usb-udev.sh
---- ./polybar-scripts/system-usb-udev.sh	2021-01-26 12:04:39.415050768 +0100
-+++ ./polybar-scripts_custom/system-usb-udev.sh	2021-01-26 12:04:38.431722831 +0100
+--- ./polybar-scripts/system-usb-udev.sh	2021-01-30 16:50:18.358904578 +0100
++++ ./polybar-scripts_custom/system-usb-udev.sh	2021-01-30 16:50:14.668924826 +0100
 @@ -17,7 +17,7 @@
          fi
          counter=$((counter + 1))
@@ -235,8 +235,8 @@ diff -ruN --color ./polybar-scripts/system-usb-udev.sh ./polybar-scripts_custom/
  
          usb_update
 diff -ruN --color ./polybar-scripts/updates-pacman-aurhelper.sh ./polybar-scripts_custom/updates-pacman-aurhelper.sh
---- ./polybar-scripts/updates-pacman-aurhelper.sh	2021-01-26 12:04:39.555050000 +0100
-+++ ./polybar-scripts_custom/updates-pacman-aurhelper.sh	2021-01-26 12:04:38.431722831 +0100
+--- ./polybar-scripts/updates-pacman-aurhelper.sh	2021-01-30 16:50:18.798902163 +0100
++++ ./polybar-scripts_custom/updates-pacman-aurhelper.sh	2021-01-30 16:50:14.668924826 +0100
 @@ -15,7 +15,7 @@
  updates=$(("$updates_arch" + "$updates_aur"))
  
