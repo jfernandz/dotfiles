@@ -11,15 +11,15 @@ call plug#begin('~/.vim/vim-plug')
 " General purpose plugins
 """"""""""""""""""""""""""""""""""""""""""
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-dispatch'
+"Plug 'tpope/vim-dispatch'
 Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ap/vim-buftabline'
-Plug 'mattn/emmet-vim'
-Plug 'editorconfig/editorconfig-vim'
+"Plug 'mattn/emmet-vim'
+"Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdtree'
-Plug 'mileszs/ack.vim'
-Plug 'vimwiki/vimwiki'
+"Plug 'mileszs/ack.vim'
+"Plug 'vimwiki/vimwiki'
 Plug 'itchyny/lightline.vim'
 "Plug 'Valloric/YouCompleteMe'
 "Plug 'SirVer/ultisnips'
@@ -27,25 +27,25 @@ Plug 'cjrh/vim-conda'
 Plug 'wakatime/vim-wakatime'
 "Plug 'dhruvasagar/vim-table-mode'
 Plug 'mg979/vim-visual-multi'
-Plug 'anned20/vimsence'
+"Plug 'hugolgst/vimsence'
 
 """"""""""""""""""""""""""""""""""""""""""
 " Language support
 """"""""""""""""""""""""""""""""""""""""""
-Plug 'lervag/vimtex'
-Plug 'sheerun/vim-polyglot'
-Plug 'tfnico/vim-gradle'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-endwise'
-Plug 'alvan/vim-closetag'
-Plug 'racer-rust/vim-racer'
-Plug 'elixir-editors/vim-elixir'
+"Plug 'lervag/vimtex'
+"Plug 'sheerun/vim-polyglot'
+"Plug 'tfnico/vim-gradle'
+"Plug 'tpope/vim-rails'
+"Plug 'tpope/vim-endwise'
+"Plug 'alvan/vim-closetag'
+"Plug 'racer-rust/vim-racer'
+"Plug 'elixir-editors/vim-elixir'
 Plug 'slashmili/alchemist.vim'
 " Plug 'stevearc/vim-arduino'
 "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'habamax/vim-asciidoctor'
-" Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+"Plug 'habamax/vim-asciidoctor'
+"Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 
 
@@ -53,7 +53,7 @@ Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 " Colorschemes
 """"""""""""""""""""""""""""""""""""""""""
 Plug 'morhetz/gruvbox'
-Plug 'jaapie/vim-colours-dusk'
+"Plug 'jaapie/vim-colours-dusk'
 Plug 'flazz/vim-colorschemes'
 call plug#end()
 

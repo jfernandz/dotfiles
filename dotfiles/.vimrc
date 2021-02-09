@@ -27,7 +27,7 @@ Plug 'cjrh/vim-conda'
 Plug 'wakatime/vim-wakatime'
 "Plug 'dhruvasagar/vim-table-mode'
 Plug 'mg979/vim-visual-multi'
-Plug 'anned20/vimsence'
+Plug 'hugolgst/vimsence'
 
 """"""""""""""""""""""""""""""""""""""""""
 " Language support
