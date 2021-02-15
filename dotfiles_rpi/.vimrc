@@ -33,7 +33,7 @@ Plug 'mg979/vim-visual-multi'
 " Language support
 """"""""""""""""""""""""""""""""""""""""""
 "Plug 'lervag/vimtex'
-"Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 "Plug 'tfnico/vim-gradle'
 "Plug 'tpope/vim-rails'
 "Plug 'tpope/vim-endwise'
