@@ -64,6 +64,7 @@ call plug#end()
 "let g:pymode_rope_completion = 1
 "let g:pymode_rope_completion_bind = '<C-Space>'
 let g:pymode_preview_position = 'botright'
+let g:pymode_options_max_line_length=120
 
 
 """"""""""""""""""""""""""""""""""""""""""
@@ -166,4 +167,12 @@ inoremap <A-Up> <Esc>:m .-2<CR>==gi
 inoremap <A-Down> <Esc>:m .+1<CR>==gi
 vnoremap <A-Up> :m '<-2<CR>gv=gv
 vnoremap <A-Down> :m '>+1<CR>gv=gv
+
+"""""""""""""""""""""
+" Visual Multi keybindings
+" You can check: https://github.com/mg979/vim-visual-multi/wiki/Mappings#customization
+"""""""""""""""""""""
+let g:VM_maps = {}
+let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
+let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
 
