@@ -143,6 +143,9 @@ colorscheme cobalt
 let g:powerline_pycmd = 'py3'
 "set rtp+=/usr/lib/python3.7/site-packages/powerline/bindings/vim
 
+" To close warning buffers from pylint
+autocmd WinEnter * if winnr('$') == 1 && ! empty(&buftype) && ! &modified | quit | endif
+
 """""""""""""""""""""
 " Comment the following to prevent Vim jump to the last position when                                                       
 " reopening a file see `:h last-position-jump`
