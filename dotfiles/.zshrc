@@ -57,7 +57,7 @@ export PYTHONFAULTHANDLER=1
 #
 CTBO_HOST="contabo"
 RPI_HOST="raspberrypi"
-if [[ $HOST == *"$CTBO_HOST"* ]] || [[ $HOST == *"$RPI_HOST"* ]]; then
+if [[ $HOST == *"$CTBO_HOST"* ]] || [[ $HOST == *"$RPI_HOST"* ]] && [[ $USER != "root" ]]; then
 	if ! [[ -S "$XDG_RUNTIME_DIR/ssh-agent.socket" ]]; then 
     ssh-agent -t 1h -a "$XDG_RUNTIME_DIR/ssh-agent.socket"; 
   fi
