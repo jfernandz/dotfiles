@@ -41,7 +41,7 @@ Plug 'sheerun/vim-polyglot'
 "Plug 'racer-rust/vim-racer'
 "Plug 'elixir-editors/vim-elixir'
 Plug 'slashmili/alchemist.vim'
-" Plug 'stevearc/vim-arduino'
+"Plug 'stevearc/vim-arduino'
 "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 "Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 "Plug 'habamax/vim-asciidoctor'
@@ -65,6 +65,7 @@ call plug#end()
 "let g:pymode_rope_completion = 1
 "let g:pymode_rope_completion_bind = '<C-Space>'
 let g:pymode_preview_position = 'botright'
+let g:pymode_options_max_line_length=120
 
 
 """"""""""""""""""""""""""""""""""""""""""
@@ -146,6 +147,7 @@ let g:powerline_pycmd = 'py3'
 " To close warning buffers from pylint
 autocmd WinEnter * if winnr('$') == 1 && ! empty(&buftype) && ! &modified | quit | endif
 
+
 """""""""""""""""""""
 " Comment the following to prevent Vim jump to the last position when                                                       
 " reopening a file see `:h last-position-jump`
@@ -171,3 +173,10 @@ inoremap <A-Down> <Esc>:m .+1<CR>==gi
 vnoremap <A-Up> :m '<-2<CR>gv=gv
 vnoremap <A-Down> :m '>+1<CR>gv=gv
 
+"""""""""""""""""""""
+" Visual Multi keybindings
+" You can check: https://github.com/mg979/vim-visual-multi/wiki/Mappings#customization
+"""""""""""""""""""""
+let g:VM_maps = {}
+let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
+let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n

@@ -41,10 +41,10 @@ Plug 'alvan/vim-closetag'
 Plug 'racer-rust/vim-racer'
 Plug 'elixir-editors/vim-elixir'
 Plug 'slashmili/alchemist.vim'
-" Plug 'stevearc/vim-arduino'
+"Plug 'stevearc/vim-arduino'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'habamax/vim-asciidoctor'
-" Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+"Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 
 
@@ -143,7 +143,7 @@ colorscheme cobalt
 let g:powerline_pycmd = 'py3'
 "set rtp+=/usr/lib/python3.7/site-packages/powerline/bindings/vim
 
-" to close warning buffers from pylint
+" To close warning buffers from pylint
 autocmd WinEnter * if winnr('$') == 1 && ! empty(&buftype) && ! &modified | quit | endif
 
 
@@ -179,4 +179,3 @@ vnoremap <A-Down> :m '>+1<CR>gv=gv
 let g:VM_maps = {}
 let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
 let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
-
