@@ -99,6 +99,7 @@ alias ls='lsd'
 #alias ls='ls --color'
 alias vim='nvim'
 alias ytdl-mp3='youtube-dl -x --audio-quality 0 --audio-format mp3'
+alias grep="grep --color=always"
 
 # ibus
 #

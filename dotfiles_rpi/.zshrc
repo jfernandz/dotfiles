@@ -100,9 +100,7 @@ alias ptpbsh="curl -F c=@- https://ptpb.pw/u"
 alias ls='ls --color'
 alias vim='nvim'
 alias ytdl-mp3='youtube-dl -x --audio-quality 0 --audio-format mp3'
-alias ro='sudo mount -o remount,ro / ; sudo mount -o remount,ro /boot'
-alias rw='sudo mount -o remount,rw / ; sudo mount -o remount,rw /boot'
-
+alias grep="grep --color=always"
 
 # ibus
 #
