@@ -10,7 +10,7 @@
 # when loging via terminal because zsh will parse this .zprofile
 # for graphical logins this is not suitable, anyway I need this
 # for servers where I'm not using graphical environment
-path+=($HOME/.local/bin $HOME/.screenlayout $HOME/.gem/ruby/2.7.0/bin $HOME/.config/polybar)
+path+=($HOME/.local/bin $HOME/.screenlayout $HOME/.local/share/gem/ruby/3.0.0/bin $HOME/.config/polybar)
 
 
 # Atom does need this one to delete files sending them to 
