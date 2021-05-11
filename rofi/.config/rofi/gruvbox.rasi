@@ -10,7 +10,7 @@
     selectioncolor: #504945;
 
     /* font: "monospace 12";*/
-    font: "MesloLGS NF 12"; 
+    font: "DejaVuSansMono Nerd Font 12"; 
     border-color: @separatorcolor;
     background-color: @backgroundcolor;
     text-color: @foregroundcolor;
