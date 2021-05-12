@@ -38,7 +38,7 @@ bindsym --whole-window $mod+button2 floating toggle
 # start a terminal
 #bindsym $ctrl+$alt+t exec xfce4-terminal
 #bindsym $ctrl+$alt+t exec termite
-bindsym $ctrl+$shift+t exec gnome-terminal
+bindsym $shift+$alt+t exec gnome-terminal
 #bindsym $mod+Return exec i3-sensible-terminal
 bindsym $ctrl+$alt+t exec --no-startup-id alacritty
 
