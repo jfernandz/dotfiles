@@ -207,6 +207,7 @@ unfunction bind2maps
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 bindkey "^[[Z" reverse-menu-complete
+bindkey "^U" kill-whole-line
 ##################################################################
 
 
