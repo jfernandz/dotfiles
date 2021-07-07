@@ -102,9 +102,9 @@
   #multiplier: 3
 
 # Font configuration
-font:
+#font:
   # Normal (roman) font face
-  normal:
+  #normal:
     # Font family
     #
     # Default:
@@ -112,50 +112,45 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
     #family: monospace
-    family: "DejaVuSansMono Nerd Font"
 
     # The `style` can be specified to pick a specific face.
-    style: Book
+    #style: Regular
 
   # Bold font face
-  bold:
+  #bold:
     # Font family
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
     #family: monospace
-    family: "DejaVuSansMono Nerd Font"
 
     # The `style` can be specified to pick a specific face.
-    style: Bold
+    #style: Bold
 
   # Italic font face
-  italic:
+  #italic:
     # Font family
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
     #family: monospace
-    family: "DejaVuSansMono Nerd Font"
 
     # The `style` can be specified to pick a specific face.
-    style: Oblique
+    #style: Italic
 
   # Bold italic font face
-  bold_italic:
+  #bold_italic:
     # Font family
     #
     # If the bold italic family is not specified, it will fall back to the
     # value specified for the normal font.
     #family: monospace
-    family: "DejaVuSansMono Nerd Font"
 
     # The `style` can be specified to pick a specific face.
-    style: Bold Oblique
+    #style: Bold Italic
 
   # Point size
   #size: 11.0
-  size: 15.0
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -181,13 +176,11 @@ font:
 #draw_bold_text_with_bright_colors: false
 
 # Colors (Tomorrow Night)
-colors:
+#colors:
   # Default colors
-  primary:
+  #primary:
   #  background: '#1d1f21'
-    background: '#000000'
   #  foreground: '#c5c8c6'
-    foreground: '#9dff2c'
 
     # Bright and dim foreground colors
     #
@@ -274,42 +267,26 @@ colors:
   #  background: CellForeground
 
   # Normal colors
-  normal:
+  #normal:
   #  black:   '#1d1f21'
-    black:   '#2e3436'
   #  red:     '#cc6666'
-    red:     '#a31604'
   #  green:   '#b5bd68'
-    green:   '#447241'
   #  yellow:  '#f0c674'
-    yellow:  '#b48b18'
   #  blue:    '#81a2be'
-    blue:    '#0088cc'
   #  magenta: '#b294bb'
-    magenta: '#5c285e'
   #  cyan:    '#8abeb7'
-    cyan:    '#06989a'  
   #  white:   '#c5c8c6'
-    white:   '#c8ccc6'
 
   # Bright colors
-  bright:
+  #bright:
   #  black:   '#666666'
-    black:   '#555753'
   #  red:     '#d54e53'
-    red:     '#c60001'
   #  green:   '#b9ca4a'
-    green:   '#27a343'
   #  yellow:  '#e7c547'
-    yellow:  '#e5b00f'
   #  blue:    '#7aa6da'
-    blue:    '#004466' 
   #  magenta: '#c397d8'
-    magenta: '#965d98'
   #  cyan:    '#70c0b1'
-    cyan:    '#046666'
   #  white:   '#eaeaea'
-    white:   '#b3b3b1'
 
   # Dim colors
   #
@@ -380,7 +357,7 @@ colors:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.96
+#background_opacity: 1.0
 
 #selection:
   # This string contains all characters that are used as separators for
