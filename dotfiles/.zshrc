@@ -208,6 +208,7 @@ bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 bindkey "^[[Z" reverse-menu-complete
 bindkey "^U" kill-whole-line
+bindkey -s "^B" $'cd ..\r'
 ##################################################################
 
 
