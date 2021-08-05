@@ -26,7 +26,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'SirVer/ultisnips'
 Plug 'cjrh/vim-conda'
 Plug 'wakatime/vim-wakatime'
-"Plug 'dhruvasagar/vim-table-mode'
+Plug 'dhruvasagar/vim-table-mode'
 Plug 'mg979/vim-visual-multi'
 Plug 'hugolgst/vimsence'
 
