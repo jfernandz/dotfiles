@@ -125,8 +125,11 @@ let g:mkdp_markdown_css = '/home/wyre/MEGA/CONFS/markdown2.css'
 " the whole config file is TO LOAD THE PLUGINS
 """"""""""""""""""""""""""""""""""""""""""
 
-" to edit cfg file with '\init' command
+" To edit cfg file with '\init' command
 nnoremap <Leader>init :e<Space>~/.vimrc<CR>
+
+" To close current buffer with \c 
+nnoremap c :bp\|bd #<CR>
 
 set number
 set relativenumber
