@@ -34,8 +34,7 @@ I'm Arch Linux user, a great part of software listed in [dedependencies](#depend
     - No speciacial dependencies. Default cfg
   - [weechat](https://www.archlinux.org/packages/community/x86_64/weechat/) - comminity
   - [zsh](https://www.archlinux.org/packages/extra/x86_64/zsh/) - extra
-    - [zimfw](https://aur.archlinux.org/packages/zsh-zim-git/) - AUR
-    - [powerlevel9k](https://www.archlinux.org/packages/community/any/zsh-theme-powerlevel9k/) - comminity
+    - [powerlevel10k](https://archlinux.org/packages/community/x86_64/zsh-theme-powerlevel10k/) - comminity
   - **Fonts**
     - [cantarell-fonts](https://www.archlinux.org/packages/extra/any/cantarell-fonts/) - extra
     - [ttf-font-awesome](https://www.archlinux.org/packages/community/any/ttf-font-awesome/) - comminity
