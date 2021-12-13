@@ -14,7 +14,7 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 
 case $HOSTNAME in
-  (GibyArch) 
+  (ArchSSDde) 
     printf '\n%s\n' "Loading polybar for Desktop PC"
     # sleep 5s &
     polybar -c "$SCRIPT_PARENT"/desktop.config main &
@@ -46,5 +46,5 @@ printf '\n%s\n%s\n\n' "Wallpapers and bars launched..." "Reloading megasync clie
 #feh --bg-scale ~/MEGA/CONFS/WP/cern/cern3_WP.jpeg
 #feh --bg-scale --no-fehbg --no-xinerama ~/MEGA/CONFS/WP/cern/cern3_WP.jpeg
 
-megasync &
+#megasync &
 
