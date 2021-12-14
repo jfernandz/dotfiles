@@ -1,6 +1,6 @@
 diff -ruN --color ./polybar-scripts/info-hackspeed.sh ./polybar-scripts_custom/info-hackspeed.sh
---- ./polybar-scripts/info-hackspeed.sh	2021-01-30 16:50:16.408915278 +0100
-+++ ./polybar-scripts_custom/info-hackspeed.sh	2021-01-30 16:50:14.668924826 +0100
+--- ./polybar-scripts/info-hackspeed.sh	2021-12-14 23:22:11.276784023 +0100
++++ ./polybar-scripts_custom/info-hackspeed.sh	2021-12-14 23:21:25.717836412 +0100
 @@ -1,12 +1,13 @@
  #!/bin/sh
  # shellcheck disable=SC2016,SC2059
@@ -28,8 +28,8 @@ diff -ruN --color ./polybar-scripts/info-hackspeed.sh ./polybar-scripts_custom/i
  esac
  
 diff -ruN --color ./polybar-scripts/info-softwarecounter.py ./polybar-scripts_custom/info-softwarecounter.py
---- ./polybar-scripts/info-softwarecounter.py	2021-01-30 16:50:15.025589536 +0100
-+++ ./polybar-scripts_custom/info-softwarecounter.py	2021-01-30 16:50:14.668924826 +0100
+--- ./polybar-scripts/info-softwarecounter.py	2021-12-14 23:22:10.913485663 +0100
++++ ./polybar-scripts_custom/info-softwarecounter.py	2021-12-14 23:21:25.717836412 +0100
 @@ -14,36 +14,36 @@
  
  # program/process names and corresponding gylphs
@@ -83,8 +83,8 @@ diff -ruN --color ./polybar-scripts/info-softwarecounter.py ./polybar-scripts_cu
  
  
 diff -ruN --color ./polybar-scripts/openweathermap-fullfeatured.sh ./polybar-scripts_custom/openweathermap-fullfeatured.sh
---- ./polybar-scripts/openweathermap-fullfeatured.sh	2021-01-30 16:50:15.755585530 +0100
-+++ ./polybar-scripts_custom/openweathermap-fullfeatured.sh	2021-01-30 16:50:14.668924826 +0100
+--- ./polybar-scripts/openweathermap-fullfeatured.sh	2021-12-14 23:22:11.093468337 +0100
++++ ./polybar-scripts_custom/openweathermap-fullfeatured.sh	2021-12-14 23:21:25.717836412 +0100
 @@ -3,24 +3,24 @@
  get_icon() {
      case $1 in
@@ -178,9 +178,569 @@ diff -ruN --color ./polybar-scripts/openweathermap-fullfeatured.sh ./polybar-scr
      fi
  
      echo "$(get_icon "$current_icon") $current_temp$SYMBOL  $trend  $(get_icon "$forecast_icon") $forecast_temp$SYMBOL   $daytime"
+diff -ruN --color ./polybar-scripts/polybar-scripts/info-hackspeed.sh ./polybar-scripts_custom/polybar-scripts/info-hackspeed.sh
+--- ./polybar-scripts/polybar-scripts/info-hackspeed.sh	1970-01-01 01:00:00.000000000 +0100
++++ ./polybar-scripts_custom/polybar-scripts/info-hackspeed.sh	2021-12-14 23:22:10.753501065 +0100
+@@ -0,0 +1,64 @@
++#!/bin/sh
++# shellcheck disable=SC2016,SC2059
++
++KEYBOARD_NAME="Logitech Wireless Keyboard PID:4023"
++KEYBOARD_ID=$(xinput list | grep "$KEYBOARD_NAME" | cut -d '=' -f 2 | awk '{ print $1 }' | tail -1)
++
++# cpm: characters per minute
++# wpm: words per minute (1 word = 5 characters)
++METRIC=cpm
++FORMAT="%d $METRIC"
++
++INTERVAL=20
++
++# If you have a keyboard layout that is not listed here yet, create a condition
++# yourself. $3 is the key index. Use `xinput test "AT Translated Set 2 keyboard"`
++# to see key codes in real time.  Be sure to open a pull request for your
++# layout's condition!
++LAYOUT=qwerty
++
++case "$LAYOUT" in
++	qwerty) CONDITION='($3 >= 10 && $3 <= 19) || ($3 >= 24 && $3 <= 33) || ($3 >= 37 && $3 <= 53) || ($3 >= 52 && $3 <= 58)'; ;;
++	azerty) CONDITION='($3 >= 10 && $3 <= 19) || ($3 >= 24 && $3 <= 33) || ($3 >= 37 && $3 <= 54) || ($3 >= 52 && $3 <= 57)'; ;;
++	qwertz) CONDITION='($3 >= 10 && $3 <= 20) || ($3 >= 24 && $3 <= 34) || ($3 == 36) || ($3 >= 38 && $3 <= 48) || ($3 >= 52 && $3 <= 58)'; ;;
++        dontcare) CONDITION='1'; ;; # Just register all key presses, not only letters and numbers
++	*) echo "Unsupported layout \"$LAYOUT\""; exit 1; ;;
++esac
++
++# We have to account for the fact we're not listening a whole minute
++multiply_by=60
++divide_by=$INTERVAL
++
++case "$METRIC" in
++	wpm) divide_by=$((divide_by * 5)); ;;
++	cpm) ;;
++	*) echo "Unsupported metric \"$METRIC\""; exit 1; ;;
++esac
++
++hackspeed_cache="$(mktemp -p '' hackspeed_cache.XXXXX)"
++trap 'rm "$hackspeed_cache"' EXIT
++
++# Write a dot to our cache for each key press
++printf '' > "$hackspeed_cache"
++xinput test "$KEYBOARD_ID" | \
++	stdbuf -o0 awk '$1 == "key" && $2 == "press" && ('"$CONDITION"') {printf "."}' >> "$hackspeed_cache" &
++
++while true; do
++	# Ask the kernel how big the file is with the command `stat`. The number we
++	# get is the file size in bytes, which equals the amount of dots the file
++	# contains, and hence how much keys were pressed since the file was last
++	# cleared.
++	lines=$(stat --format %s "$hackspeed_cache")
++
++	# Truncate the cache file so that in the next iteration, we count only new
++	# keypresses
++	printf '' > "$hackspeed_cache"
++
++	# The shell only does integer operations, so make sure to first multiply and
++	# then divide
++	value=$((lines * multiply_by / divide_by))
++
++	printf "$FORMAT\\n" "$value"
++
++	sleep $INTERVAL
++done
+diff -ruN --color ./polybar-scripts/polybar-scripts/info-hackspeed_work.sh ./polybar-scripts_custom/polybar-scripts/info-hackspeed_work.sh
+--- ./polybar-scripts/polybar-scripts/info-hackspeed_work.sh	1970-01-01 01:00:00.000000000 +0100
++++ ./polybar-scripts_custom/polybar-scripts/info-hackspeed_work.sh	2021-12-14 23:22:10.753501065 +0100
+@@ -0,0 +1,64 @@
++#!/bin/sh
++# shellcheck disable=SC2016,SC2059
++
++KEYBOARD_NAME="AT Translated Set 2 keyboard"
++KEYBOARD_ID=$(xinput list | grep "$KEYBOARD_NAME" | cut -d '=' -f 2 | awk '{ print $1 }' | tail -3 | head -n 1)
++
++# cpm: characters per minute
++# wpm: words per minute (1 word = 5 characters)
++METRIC=cpm
++FORMAT="%d $METRIC"
++
++INTERVAL=20
++
++# If you have a keyboard layout that is not listed here yet, create a condition
++# yourself. $3 is the key index. Use `xinput test "AT Translated Set 2 keyboard"`
++# to see key codes in real time.  Be sure to open a pull request for your
++# layout's condition!
++LAYOUT=qwerty
++
++case "$LAYOUT" in
++	qwerty) CONDITION='($3 >= 10 && $3 <= 19) || ($3 >= 24 && $3 <= 33) || ($3 >= 37 && $3 <= 53) || ($3 >= 52 && $3 <= 58)'; ;;
++	azerty) CONDITION='($3 >= 10 && $3 <= 19) || ($3 >= 24 && $3 <= 33) || ($3 >= 37 && $3 <= 54) || ($3 >= 52 && $3 <= 57)'; ;;
++	qwertz) CONDITION='($3 >= 10 && $3 <= 20) || ($3 >= 24 && $3 <= 34) || ($3 == 36) || ($3 >= 38 && $3 <= 48) || ($3 >= 52 && $3 <= 58)'; ;;
++        dontcare) CONDITION='1'; ;; # Just register all key presses, not only letters and numbers
++	*) echo "Unsupported layout \"$LAYOUT\""; exit 1; ;;
++esac
++
++# We have to account for the fact we're not listening a whole minute
++multiply_by=60
++divide_by=$INTERVAL
++
++case "$METRIC" in
++	wpm) divide_by=$((divide_by * 5)); ;;
++	cpm) ;;
++	*) echo "Unsupported metric \"$METRIC\""; exit 1; ;;
++esac
++
++hackspeed_cache="$(mktemp -p '' hackspeed_cache.XXXXX)"
++trap 'rm "$hackspeed_cache"' EXIT
++
++# Write a dot to our cache for each key press
++printf '' > "$hackspeed_cache"
++xinput test "$KEYBOARD_ID" | \
++	stdbuf -o0 awk '$1 == "key" && $2 == "press" && ('"$CONDITION"') {printf "."}' >> "$hackspeed_cache" &
++
++while true; do
++	# Ask the kernel how big the file is with the command `stat`. The number we
++	# get is the file size in bytes, which equals the amount of dots the file
++	# contains, and hence how much keys were pressed since the file was last
++	# cleared.
++	lines=$(stat --format %s "$hackspeed_cache")
++
++	# Truncate the cache file so that in the next iteration, we count only new
++	# keypresses
++	printf '' > "$hackspeed_cache"
++
++	# The shell only does integer operations, so make sure to first multiply and
++	# then divide
++	value=$((lines * multiply_by / divide_by))
++
++	printf "$FORMAT\\n" "$value"
++
++	sleep $INTERVAL
++done
+diff -ruN --color ./polybar-scripts/polybar-scripts/info-softwarecounter.py ./polybar-scripts_custom/polybar-scripts/info-softwarecounter.py
+--- ./polybar-scripts/polybar-scripts/info-softwarecounter.py	1970-01-01 01:00:00.000000000 +0100
++++ ./polybar-scripts_custom/polybar-scripts/info-softwarecounter.py	2021-12-14 23:22:10.753501065 +0100
+@@ -0,0 +1,145 @@
++#!/usr/bin/env python3
++
++import subprocess
++import sys
++from collections import Counter, OrderedDict
++
++
++# update GUIs
++GUI = True
++
++# update processes
++PROCESS = True
++
++
++# program/process names and corresponding gylphs
++guis = OrderedDict({
++    'terminals': '%{T10}%{T}',
++    'chromes': '%{T10}%{T}',
++    'firefox': '%{T10}%{T}',
++    'skypeforlinux': '%{T10}瑩%{T}',
++    'filemanager': '%{T10}%{T}',
++    'remote-desktop': '%{T10}ﲾ%{T}',
++    'pdfviewer': '%{T10}%{T}',
++    'image': '%{T10}%{T}',
++})
++
++processes = OrderedDict({
++    'vims': '%{T10}%{T}',
++    'ssh': '%{T10}%{T}',
++    'updater': '%{T10}%{T}',
++})
++
++# combine counts of program/process names in the tuple
++# the resulting glpyh used will be that of the corresponding key
++combine_guis = {
++    'terminals': ('gnome-terminal', 'xfce4-terminal', 'termite', 'terminator', 'urxvt'),
++    'chromes': ('chromium', 'chrome'),
++    'filemanger': ('nemo', 'thunar', 'dolphin', 'nautilus', 'pcmanfm', 'Archivos'),
++    'remote-desktop': ('TeamViewer', ),
++    'pdfviewer': ('evince', 'okular', 'zathura'),
++    'image': ('gthumb', 'shotwell', 'deepin-image-vi'),
++}
++
++combine_proccesses = {
++    'vims': ('nvim', 'vim', 'atom'),
++    'updater': ('pacman', 'yay', 'trizen', 'yaourt', 'makepkg', 'auracle'),
++}
++
++
++gui_output = ''
++process_output = ''
++
++if GUI:
++
++    def get_running_guis():
++        try:
++            listed = sys.argv[1]
++        except IndexError:
++            listed = []
++
++        get = lambda cmd: subprocess.check_output(cmd).decode("utf-8").strip()
++
++        def check_wtype(w_id):
++            # check the type of window, only list "NORMAL" windows
++            return "_NET_WM_WINDOW_TYPE_NORMAL" in get(["xprop", "-id", w_id])
++
++        def get_process(w_id):
++            # get the name of the process, owning the window
++            proc = get(["ps", "-p", w_id, "-o", "comm="])
++            return proc
++
++        wlist = [l.split() for l in subprocess.check_output(["wmctrl", "-lp"])\
++                 .decode("utf-8").splitlines()]
++        validprocs = [
++            get_process(w[2]) for w in wlist if check_wtype(w[0]) == True and w[2] != '0'
++        ]
++
++        return validprocs
++
++    # get list of running GUI programs
++    gui_counts = Counter(get_running_guis())
++
++    # combine programs in program combine list
++    for k, lst in combine_guis.items():
++        count = 0
++        for i in lst:
++            try:
++                count += gui_counts.pop(i)
++            except KeyError:
++                pass
++        if count:
++            gui_counts[k] += count
++
++    # generate program output
++    for k, v in guis.items():
++        try:
++            c = gui_counts[k]
++            if c:
++                gui_output += '%s %i ' % (v, c)
++        except:
++            pass
++
++if PROCESS:
++
++    def get_running_proc(process_name_list):
++        counts = [None] * len(process_name_list)
++
++        for i, p in enumerate(process_name_list):
++            try:
++                count = int(
++                    subprocess.check_output(['pgrep', '-c', '-x',
++                                             p]).decode('utf-8'))
++            except subprocess.CalledProcessError:
++                count = 0
++            counts[i] = (p, count)
++
++        return dict(counts)
++
++    # count running proccesses
++    process_counts = get_running_proc(processes.keys())
++    combine_counts = get_running_proc(
++        list(sum(combine_proccesses.values(), ())))
++    process_counts.update(combine_counts)
++
++    # combine processes in process combine list
++    for k, lst in combine_proccesses.items():
++        count = 0
++        for i in lst:
++            try:
++                count += process_counts.pop(i)
++            except KeyError:
++                pass
++        if count:
++            process_counts[k] += count
++
++    # generate process output
++    for k, v in processes.items():
++        try:
++            c = process_counts[k]
++            if c:
++                process_output += '%s %i ' % (v, c)
++        except:
++            pass
++
++print(gui_output + process_output)
+diff -ruN --color ./polybar-scripts/polybar-scripts/openweathermap-fullfeatured.sh ./polybar-scripts_custom/polybar-scripts/openweathermap-fullfeatured.sh
+--- ./polybar-scripts/polybar-scripts/openweathermap-fullfeatured.sh	1970-01-01 01:00:00.000000000 +0100
++++ ./polybar-scripts_custom/polybar-scripts/openweathermap-fullfeatured.sh	2021-12-14 23:22:10.753501065 +0100
+@@ -0,0 +1,113 @@
++#!/bin/sh
++
++get_icon() {
++    case $1 in
++        # Icons for weather-icons
++        01d) icon="%{T8} %{T}";;
++        01n) icon="%{T8} %{T}";;
++        02d) icon="%{T8} %{T}";;
++        02n) icon="%{T8} %{T}";;
++        03*) icon="%{T8} %{T}";;
++        04*) icon="%{T8} %{T}";;
++        09d) icon="%{T8} %{T}";;
++        09n) icon="%{T8} %{T}";;
++        10d) icon="%{T8} %{T}";;
++        10n) icon="%{T8} %{T}";;
++        11d) icon="%{T8} %{T}";;
++        11n) icon="%{T8} %{T}";;
++        13d) icon="%{T8} %{T}";;
++        13n) icon="%{T8} %{T}";;
++        50d) icon="%{T8} %{T}";;
++        50n) icon="%{T8} %{T}";;
++        *) icon="%{T8} %{T}";
++        
++        # Icons for Font Awesome 5 Pro
++        #01d) icon="";;
++        #01n) icon="";;
++        #02d) icon="";;
++        #02n) icon="";;
++        #03d) icon="";;
++        #03n) icon="";;
++        #04*) icon="";;
++        #09*) icon="";;
++        #10d) icon="";;
++        #10n) icon="";;
++        #11*) icon="";;
++        #13*) icon="";;
++        #50*) icon="";;
++        #*) icon="";
++    esac
++
++    echo "$icon"
++}
++
++get_duration() {
++
++    osname=$(uname -s)
++
++    case $osname in
++        *BSD) date -r "$1" -u +%H:%M;;
++        *) date --date="@$1" -u +%H:%M;;
++    esac
++
++}
++
++KEY="a94a5e59327331833dd5e93d9b64885c"
++CITY="Getafe,ES"
++UNITS="metric"
++SYMBOL="°"
++
++API="https://api.openweathermap.org/data/2.5"
++
++if [ -n "$CITY" ]; then
++    if [ "$CITY" -eq "$CITY" ] 2>/dev/null; then
++        CITY_PARAM="id=$CITY"
++    else
++        CITY_PARAM="q=$CITY"
++    fi
++
++    current=$(curl -sf "$API/weather?appid=$KEY&$CITY_PARAM&units=$UNITS")
++    forecast=$(curl -sf "$API/forecast?appid=$KEY&$CITY_PARAM&units=$UNITS&cnt=1")
++else
++    location=$(curl -sf https://location.services.mozilla.com/v1/geolocate?key=geoclue)
++
++    if [ -n "$location" ]; then
++        location_lat="$(echo "$location" | jq '.location.lat')"
++        location_lon="$(echo "$location" | jq '.location.lng')"
++
++        current=$(curl -sf "$API/weather?appid=$KEY&lat=$location_lat&lon=$location_lon&units=$UNITS")
++        forecast=$(curl -sf "$API/forecast?appid=$KEY&lat=$location_lat&lon=$location_lon&units=$UNITS&cnt=1")
++    fi
++fi
++
++if [ -n "$current" ] && [ -n "$forecast" ]; then
++    current_temp=$(echo "$current" | jq ".main.temp" | cut -d "." -f 1)
++    current_icon=$(echo "$current" | jq -r ".weather[0].icon")
++
++    forecast_temp=$(echo "$forecast" | jq ".list[].main.temp" | cut -d "." -f 1)
++    forecast_icon=$(echo "$forecast" | jq -r ".list[].weather[0].icon")
++
++
++    if [ "$current_temp" -gt "$forecast_temp" ]; then
++        trend="%{T8}%{T}"
++    elif [ "$forecast_temp" -gt "$current_temp" ]; then
++        trend="%{T8} %{T}"
++    else
++        trend="%{T8}%{T}"
++    fi
++
++
++    sun_rise=$(echo "$current" | jq ".sys.sunrise")
++    sun_set=$(echo "$current" | jq ".sys.sunset")
++    now=$(date +%s)
++
++    if [ "$sun_rise" -gt "$now" ]; then
++        daytime="%{T8}%{T} $(get_duration "$((sun_rise-now))")"
++    elif [ "$sun_set" -gt "$now" ]; then
++        daytime="%{T8}%{T} $(get_duration "$((sun_set-now))")"
++    else
++        daytime="%{T8}%{T} $(get_duration "$((sun_rise-now))")"
++    fi
++
++    echo "$(get_icon "$current_icon") $current_temp$SYMBOL  $trend  $(get_icon "$forecast_icon") $forecast_temp$SYMBOL   $daytime"
++fi
+diff -ruN --color ./polybar-scripts/polybar-scripts/system-cpu-frequency.sh ./polybar-scripts_custom/polybar-scripts/system-cpu-frequency.sh
+--- ./polybar-scripts/polybar-scripts/system-cpu-frequency.sh	1970-01-01 01:00:00.000000000 +0100
++++ ./polybar-scripts_custom/polybar-scripts/system-cpu-frequency.sh	2021-12-14 23:22:10.753501065 +0100
+@@ -0,0 +1,10 @@
++#!/bin/sh
++
++c=0;t=0
++
++awk '/MHz/ {print $4}' < /proc/cpuinfo | (while read -r i
++do
++    t=$( echo "$t + $i" | bc )
++    c=$((c+1))
++done
++echo "scale=2; $t / $c / 1000" | bc | awk '{print $1" GHz"}')
+diff -ruN --color ./polybar-scripts/polybar-scripts/system-cpu-temppercore.sh ./polybar-scripts_custom/polybar-scripts/system-cpu-temppercore.sh
+--- ./polybar-scripts/polybar-scripts/system-cpu-temppercore.sh	1970-01-01 01:00:00.000000000 +0100
++++ ./polybar-scripts_custom/polybar-scripts/system-cpu-temppercore.sh	2021-12-14 23:22:10.753501065 +0100
+@@ -0,0 +1,8 @@
++#!/bin/sh
++
++#sensors | grep Core | awk '{print substr($3, 2, length($3)-5)}' | tr "\\n" " " | sed 's/ /°C  /g' | sed 's/  $//'
++
++# This is a more accurate way attending to my `sensors` output,
++# though I don't think these the core temperatures, I would say
++# these are another chipsets temps; but at least is something.
++sensors | grep "temp[0-9]" | awk '{print substr($2, 2, length($2)-3)}' | tr "\\n" " " | sed 's/ /°C /g' | sed 's/  $//'
+diff -ruN --color ./polybar-scripts/polybar-scripts/system-nvidia-smi.sh ./polybar-scripts_custom/polybar-scripts/system-nvidia-smi.sh
+--- ./polybar-scripts/polybar-scripts/system-nvidia-smi.sh	1970-01-01 01:00:00.000000000 +0100
++++ ./polybar-scripts_custom/polybar-scripts/system-nvidia-smi.sh	2021-12-14 23:22:10.753501065 +0100
+@@ -0,0 +1,7 @@
++#!/bin/sh
++
++# nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits | awk '{ print "GPU",""$1"","%"}'
++
++# My system does not support the flag --query-gpu=utilization.gpu
++# That's why I modify the flag to show instead the used video memory.
++nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits | awk '{ print ""$1"","MiB"}'
+diff -ruN --color ./polybar-scripts/polybar-scripts/system-usb-udev.sh ./polybar-scripts_custom/polybar-scripts/system-usb-udev.sh
+--- ./polybar-scripts/polybar-scripts/system-usb-udev.sh	1970-01-01 01:00:00.000000000 +0100
++++ ./polybar-scripts_custom/polybar-scripts/system-usb-udev.sh	2021-12-14 23:22:10.753501065 +0100
+@@ -0,0 +1,92 @@
++#!/bin/sh
++
++usb_print() {
++    devices=$(lsblk -Jplno NAME,TYPE,RM,SIZE,MOUNTPOINT,VENDOR)
++    output=""
++    counter=0
++
++    for unmounted in $(echo "$devices" | jq -r '.blockdevices[] | select(.type == "part") | select(.rm == true) | select(.mountpoint == null) | .name'); do
++        unmounted=$(echo "$unmounted" | tr -d "[:digit:]")
++        unmounted=$(echo "$devices" | jq -r '.blockdevices[] | select(.name == "'"$unmounted"'") | .vendor')
++        unmounted=$(echo "$unmounted" | tr -d ' ')
++
++        if [ $counter -eq 0 ]; then
++            space=""
++        else
++            space="   "
++        fi
++        counter=$((counter + 1))
++
++        output="$output$space%{T4} %{T} $unmounted"
++    done
++
++    for mounted in $(echo "$devices" | jq -r '.blockdevices[] | select(.type == "part") | select(.rm == true) | select(.mountpoint != null) | .size'); do
++        if [ $counter -eq 0 ]; then
++            space=""
++        else
++            space="   "
++        fi
++        counter=$((counter + 1))
++
++        output="$output$space%{T4}%{T} $mounted"
++    done
++
++    echo "$output"
++}
++
++usb_update() {
++    pid=$(cat "$path_pid")
++
++    if [ "$pid" != "" ]; then
++        kill -10 "$pid"
++    fi
++}
++
++path_pid="/tmp/polybar-system-usb-udev.pid"
++
++case "$1" in
++    --update)
++        usb_update
++        ;;
++    --mount)
++        devices=$(lsblk -Jplno NAME,TYPE,RM,MOUNTPOINT)
++
++        for mount in $(echo "$devices" | jq -r '.blockdevices[] | select(.type == "part") | select(.rm == true) | select(.mountpoint == null) | .name'); do
++            # udisksctl mount --no-user-interaction -b "$mount"
++
++            # mountpoint=$(udisksctl mount --no-user-interaction -b $mount)
++            # mountpoint=$(echo $mountpoint | cut -d " " -f 4 | tr -d ".")
++            # terminal -e "bash -lc 'filemanager $mountpoint'"
++
++            mountpoint=$(udisksctl mount --no-user-interaction -b "$mount")
++            mountpoint=$(echo "$mountpoint" | cut -d " " -f 4 | tr -d ".")
++            # termite -e "bash -lc 'nautilus $mountpoint'" &
++            nautilus "$mountpoint"
++        done
++
++        usb_update
++        ;;
++    --unmount)
++        devices=$(lsblk -Jplno NAME,TYPE,RM,MOUNTPOINT)
++
++        for unmount in $(echo "$devices" | jq -r '.blockdevices[] | select(.type == "part") | select(.rm == true) | select(.mountpoint != null) | .name'); do
++            udisksctl unmount --no-user-interaction -b "$unmount"
++            udisksctl power-off --no-user-interaction -b "$unmount"
++        done
++
++        usb_update
++        ;;
++    *)
++        echo $$ > $path_pid
++
++        trap exit INT
++        trap "echo" USR1
++
++        while true; do
++            usb_print
++
++            sleep 60 &
++            wait
++        done
++        ;;
++esac
+diff -ruN --color ./polybar-scripts/polybar-scripts/updates-pacman-aurhelper.sh ./polybar-scripts_custom/polybar-scripts/updates-pacman-aurhelper.sh
+--- ./polybar-scripts/polybar-scripts/updates-pacman-aurhelper.sh	1970-01-01 01:00:00.000000000 +0100
++++ ./polybar-scripts_custom/polybar-scripts/updates-pacman-aurhelper.sh	2021-12-14 23:22:10.753501065 +0100
+@@ -0,0 +1,21 @@
++#!/bin/sh
++
++if ! updates_arch=$(checkupdates 2> /dev/null | wc -l ); then
++    updates_arch=0
++fi
++
++if ! updates_aur=$(yay -Qum 2> /dev/null | wc -l); then
++# if ! updates_aur=$(cower -u 2> /dev/null | wc -l); then
++# if ! updates_aur=$(trizen -Su --aur --quiet | wc -l); then
++# if ! updates_aur=$(pikaur -Qua 2> /dev/null | wc -l); then
++# if ! updates_aur=$(rua upgrade --printonly 2> /dev/null | wc -l); then
++    updates_aur=0
++fi
++
++updates=$(("$updates_arch" + "$updates_aur"))
++
++if [ "$updates" -gt 0 ]; then
++    echo "  $updates"
++else
++    echo ""
++fi
 diff -ruN --color ./polybar-scripts/system-cpu-temppercore.sh ./polybar-scripts_custom/system-cpu-temppercore.sh
---- ./polybar-scripts/system-cpu-temppercore.sh	2021-01-30 16:50:17.252243984 +0100
-+++ ./polybar-scripts_custom/system-cpu-temppercore.sh	2021-01-30 16:50:14.668924826 +0100
+--- ./polybar-scripts/system-cpu-temppercore.sh	2021-12-14 23:22:11.586754183 +0100
++++ ./polybar-scripts_custom/system-cpu-temppercore.sh	2021-12-14 23:21:25.717836412 +0100
 @@ -1,3 +1,8 @@
  #!/bin/sh
  
@@ -192,8 +752,8 @@ diff -ruN --color ./polybar-scripts/system-cpu-temppercore.sh ./polybar-scripts_
 +# these are another chipsets temps; but at least is something.
 +sensors | grep "temp[0-9]" | awk '{print substr($2, 2, length($2)-3)}' | tr "\\n" " " | sed 's/ /°C /g' | sed 's/  $//'
 diff -ruN --color ./polybar-scripts/system-nvidia-smi.sh ./polybar-scripts_custom/system-nvidia-smi.sh
---- ./polybar-scripts/system-nvidia-smi.sh	2021-01-30 16:50:17.732241350 +0100
-+++ ./polybar-scripts_custom/system-nvidia-smi.sh	2021-01-30 16:50:14.668924826 +0100
+--- ./polybar-scripts/system-nvidia-smi.sh	2021-12-14 23:22:11.743405769 +0100
++++ ./polybar-scripts_custom/system-nvidia-smi.sh	2021-12-14 23:21:25.717836412 +0100
 @@ -1,3 +1,7 @@
  #!/bin/sh
  
@@ -204,8 +764,8 @@ diff -ruN --color ./polybar-scripts/system-nvidia-smi.sh ./polybar-scripts_custo
 +# That's why I modify the flag to show instead the used video memory.
 +nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits | awk '{ print ""$1"","MiB"}'
 diff -ruN --color ./polybar-scripts/system-usb-udev.sh ./polybar-scripts_custom/system-usb-udev.sh
---- ./polybar-scripts/system-usb-udev.sh	2021-01-30 16:50:18.358904578 +0100
-+++ ./polybar-scripts_custom/system-usb-udev.sh	2021-01-30 16:50:14.668924826 +0100
+--- ./polybar-scripts/system-usb-udev.sh	2021-12-14 23:22:11.933387480 +0100
++++ ./polybar-scripts_custom/system-usb-udev.sh	2021-12-14 23:21:25.717836412 +0100
 @@ -17,7 +17,7 @@
          fi
          counter=$((counter + 1))
@@ -224,21 +784,42 @@ diff -ruN --color ./polybar-scripts/system-usb-udev.sh ./polybar-scripts_custom/
      done
  
      echo "$output"
-@@ -60,7 +60,8 @@
+@@ -52,11 +52,16 @@
+         devices=$(lsblk -Jplno NAME,TYPE,RM,MOUNTPOINT)
  
-             mountpoint=$(udisksctl mount --no-user-interaction -b "$mount")
-             mountpoint=$(echo "$mountpoint" | cut -d " " -f 4 | tr -d ".")
--            termite -e "bash -lc 'mc $mountpoint'" &
+         for mount in $(echo "$devices" | jq -r '.blockdevices[] | select(.type == "part") | select(.rm == true) | select(.mountpoint == null) | .name'); do
+-            udisksctl mount --no-user-interaction -b "$mount"
++            # udisksctl mount --no-user-interaction -b "$mount"
+ 
+             # mountpoint=$(udisksctl mount --no-user-interaction -b $mount)
+-            # mountpoint=$(echo $mountpoint | cut -d " " -f 4- | tr -d ".")
++            # mountpoint=$(echo $mountpoint | cut -d " " -f 4 | tr -d ".")
+             # terminal -e "bash -lc 'filemanager $mountpoint'"
++
++            mountpoint=$(udisksctl mount --no-user-interaction -b "$mount")
++            mountpoint=$(echo "$mountpoint" | cut -d " " -f 4 | tr -d ".")
 +            # termite -e "bash -lc 'nautilus $mountpoint'" &
 +            nautilus "$mountpoint"
          done
  
          usb_update
 diff -ruN --color ./polybar-scripts/updates-pacman-aurhelper.sh ./polybar-scripts_custom/updates-pacman-aurhelper.sh
---- ./polybar-scripts/updates-pacman-aurhelper.sh	2021-01-30 16:50:18.798902163 +0100
-+++ ./polybar-scripts_custom/updates-pacman-aurhelper.sh	2021-01-30 16:50:14.668924826 +0100
-@@ -15,7 +15,7 @@
- updates=$(("$updates_arch" + "$updates_aur"))
+--- ./polybar-scripts/updates-pacman-aurhelper.sh	2021-12-14 23:22:12.080040030 +0100
++++ ./polybar-scripts_custom/updates-pacman-aurhelper.sh	2021-12-14 23:21:25.717836412 +0100
+@@ -5,7 +5,6 @@
+ fi
+ 
+ if ! updates_aur=$(yay -Qum 2> /dev/null | wc -l); then
+-# if ! updates_aur=$(paru -Qum 2> /dev/null | wc -l); then
+ # if ! updates_aur=$(cower -u 2> /dev/null | wc -l); then
+ # if ! updates_aur=$(trizen -Su --aur --quiet | wc -l); then
+ # if ! updates_aur=$(pikaur -Qua 2> /dev/null | wc -l); then
+@@ -13,10 +12,10 @@
+     updates_aur=0
+ fi
+ 
+-updates=$((updates_arch + updates_aur))
++updates=$(("$updates_arch" + "$updates_aur"))
  
  if [ "$updates" -gt 0 ]; then
 -    echo "# $updates"
