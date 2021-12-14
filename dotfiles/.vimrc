@@ -136,7 +136,8 @@ set relativenumber
 set ignorecase
 "set clipboard=unnamed
 set clipboard=unnamedplus
-set listchars+=space:␣ 
+"set listchars+=space:␣ 
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,space:␣
 set nowrap
 set cursorline
 set cursorcolumn
