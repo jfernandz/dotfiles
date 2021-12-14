@@ -39,7 +39,7 @@ case ${answer:0:1} in
     y|Y )
 	echo -e "\n\e[1m\e[31mPatch file has been created as 'scripts.patch'\e[0m"
 	diff -ruN --color ./polybar-scripts/ ./polybar-scripts_custom/ > ./scripts.patch
-	echo -e "\e[1m\e[34mBe careful!! => \e[31mThere is a 'personal-patches.patch' which has been created moving manually 'scripts.patch' to 'personal-patches.patch'\e[0m"
+	echo -e "\e[1m\e[34mBe careful!! => \e[31mThere is a 'personal-patches.patch' which has been created moving MANUALLY 'scripts.patch' to 'personal-patches.patch'\e[0m"
 	echo -e "\e[1m\e[31mThis is the pach which is being applied, so you must check before the new created patch.\e[0m"
     ;;
     * )
