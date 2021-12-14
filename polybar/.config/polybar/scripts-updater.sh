@@ -39,7 +39,7 @@ case ${answer:0:1} in
     y|Y )
 	echo -e "\n\e[1m\e[31mPatch file has been created as 'scripts.patch'\e[0m"
 	diff -ruN --color ./polybar-scripts/ ./polybar-scripts_custom/ > ./scripts.patch
-	echo -e "\e[1m\e[34mBe careful!! => \e[31mThere is a 'static_scripts.patch' which has been created moving manually 'scripts.patch' to 'static_scripts.patch'\e[0m"
+	echo -e "\e[1m\e[34mBe careful!! => \e[31mThere is a 'personal-patches.patch' which has been created moving manually 'scripts.patch' to 'personal-patches.patch'\e[0m"
 	echo -e "\e[1m\e[31mThis is the pach which is being applied, so you must check before the new created patch.\e[0m"
     ;;
     * )
@@ -48,13 +48,13 @@ case ${answer:0:1} in
 esac
 
 
-echo -e "\n\e[1m\e[31mDo you want to apply 'static_scripts.patch' (Y/n)?\e[0m"
+echo -e "\n\e[1m\e[31mDo you want to apply 'personal-patches.patch' (Y/n)?\e[0m"
 read -n 1 answer
 [ -z "$answer" ] && answer="y"
 case ${answer:0:1} in
     y|Y )
-	echo -e "\n\e[1m\e[31mApplying 'static_scripts.patch':\e[0m"
-	patch -p1 < ./static_scripts.patch
+	echo -e "\n\e[1m\e[31mApplying 'personal-patches.patch':\e[0m"
+	patch -p1 < ./personal-patches.patch
     ;;
     * )
         echo -e "\n\e[1m\e[31mNo patch has been applied.\e[0m"
@@ -62,7 +62,7 @@ case ${answer:0:1} in
 esac
 
 
-#echo -e "\n\e[1m\e[31mScripts has been patched with 'static_scripts.path'\e[0m"
+#echo -e "\n\e[1m\e[31mScripts has been patched with 'personal-patches.path'\e[0m"
 echo -e "\e[1m\e[34mIMPORTANT!! => \e[31mYou can now check how was the update in the case you applied it and if all is right remove the './polybar-script_custom' folder\e[0m"
 
 #trash-put ./polybar-scripts_custom ./scripts.patch
