@@ -274,27 +274,3 @@ index 5971118..fb1a6c2 100755
  else
      echo ""
  fi
-diff --git b/polybar/.config/polybar/scripts-updater.sh a/polybar/.config/polybar/scripts-updater.sh
-index c35dece..2e2c56c 100755
---- b/polybar/.config/polybar/scripts-updater.sh
-+++ a/polybar/.config/polybar/scripts-updater.sh
-@@ -38,7 +38,7 @@ read -n 1 answer
- case ${answer:0:1} in
-     y|Y )
- 	echo -e "\n\e[1m\e[31mPatch file has been created as 'scripts.patch'\e[0m"
--	git diff -R > ./scripts.patch
-+	diff -ruN --color ./polybar-scripts/ ./polybar-scripts_custom/ > ./scripts.patch
- 	echo -e "\e[1m\e[34mBe careful!! => \e[31mThere is a 'personal-patches.patch' which has been created moving MANUALLY 'scripts.patch' to 'personal-patches.patch'\e[0m"
- 	echo -e "\e[1m\e[31mThis is the pach which is being applied, so you must check before the new created patch.\e[0m"
-     ;;
-@@ -53,8 +53,8 @@ read -n 1 answer
- [ -z "$answer" ] && answer="y"
- case ${answer:0:1} in
-     y|Y )
--	  echo -e "\n\e[1m\e[31mApplying 'personal-patches.patch':\e[0m"
--	  git apply ./personal-patches.patch
-+	echo -e "\n\e[1m\e[31mApplying 'personal-patches.patch':\e[0m"
-+	patch -p1 < ./personal-patches.patch
-     ;;
-     * )
-         echo -e "\n\e[1m\e[31mNo patch has been applied.\e[0m"
