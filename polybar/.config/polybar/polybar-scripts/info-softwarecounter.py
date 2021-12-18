@@ -14,7 +14,6 @@ PROCESS = True
 
 # program/process names and corresponding gylphs
 guis = OrderedDict({
-    'terminals': '%{T10}%{T}',
     'chromes': '%{T10}%{T}',
     'firefox': '%{T10}%{T}',
     'skypeforlinux': '%{T10}瑩%{T}',
@@ -25,6 +24,7 @@ guis = OrderedDict({
 })
 
 processes = OrderedDict({
+    'terminals': '%{T10}%{T}',
     'vims': '%{T10}%{T}',
     'ssh': '%{T10}%{T}',
     'updater': '%{T10}%{T}',
@@ -33,7 +33,6 @@ processes = OrderedDict({
 # combine counts of program/process names in the tuple
 # the resulting glpyh used will be that of the corresponding key
 combine_guis = {
-    'terminals': ('xfce4-terminal', 'termite', 'terminator', 'urxvt'),
     'chromes': ('chromium', 'chrome'),
     'filemanger': ('nemo', 'thunar', 'dolphin', 'nautilus', 'pcmanfm', 'Archivos'),
     'remote-desktop': ('TeamViewer', ),
@@ -42,6 +41,7 @@ combine_guis = {
 }
 
 combine_proccesses = {
+    'terminals': ('gnome-terminal', 'xfce4-terminal', 'termite', 'terminator', 'urxvt'),
     'vims': ('nvim', 'vim', 'atom'),
     'updater': ('pacman', 'yay', 'trizen', 'yaourt', 'makepkg', 'auracle'),
 }
@@ -107,13 +107,19 @@ if PROCESS:
 
         for i, p in enumerate(process_name_list):
             try:
-                count = int(
-                    subprocess.check_output(['pgrep', '-c', '-x',
-                                             p]).decode('utf-8'))
+                # count = int(
+                #     subprocess.check_output(['pgrep', '-c', '-x',
+                #                              p]).decode('utf-8'))
+                pid = int(subprocess.check_output(['pgrep', f'{p}']))
+                count = len(
+                    subprocess.check_output(
+                        ['ps', '--no-headers', '--ppid', f'{pid}']
+                    ).decode('utf-8').split("\n")
+                ) - 1
             except subprocess.CalledProcessError:
                 count = 0
-            counts[i] = (p, count)
 
+            counts[i] = (p, count)
         return dict(counts)
 
     # count running proccesses
