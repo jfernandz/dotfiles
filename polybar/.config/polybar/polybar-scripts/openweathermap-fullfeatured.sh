@@ -20,7 +20,7 @@ get_icon() {
         50d) icon="%{T8} %{T}";;
         50n) icon="%{T8} %{T}";;
         *) icon="%{T8} %{T}";
-        
+
         # Icons for Font Awesome 5 Pro
         #01d) icon="";;
         #01n) icon="";;

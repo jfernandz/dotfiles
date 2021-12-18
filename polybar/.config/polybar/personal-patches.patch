@@ -29,7 +29,7 @@ index 999c31e..5bf78af 100755
  esac
  
 diff --git b/polybar/.config/polybar/polybar-scripts/info-softwarecounter.py a/polybar/.config/polybar/polybar-scripts/info-softwarecounter.py
-index ad90b7d..4f36176 100755
+index ad90b7d..d008b5b 100755
 --- b/polybar/.config/polybar/polybar-scripts/info-softwarecounter.py
 +++ a/polybar/.config/polybar/polybar-scripts/info-softwarecounter.py
 @@ -14,36 +14,36 @@ PROCESS = True
@@ -44,7 +44,6 @@ index ad90b7d..4f36176 100755
 -    'remote-desktop': '#',
 -    'pdfviewer': '#',
 -    'image': '#',
-+    'terminals': '%{T10}%{T}',
 +    'chromes': '%{T10}%{T}',
 +    'firefox': '%{T10}%{T}',
 +    'skypeforlinux': '%{T10}瑩%{T}',
@@ -58,6 +57,7 @@ index ad90b7d..4f36176 100755
 -    'vims': '#',
 -    'ssh': '#',
 -    'updater': '#',
++    'terminals': '%{T10}%{T}',
 +    'vims': '%{T10}%{T}',
 +    'ssh': '%{T10}%{T}',
 +    'updater': '%{T10}%{T}',
@@ -67,7 +67,6 @@ index ad90b7d..4f36176 100755
  # the resulting glpyh used will be that of the corresponding key
  combine_guis = {
 -    'terminals': ('termite', 'terminator', 'urxvt'),
-+    'terminals': ('xfce4-terminal', 'termite', 'terminator', 'urxvt'),
      'chromes': ('chromium', 'chrome'),
 -    'filemanger': ('nemo', 'thunar', 'dolphin', 'nautilus', 'pcmanfm'),
 +    'filemanger': ('nemo', 'thunar', 'dolphin', 'nautilus', 'pcmanfm', 'Archivos'),
@@ -79,11 +78,36 @@ index ad90b7d..4f36176 100755
  combine_proccesses = {
 -    'vims': ('nvim', 'vim'),
 -    'updater': ('pacman', 'yay', 'trizen', 'yaourt'),
++    'terminals': ('gnome-terminal', 'xfce4-terminal', 'termite', 'terminator', 'urxvt'),
 +    'vims': ('nvim', 'vim', 'atom'),
 +    'updater': ('pacman', 'yay', 'trizen', 'yaourt', 'makepkg', 'auracle'),
  }
  
  
+@@ -107,13 +107,19 @@ if PROCESS:
+ 
+         for i, p in enumerate(process_name_list):
+             try:
+-                count = int(
+-                    subprocess.check_output(['pgrep', '-c', '-x',
+-                                             p]).decode('utf-8'))
++                # count = int(
++                #     subprocess.check_output(['pgrep', '-c', '-x',
++                #                              p]).decode('utf-8'))
++                pid = int(subprocess.check_output(['pgrep', f'{p}']))
++                count = len(
++                    subprocess.check_output(
++                        ['ps', '--no-headers', '--ppid', f'{pid}']
++                    ).decode('utf-8').split("\n")
++                ) - 1
+             except subprocess.CalledProcessError:
+                 count = 0
+-            counts[i] = (p, count)
+ 
++            counts[i] = (p, count)
+         return dict(counts)
+ 
+     # count running proccesses
 diff --git b/polybar/.config/polybar/polybar-scripts/openweathermap-fullfeatured.sh a/polybar/.config/polybar/polybar-scripts/openweathermap-fullfeatured.sh
 index 652c620..8cda881 100755
 --- b/polybar/.config/polybar/polybar-scripts/openweathermap-fullfeatured.sh
@@ -127,7 +151,7 @@ index 652c620..8cda881 100755
 +        50d) icon="%{T8} %{T}";;
 +        50n) icon="%{T8} %{T}";;
 +        *) icon="%{T8} %{T}";
-
++
          # Icons for Font Awesome 5 Pro
          #01d) icon="";;
          #01n) icon="";;
