@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import subprocess
-import sys
 from collections import Counter, OrderedDict
 
 
@@ -14,6 +13,7 @@ PROCESS = True
 
 # program/process names and corresponding gylphs
 guis = OrderedDict({
+    'terminals': '%{T10}%{T}',
     'chromes': '%{T10}%{T}',
     'firefox': '%{T10}%{T}',
     'skypeforlinux': '%{T10}瑩%{T}',
@@ -24,7 +24,6 @@ guis = OrderedDict({
 })
 
 processes = OrderedDict({
-    'terminals': '%{T10}%{T}',
     'vims': '%{T10}%{T}',
     'ssh': '%{T10}%{T}',
     'updater': '%{T10}%{T}',
@@ -33,6 +32,7 @@ processes = OrderedDict({
 # combine counts of program/process names in the tuple
 # the resulting glpyh used will be that of the corresponding key
 combine_guis = {
+    'terminals': ('gnome-terminal-server', 'xfce4-terminal', 'termite', 'terminator', 'urxvt'),
     'chromes': ('chromium', 'chrome'),
     'filemanger': ('nemo', 'thunar', 'dolphin', 'nautilus', 'pcmanfm', 'Archivos'),
     'remote-desktop': ('TeamViewer', ),
@@ -41,7 +41,6 @@ combine_guis = {
 }
 
 combine_proccesses = {
-    'terminals': ('gnome-terminal', 'xfce4-terminal', 'termite', 'terminator', 'urxvt'),
     'vims': ('nvim', 'vim', 'atom'),
     'updater': ('pacman', 'yay', 'trizen', 'yaourt', 'makepkg', 'auracle'),
 }
@@ -53,12 +52,9 @@ process_output = ''
 if GUI:
 
     def get_running_guis():
-        try:
-            listed = sys.argv[1]
-        except IndexError:
-            listed = []
 
-        get = lambda cmd: subprocess.check_output(cmd).decode("utf-8").strip()
+        def get(cmd):
+            return subprocess.check_output(cmd).decode("utf-8").strip()
 
         def check_wtype(w_id):
             # check the type of window, only list "NORMAL" windows
@@ -66,19 +62,30 @@ if GUI:
 
         def get_process(w_id):
             # get the name of the process, owning the window
-            proc = get(["ps", "-p", w_id, "-o", "comm="])
-            return proc
+            proc = get(["ps", "-p", w_id, "-o", "cmd="])
+            return proc.split()[0].split("/")[-1]
 
-        wlist = [l.split() for l in subprocess.check_output(["wmctrl", "-lp"])\
-                 .decode("utf-8").splitlines()]
+        wlist = [
+            line.split() for line in subprocess.check_output(["wmctrl", "-lp"]).decode("utf-8").splitlines()
+        ]
+
+        # Most valuable deubg info! #
+        # print("wlist after LC:")
+        # print("---------")
+        # for i in wlist:
+        #     print(i)
+        # print("---------")
+        # ######################### #
+
         validprocs = [
-            get_process(w[2]) for w in wlist if check_wtype(w[0]) == True and w[2] != '0'
+            get_process(w[2]) for w in wlist if check_wtype(w[0]) and w[2] != '0'
         ]
 
         return validprocs
 
     # get list of running GUI programs
     gui_counts = Counter(get_running_guis())
+    # print(gui_counts)  # Another interesting debug statement
 
     # combine programs in program combine list
     for k, lst in combine_guis.items():
@@ -97,7 +104,7 @@ if GUI:
             c = gui_counts[k]
             if c:
                 gui_output += '%s %i ' % (v, c)
-        except:
+        except Exception:
             pass
 
 if PROCESS:
@@ -107,15 +114,11 @@ if PROCESS:
 
         for i, p in enumerate(process_name_list):
             try:
-                # count = int(
-                #     subprocess.check_output(['pgrep', '-c', '-x',
-                #                              p]).decode('utf-8'))
-                pid = int(subprocess.check_output(['pgrep', f'{p}']))
-                count = len(
+                count = int(
                     subprocess.check_output(
-                        ['ps', '--no-headers', '--ppid', f'{pid}']
-                    ).decode('utf-8').split("\n")
-                ) - 1
+                        ['pgrep', '-c', '-x', p]
+                    ).decode('utf-8')
+                )
             except subprocess.CalledProcessError:
                 count = 0
 
@@ -145,7 +148,7 @@ if PROCESS:
             c = process_counts[k]
             if c:
                 process_output += '%s %i ' % (v, c)
-        except:
+        except Exception:
             pass
 
 print(gui_output + process_output)
