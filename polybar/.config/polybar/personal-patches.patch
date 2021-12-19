@@ -29,10 +29,18 @@ index 999c31e..5bf78af 100755
  esac
  
 diff --git b/polybar/.config/polybar/polybar-scripts/info-softwarecounter.py a/polybar/.config/polybar/polybar-scripts/info-softwarecounter.py
-index ad90b7d..d008b5b 100755
+index ad90b7d..13eb708 100755
 --- b/polybar/.config/polybar/polybar-scripts/info-softwarecounter.py
 +++ a/polybar/.config/polybar/polybar-scripts/info-softwarecounter.py
-@@ -14,36 +14,36 @@ PROCESS = True
+@@ -1,7 +1,6 @@
+ #!/usr/bin/env python3
+ 
+ import subprocess
+-import sys
+ from collections import Counter, OrderedDict
+ 
+ 
+@@ -14,36 +13,36 @@ PROCESS = True
  
  # program/process names and corresponding gylphs
  guis = OrderedDict({
@@ -44,6 +52,7 @@ index ad90b7d..d008b5b 100755
 -    'remote-desktop': '#',
 -    'pdfviewer': '#',
 -    'image': '#',
++    'terminals': '%{T10}%{T}',
 +    'chromes': '%{T10}%{T}',
 +    'firefox': '%{T10}%{T}',
 +    'skypeforlinux': '%{T10}瑩%{T}',
@@ -57,7 +66,6 @@ index ad90b7d..d008b5b 100755
 -    'vims': '#',
 -    'ssh': '#',
 -    'updater': '#',
-+    'terminals': '%{T10}%{T}',
 +    'vims': '%{T10}%{T}',
 +    'ssh': '%{T10}%{T}',
 +    'updater': '%{T10}%{T}',
@@ -67,6 +75,7 @@ index ad90b7d..d008b5b 100755
  # the resulting glpyh used will be that of the corresponding key
  combine_guis = {
 -    'terminals': ('termite', 'terminator', 'urxvt'),
++    'terminals': ('gnome-terminal-server', 'xfce4-terminal', 'termite', 'terminator', 'urxvt'),
      'chromes': ('chromium', 'chrome'),
 -    'filemanger': ('nemo', 'thunar', 'dolphin', 'nautilus', 'pcmanfm'),
 +    'filemanger': ('nemo', 'thunar', 'dolphin', 'nautilus', 'pcmanfm', 'Archivos'),
@@ -78,28 +87,81 @@ index ad90b7d..d008b5b 100755
  combine_proccesses = {
 -    'vims': ('nvim', 'vim'),
 -    'updater': ('pacman', 'yay', 'trizen', 'yaourt'),
-+    'terminals': ('gnome-terminal', 'xfce4-terminal', 'termite', 'terminator', 'urxvt'),
 +    'vims': ('nvim', 'vim', 'atom'),
 +    'updater': ('pacman', 'yay', 'trizen', 'yaourt', 'makepkg', 'auracle'),
  }
  
  
-@@ -107,13 +107,19 @@ if PROCESS:
+@@ -53,12 +52,9 @@ process_output = ''
+ if GUI:
  
+     def get_running_guis():
+-        try:
+-            listed = sys.argv[1]
+-        except IndexError:
+-            listed = []
+ 
+-        get = lambda cmd: subprocess.check_output(cmd).decode("utf-8").strip()
++        def get(cmd):
++            return subprocess.check_output(cmd).decode("utf-8").strip()
+ 
+         def check_wtype(w_id):
+             # check the type of window, only list "NORMAL" windows
+@@ -66,19 +62,30 @@ if GUI:
+ 
+         def get_process(w_id):
+             # get the name of the process, owning the window
+-            proc = get(["ps", "-p", w_id, "-o", "comm="])
+-            return proc
++            proc = get(["ps", "-p", w_id, "-o", "cmd="])
++            return proc.split()[0].split("/")[-1]
++
++        wlist = [
++            line.split() for line in subprocess.check_output(["wmctrl", "-lp"]).decode("utf-8").splitlines()
++        ]
++
++        # Most valuable deubg info! #
++        # print("wlist after LC:")
++        # print("---------")
++        # for i in wlist:
++        #     print(i)
++        # print("---------")
++        # ######################### #
+ 
+-        wlist = [l.split() for l in subprocess.check_output(["wmctrl", "-lp"])\
+-                 .decode("utf-8").splitlines()]
+         validprocs = [
+-            get_process(w[2]) for w in wlist if check_wtype(w[0]) == True and w[2] != '0'
++            get_process(w[2]) for w in wlist if check_wtype(w[0]) and w[2] != '0'
+         ]
+ 
+         return validprocs
+ 
+     # get list of running GUI programs
+     gui_counts = Counter(get_running_guis())
++    # print(gui_counts)  # Another interesting debug statement
+ 
+     # combine programs in program combine list
+     for k, lst in combine_guis.items():
+@@ -97,7 +104,7 @@ if GUI:
+             c = gui_counts[k]
+             if c:
+                 gui_output += '%s %i ' % (v, c)
+-        except:
++        except Exception:
+             pass
+ 
+ if PROCESS:
+@@ -108,12 +115,14 @@ if PROCESS:
          for i, p in enumerate(process_name_list):
              try:
--                count = int(
+                 count = int(
 -                    subprocess.check_output(['pgrep', '-c', '-x',
 -                                             p]).decode('utf-8'))
-+                # count = int(
-+                #     subprocess.check_output(['pgrep', '-c', '-x',
-+                #                              p]).decode('utf-8'))
-+                pid = int(subprocess.check_output(['pgrep', f'{p}']))
-+                count = len(
 +                    subprocess.check_output(
-+                        ['ps', '--no-headers', '--ppid', f'{pid}']
-+                    ).decode('utf-8').split("\n")
-+                ) - 1
++                        ['pgrep', '-c', '-x', p]
++                    ).decode('utf-8')
++                )
              except subprocess.CalledProcessError:
                  count = 0
 -            counts[i] = (p, count)
@@ -108,11 +170,20 @@ index ad90b7d..d008b5b 100755
          return dict(counts)
  
      # count running proccesses
+@@ -139,7 +148,7 @@ if PROCESS:
+             c = process_counts[k]
+             if c:
+                 process_output += '%s %i ' % (v, c)
+-        except:
++        except Exception:
+             pass
+ 
+ print(gui_output + process_output)
 diff --git b/polybar/.config/polybar/polybar-scripts/openweathermap-fullfeatured.sh a/polybar/.config/polybar/polybar-scripts/openweathermap-fullfeatured.sh
-index 652c620..8cda881 100755
+index 652c620..d5f92f4 100755
 --- b/polybar/.config/polybar/polybar-scripts/openweathermap-fullfeatured.sh
 +++ a/polybar/.config/polybar/polybar-scripts/openweathermap-fullfeatured.sh
-@@ -3,24 +3,24 @@
+@@ -3,23 +3,23 @@
  get_icon() {
      case $1 in
          # Icons for weather-icons
@@ -133,7 +204,6 @@ index 652c620..8cda881 100755
 -        50d) icon="";;
 -        50n) icon="";;
 -        *) icon="";
--
 +        01d) icon="%{T8} %{T}";;
 +        01n) icon="%{T8} %{T}";;
 +        02d) icon="%{T8} %{T}";;
@@ -151,10 +221,9 @@ index 652c620..8cda881 100755
 +        50d) icon="%{T8} %{T}";;
 +        50n) icon="%{T8} %{T}";;
 +        *) icon="%{T8} %{T}";
-+
+ 
          # Icons for Font Awesome 5 Pro
          #01d) icon="";;
-         #01n) icon="";;
 @@ -38,7 +38,7 @@ get_icon() {
          #*) icon="";
      esac
