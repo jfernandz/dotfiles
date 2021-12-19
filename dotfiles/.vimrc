@@ -45,7 +45,7 @@ Plug 'slashmili/alchemist.vim'
 "Plug 'stevearc/vim-arduino'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'habamax/vim-asciidoctor'
-"Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 
 
