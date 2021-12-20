@@ -29,7 +29,7 @@ index 999c31e..5bf78af 100755
  esac
  
 diff --git b/polybar/.config/polybar/polybar-scripts/info-softwarecounter.py a/polybar/.config/polybar/polybar-scripts/info-softwarecounter.py
-index ad90b7d..13eb708 100755
+index ad90b7d..946688a 100755
 --- b/polybar/.config/polybar/polybar-scripts/info-softwarecounter.py
 +++ a/polybar/.config/polybar/polybar-scripts/info-softwarecounter.py
 @@ -1,7 +1,6 @@
@@ -40,8 +40,11 @@ index ad90b7d..13eb708 100755
  from collections import Counter, OrderedDict
  
  
-@@ -14,36 +13,36 @@ PROCESS = True
+@@ -11,135 +10,156 @@ GUI = True
+ # update processes
+ PROCESS = True
  
+-
  # program/process names and corresponding gylphs
  guis = OrderedDict({
 -    'terminals': '#',
@@ -92,93 +95,202 @@ index ad90b7d..13eb708 100755
  }
  
  
-@@ -53,12 +52,9 @@ process_output = ''
- if GUI:
+-gui_output = ''
+-process_output = ''
++def get(cmd):
++    return subprocess.check_output(cmd).decode("utf-8").strip()
  
-     def get_running_guis():
+-if GUI:
+ 
+-    def get_running_guis():
 -        try:
 -            listed = sys.argv[1]
 -        except IndexError:
 -            listed = []
++def check_wtype(w_id):
++    # check the type of window, only list "NORMAL" windows
++    return "_NET_WM_WINDOW_TYPE_NORMAL" in get(["xprop", "-id", w_id])
  
 -        get = lambda cmd: subprocess.check_output(cmd).decode("utf-8").strip()
-+        def get(cmd):
-+            return subprocess.check_output(cmd).decode("utf-8").strip()
  
-         def check_wtype(w_id):
-             # check the type of window, only list "NORMAL" windows
-@@ -66,19 +62,30 @@ if GUI:
+-        def check_wtype(w_id):
+-            # check the type of window, only list "NORMAL" windows
+-            return "_NET_WM_WINDOW_TYPE_NORMAL" in get(["xprop", "-id", w_id])
++def get_process(w_id):
++    # get the name of the process, owning the window
++    proc = get(["ps", "-p", w_id, "-o", "cmd="])
++    return proc.split()[0].split("/")[-1]
  
-         def get_process(w_id):
-             # get the name of the process, owning the window
+-        def get_process(w_id):
+-            # get the name of the process, owning the window
 -            proc = get(["ps", "-p", w_id, "-o", "comm="])
 -            return proc
-+            proc = get(["ps", "-p", w_id, "-o", "cmd="])
-+            return proc.split()[0].split("/")[-1]
-+
-+        wlist = [
-+            line.split() for line in subprocess.check_output(["wmctrl", "-lp"]).decode("utf-8").splitlines()
-+        ]
-+
-+        # Most valuable deubg info! #
-+        # print("wlist after LC:")
-+        # print("---------")
-+        # for i in wlist:
-+        #     print(i)
-+        # print("---------")
-+        # ######################### #
  
 -        wlist = [l.split() for l in subprocess.check_output(["wmctrl", "-lp"])\
 -                 .decode("utf-8").splitlines()]
-         validprocs = [
+-        validprocs = [
 -            get_process(w[2]) for w in wlist if check_wtype(w[0]) == True and w[2] != '0'
-+            get_process(w[2]) for w in wlist if check_wtype(w[0]) and w[2] != '0'
-         ]
+-        ]
++def get_running_guis():
  
-         return validprocs
+-        return validprocs
++    wlist = [
++        line.split() for line in subprocess.check_output(
++            ["wmctrl", "-lp"]
++        ).decode("utf-8").splitlines()
++    ]
  
-     # get list of running GUI programs
-     gui_counts = Counter(get_running_guis())
-+    # print(gui_counts)  # Another interesting debug statement
+-    # get list of running GUI programs
+-    gui_counts = Counter(get_running_guis())
++    # Most valuable deubg info! #
++    # print("wlist after LC:")  #
++    # print("---------")        #
++    # for i in wlist:           #
++    #     print(i)              #
++    # print("---------")        #
++    # ######################### #
  
-     # combine programs in program combine list
-     for k, lst in combine_guis.items():
-@@ -97,7 +104,7 @@ if GUI:
-             c = gui_counts[k]
-             if c:
-                 gui_output += '%s %i ' % (v, c)
+-    # combine programs in program combine list
+-    for k, lst in combine_guis.items():
+-        count = 0
+-        for i in lst:
+-            try:
+-                count += gui_counts.pop(i)
+-            except KeyError:
+-                pass
+-        if count:
+-            gui_counts[k] += count
++    validprocs = [
++        get_process(w[2]) for w in wlist if check_wtype(w[0]) and w[2] != '0'
++    ]
+ 
+-    # generate program output
+-    for k, v in guis.items():
+-        try:
+-            c = gui_counts[k]
+-            if c:
+-                gui_output += '%s %i ' % (v, c)
 -        except:
-+        except Exception:
-             pass
+-            pass
++    return validprocs
  
- if PROCESS:
-@@ -108,12 +115,14 @@ if PROCESS:
-         for i, p in enumerate(process_name_list):
+-if PROCESS:
+ 
+-    def get_running_proc(process_name_list):
+-        counts = [None] * len(process_name_list)
++def get_running_proc(process_name_list):
++    counts = [None] * len(process_name_list)
+ 
+-        for i, p in enumerate(process_name_list):
++    for i, p in enumerate(process_name_list):
++        try:
++            count = int(
++                subprocess.check_output(
++                    ['pgrep', '-c', '-x', p]
++                ).decode('utf-8')
++            )
++        except subprocess.CalledProcessError:
++            count = 0
++
++        counts[i] = (p, count)
++    return dict(counts)
++
++
++def main():
++
++    gui_output = ''
++    process_output = ''
++    if GUI:
++
++        # get list of running GUI programs
++        gui_counts = Counter(get_running_guis())
++        # print(gui_counts)  # Another interesting debug statement
++
++        # combine programs in program combine list
++        for k, lst in combine_guis.items():
++            count = 0
++            for i in lst:
++                try:
++                    count += gui_counts.pop(i)
++                except KeyError:
++                    pass
++            if count:
++                gui_counts[k] += count
++
++        # generate program output
++        for k, v in guis.items():
              try:
-                 count = int(
+-                count = int(
 -                    subprocess.check_output(['pgrep', '-c', '-x',
 -                                             p]).decode('utf-8'))
-+                    subprocess.check_output(
-+                        ['pgrep', '-c', '-x', p]
-+                    ).decode('utf-8')
-+                )
-             except subprocess.CalledProcessError:
-                 count = 0
+-            except subprocess.CalledProcessError:
+-                count = 0
 -            counts[i] = (p, count)
+-
+-        return dict(counts)
+-
+-    # count running proccesses
+-    process_counts = get_running_proc(processes.keys())
+-    combine_counts = get_running_proc(
+-        list(sum(combine_proccesses.values(), ())))
+-    process_counts.update(combine_counts)
+-
+-    # combine processes in process combine list
+-    for k, lst in combine_proccesses.items():
+-        count = 0
+-        for i in lst:
++                c = gui_counts[k]
++                if c:
++                    gui_output += '%s %i ' % (v, c)
++            except Exception:
++                pass
++
++    if PROCESS:
++
++        # count running proccesses
++        process_counts = get_running_proc(processes.keys())
++        combine_counts = get_running_proc(
++            list(sum(combine_proccesses.values(), ())))
++        process_counts.update(combine_counts)
++
++        # combine processes in process combine list
++        for k, lst in combine_proccesses.items():
++            count = 0
++            for i in lst:
++                try:
++                    count += process_counts.pop(i)
++                except KeyError:
++                    pass
++            if count:
++                process_counts[k] += count
++
++        # generate process output
++        for k, v in processes.items():
+             try:
+-                count += process_counts.pop(i)
+-            except KeyError:
++                c = process_counts[k]
++                if c:
++                    process_output += '%s %i ' % (v, c)
++            except Exception:
+                 pass
+-        if count:
+-            process_counts[k] += count
  
-+            counts[i] = (p, count)
-         return dict(counts)
- 
-     # count running proccesses
-@@ -139,7 +148,7 @@ if PROCESS:
-             c = process_counts[k]
-             if c:
-                 process_output += '%s %i ' % (v, c)
+-    # generate process output
+-    for k, v in processes.items():
+-        try:
+-            c = process_counts[k]
+-            if c:
+-                process_output += '%s %i ' % (v, c)
 -        except:
-+        except Exception:
-             pass
+-            pass
++    print(gui_output + process_output)
++
  
- print(gui_output + process_output)
+-print(gui_output + process_output)
++if __name__ == "__main__":
++    main()
 diff --git b/polybar/.config/polybar/polybar-scripts/openweathermap-fullfeatured.sh a/polybar/.config/polybar/polybar-scripts/openweathermap-fullfeatured.sh
 index 652c620..d5f92f4 100755
 --- b/polybar/.config/polybar/polybar-scripts/openweathermap-fullfeatured.sh
