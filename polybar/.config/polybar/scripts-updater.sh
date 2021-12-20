@@ -47,10 +47,10 @@ read -n 1 answer
 [ -z "$answer" ] && answer="n"
 case ${answer:0:1} in
     y|Y )
-	printf "\n$bold$red%s$reset\n" "Patch file has been created as 'scripts.patch'"
-	git diff -R ./polybar-scripts > ./scripts.patch
-	printf "\n$bold$blue%s$red%s$reset\n" "Be careful!! => " "There is a 'personal-patches.patch' which has been created moving MANUALLY 'scripts.patch' to 'personal-patches.patch'"
-	printf "\n$bold$red%s$reset\n" "This is the pach which is being applied, so you must check before the new created patch."
+        printf "\n$bold$red%s$reset\n" "Patch file has been created as 'scripts.patch'"
+        git diff -R ./polybar-scripts > ./scripts.patch
+        printf "\n$bold$blue%s$red%s$reset\n" "Be careful!! => " "There is a 'personal-patches.patch' which has been created moving MANUALLY 'scripts.patch' to 'personal-patches.patch'"
+        printf "\n$bold$red%s$reset\n" "This is the pach which is being applied, so you must check before the new created patch."
     ;;
     * )
         printf "\n$bold$red%s$reset\n" "No patch has been created."
@@ -63,8 +63,8 @@ read -n 1 answer
 [ -z "$answer" ] && answer="y"
 case ${answer:0:1} in
     y|Y )
-	  printf "\n$bold$red%s$reset\n" "Applying 'personal-patches.patch':"
-	  git apply ./personal-patches.patch
+        printf "\n$bold$red%s$reset\n" "Applying 'personal-patches.patch':"
+        git apply ./personal-patches.patch
     ;;
     * )
         printf "\n$bold$red%s$reset\n" "No patch has been applied."
@@ -74,6 +74,6 @@ esac
 #printf "$bold$red%s$reset\n" "Scripts has been patched with 'personal-patches.path'"
 printf "$bold$blue%s$red%s$reset\n" "IMPORTANT!! => " "You can now check how was the update in the case you applied it and if all is right remove the './polybar-script_custom' folder"
 
-trash-put ./polybar-scripts_custom # ./scripts.patch
+#trash-put ./polybar-scripts_custom # ./scripts.patch
 
 
