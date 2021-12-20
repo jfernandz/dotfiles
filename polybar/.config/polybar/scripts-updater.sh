@@ -15,56 +15,65 @@
 # The most proper approach to this issue would be to use `awk` or `sed` to parse the files and introduce the appropriate modifications
 # in the new raw files, but I still cannot use `awk` or `sed` unfortunately. 
 
+red=$(tput setaf 1)
+green=$(tput setaf 2)
+blue=$(tput setaf 4)
+reset=$(tput sgr0)
+bold=$(tput bold)
 
-echo -e "\e[1m\e[31mCopying my custom versions to ./polybar-scripts_custom folder in order to create a .patch. This is also a way to backup the folder.\e[0m"
+
+printf "$bold$red%s$reset\n" "Copying my custom versions to ./polybar-scripts_custom folder in order to create a .patch. This is also a way to backup the folder."
 cp -r ./polybar-scripts ./polybar-scripts_custom
-echo -e "\e[1m\e[31mAfter this process you should be able to remove it manually if you think it's convenient.\e[0m"
+printf "$bold$red%s$reset\n" "After this process you should be able to remove it manually if you think it's convenient."
 
+scripts=(
+    "info-softwarecounter.py"
+    "openweathermap-fullfeatured.sh"
+    "info-hackspeed.sh"
+    "system-cpu-frequency.sh"
+    "system-cpu-temppercore.sh"
+    "system-nvidia-smi.sh"
+    "system-usb-udev.sh"
+    "updates-pacman-aurhelper.sh"
+)
 
-echo -e "\n\e[1m\e[31mCloning raw scripts from Github repo.\e[0m"
-wget -q --show-progress -O ./polybar-scripts/info-softwarecounter.py https://raw.githubusercontent.com/jfernandz/polybar-scripts/master/polybar-scripts/info-softwarecounter/info-softwarecounter.py
-wget -q --show-progress -O ./polybar-scripts/openweathermap-fullfeatured.sh https://raw.githubusercontent.com/jfernandz/polybar-scripts/master/polybar-scripts/openweathermap-fullfeatured/openweathermap-fullfeatured.sh
-wget -q --show-progress -O ./polybar-scripts/info-hackspeed.sh https://raw.githubusercontent.com/jfernandz/polybar-scripts/master/polybar-scripts/info-hackspeed/info-hackspeed.sh
-wget -q --show-progress -O ./polybar-scripts/system-cpu-frequency.sh https://raw.githubusercontent.com/jfernandz/polybar-scripts/master/polybar-scripts/system-cpu-frequency/system-cpu-frequency.sh
-wget -q --show-progress -O ./polybar-scripts/system-cpu-temppercore.sh https://raw.githubusercontent.com/jfernandz/polybar-scripts/master/polybar-scripts/system-cpu-temppercore/system-cpu-temppercore.sh
-wget -q --show-progress -O ./polybar-scripts/system-nvidia-smi.sh https://raw.githubusercontent.com/jfernandz/polybar-scripts/master/polybar-scripts/system-nvidia-smi/system-nvidia-smi.sh
-wget -q --show-progress -O ./polybar-scripts/system-usb-udev.sh https://raw.githubusercontent.com/jfernandz/polybar-scripts/master/polybar-scripts/system-usb-udev/system-usb-udev.sh
-wget -q --show-progress -O ./polybar-scripts/updates-pacman-aurhelper.sh https://raw.githubusercontent.com/jfernandz/polybar-scripts/master/polybar-scripts/updates-pacman-aurhelper/updates-pacman-aurhelper.sh
+printf "$bold$red%s$reset\n" "Cloning raw scripts from Github repo."
+for script in "${scripts[@]}"; do
+    wget -q --show-progress -O ./polybar-scripts/"$script" https://raw.githubusercontent.com/jfernandz/polybar-scripts/master/polybar-scripts/"${script%.*}"/"$script"
+done
 
-
-echo -e "\n\e[1m\e[31mDo you want to create the patch (y/N)?\e[0m"
+printf "$bold$red%s$reset\n" "Do you want to create the patch (y/N)?"
 read -n 1 answer
 [ -z "$answer" ] && answer="n"
 case ${answer:0:1} in
     y|Y )
-	echo -e "\n\e[1m\e[31mPatch file has been created as 'scripts.patch'\e[0m"
-	git diff -R > ./scripts.patch
-	echo -e "\e[1m\e[34mBe careful!! => \e[31mThere is a 'personal-patches.patch' which has been created moving MANUALLY 'scripts.patch' to 'personal-patches.patch'\e[0m"
-	echo -e "\e[1m\e[31mThis is the pach which is being applied, so you must check before the new created patch.\e[0m"
+	printf "\n$bold$red%s$reset\n" "Patch file has been created as 'scripts.patch'"
+	git diff -R ./polybar-scripts > ./scripts.patch
+	printf "\n$bold$blue%s$red%s$reset\n" "Be careful!! => " "There is a 'personal-patches.patch' which has been created moving MANUALLY 'scripts.patch' to 'personal-patches.patch'"
+	printf "\n$bold$red%s$reset\n" "This is the pach which is being applied, so you must check before the new created patch."
     ;;
     * )
-        echo -e "\n\e[1m\e[31mNo patch has been created.\e[0m"
+        printf "\n$bold$red%s$reset\n" "No patch has been created."
     ;;
 esac
 
 
-echo -e "\n\e[1m\e[31mDo you want to apply 'personal-patches.patch' (Y/n)?\e[0m"
+printf "$bold$red%s$reset\n" "Do you want to apply 'personal-patches.patch' (Y/n)?"
 read -n 1 answer
 [ -z "$answer" ] && answer="y"
 case ${answer:0:1} in
     y|Y )
-	  echo -e "\n\e[1m\e[31mApplying 'personal-patches.patch':\e[0m"
+	  printf "\n$bold$red%s$reset\n" "Applying 'personal-patches.patch':"
 	  git apply ./personal-patches.patch
     ;;
     * )
-        echo -e "\n\e[1m\e[31mNo patch has been applied.\e[0m"
+        printf "\n$bold$red%s$reset\n" "No patch has been applied."
     ;;
 esac
 
+#printf "$bold$red%s$reset\n" "Scripts has been patched with 'personal-patches.path'"
+printf "$bold$blue%s$red%s$reset\n" "IMPORTANT!! => " "You can now check how was the update in the case you applied it and if all is right remove the './polybar-script_custom' folder"
 
-#echo -e "\n\e[1m\e[31mScripts has been patched with 'personal-patches.path'\e[0m"
-echo -e "\e[1m\e[34mIMPORTANT!! => \e[31mYou can now check how was the update in the case you applied it and if all is right remove the './polybar-script_custom' folder\e[0m"
-
-#trash-put ./polybar-scripts_custom ./scripts.patch
+trash-put ./polybar-scripts_custom # ./scripts.patch
 
 
