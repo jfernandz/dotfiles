@@ -7,10 +7,10 @@
 # This is needed to set up PATH variable in graphical
 # loging, because lightdm will not source .zprofile
 # but it will source this .xprofile
-export PATH="$PATH:$HOME/.config/polybar/"
-export PATH="$PATH:$HOME/.screenlayout/"
-export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"
+#export PATH="$PATH:$HOME/.config/polybar/"
+#export PATH="$PATH:$HOME/.screenlayout/"
+#export PATH="$PATH:$HOME/.local/bin"
+#export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"
 
 #eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 export SSH_ASKPASS="/usr/lib/seahorse/ssh-askpass"
