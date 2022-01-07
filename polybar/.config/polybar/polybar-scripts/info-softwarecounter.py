@@ -38,14 +38,14 @@ if DEBUG:
 
 # program/process names and corresponding gylphs
 guis = OrderedDict({
-    'terminals': '%{T10}%{T}',
-    'chromes': '%{T10}%{T}',
-    'firefox': '%{T10}%{T}',
-    'skypeforlinux': '%{T10}瑩%{T}',
-    'filemanager': '%{T10}%{T}',
-    'remote-desktop': '%{T10}ﲾ%{T}',
-    'pdfviewer': '%{T10}%{T}',
-    'image': '%{T10}%{T}',
+    'terminals': '',
+    'chromes': '',
+    'firefox': '',
+    'skypeforlinux': '瑩',
+    'filemanager': '',
+    'remote-desktop': 'ﲾ',
+    'pdfviewer': '',
+    'image': '',
 })
 
 # combine counts of program/process names in the tuple
@@ -128,7 +128,7 @@ def GUI(gui_output=''):
             logger.debug(f"k, gui_counts[k] -> {k}, {gui_counts[k]}")
             c = gui_counts[k]
             if c:
-                gui_output += '%s %i ' % (v, c)
+                gui_output += f'%{{T10}}{v}%{{T}} x{c} | '
         except Exception:
             pass
     logger.debug("---------")
@@ -146,9 +146,9 @@ def GUI(gui_output=''):
 
 
 processes = OrderedDict({
-    'vims': '%{T10}%{T}',
-    'ssh': '%{T10}%{T}',
-    'updater': '%{T10}%{T}',
+    'vims': '',
+    'ssh': '',
+    'updater': '',
 })
 
 combine_proccesses = {
@@ -198,7 +198,7 @@ def PROCESS(process_output=''):
         try:
             c = process_counts[k]
             if c:
-                process_output += '%s %i ' % (v, c)
+                process_output += f'%{{T10}}{v}%{{T}} x{c} | '
         except Exception:
             pass
 
@@ -218,6 +218,6 @@ def main():
 
 
 if __name__ == "__main__":
-    logger.debug("------------ Script runs  ------------")
+    logger.debug("------------ Script runs  -----------")
     main()
-    logger.debug("------------ Script stops ------------\n")
+    logger.debug("------------ Script stops -----------\n")
