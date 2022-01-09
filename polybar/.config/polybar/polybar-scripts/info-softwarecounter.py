@@ -15,8 +15,7 @@ PROCESS = True
 DEBUG = False
 
 
-logger = logging.getLogger(__name__)
-if DEBUG:
+def debug():
     FORMAT = '%(asctime)s - %(levelname)s - %(funcName)s:%(lineno)d - %(message)s'
     logger.setLevel(logging.DEBUG)
     fh = logging.FileHandler(
@@ -27,6 +26,8 @@ if DEBUG:
     fh.setFormatter(logging.Formatter(FORMAT))
     logger.addHandler(fh)
 
+
+logger = logging.getLogger(__name__)
 
 #   _____ _    _ _____
 #  / ____| |  | |_   _|
@@ -42,10 +43,10 @@ guis = OrderedDict({
     'chromes': '',
     'firefox': '',
     'skypeforlinux': '瑩',
-    'filemanager': '',
+    'filemanager': '',
     'remote-desktop': 'ﲾ',
-    'pdfviewer': '',
-    'image': '',
+    'pdfviewer': '',
+    'image': '',
 })
 
 # combine counts of program/process names in the tuple
@@ -84,10 +85,10 @@ def get_running_guis():
     ]
 
     logger.debug("wlist after LC:")
-    logger.debug("---------")
+    logger.debug("-"*10)
     for i in wlist:
         logger.debug(i)
-    logger.debug("---------")
+    logger.debug("-"*10)
 
     validprocs = [
         get_process(w[2]) for w in wlist if w[2] != '0'  # and check_wtype(w[0])
@@ -104,7 +105,7 @@ def GUI(gui_output=''):
     logger.debug(f"gui_counts -> {gui_counts}")
 
     logger.debug("combine_guis items:")
-    logger.debug("---------")
+    logger.debug("-"*10)
     # combine programs in program combine list
     for k, lst in combine_guis.items():
         logger.debug(f"{k} -> {lst}")
@@ -116,11 +117,11 @@ def GUI(gui_output=''):
                 pass
         if count:
             gui_counts[k] += count
-    logger.debug("---------")
+    logger.debug("-"*10)
     logger.debug(f"gui_counts after for loop -> {gui_counts}")
 
     logger.debug("guis items:")
-    logger.debug("---------")
+    logger.debug("-"*10)
     # generate program output
     for k, v in guis.items():
         logger.debug(f"{k} -> {v}")
@@ -128,10 +129,11 @@ def GUI(gui_output=''):
             logger.debug(f"k, gui_counts[k] -> {k}, {gui_counts[k]}")
             c = gui_counts[k]
             if c:
-                gui_output += f'%{{T10}}{v}%{{T}} x{c} | '
+                logger.debug(f"ADDING {v} to gui_output")
+                gui_output += f'%{{T10}}{v}%{{T}} x{c}   '
         except Exception:
             pass
-    logger.debug("---------")
+    logger.debug("-"*10)
 
     logger.debug(f"gui_output -> {gui_output}")
     return gui_output
@@ -146,14 +148,16 @@ def GUI(gui_output=''):
 
 
 processes = OrderedDict({
-    'vims': '',
+    'vims': '',  # '',
     'ssh': '',
     'updater': '',
+    'dockers': '',
 })
 
 combine_proccesses = {
     'vims': ('nvim', 'vim', 'atom'),
     'updater': ('pacman', 'yay', 'trizen', 'yaourt', 'makepkg', 'auracle'),
+    'dockers': ('docker-proxy',),
 }
 
 
@@ -178,12 +182,19 @@ def PROCESS(process_output=''):
 
     # count running proccesses
     process_counts = get_running_proc(processes.keys())
+    logger.debug(f"process_counts -> {process_counts}")
     combine_counts = get_running_proc(
-        list(sum(combine_proccesses.values(), ())))
+        list(sum(combine_proccesses.values(), ()))
+    )
+    logger.debug(f"combine_counts -> {combine_counts}")
     process_counts.update(combine_counts)
+    logger.debug(f"process_counts.update() -> {process_counts}")
 
     # combine processes in process combine list
+    logger.debug("combine_proccesses items:")
+    logger.debug("-"*10)
     for k, lst in combine_proccesses.items():
+        logger.debug(f"k, lst -> {k}, {lst}")
         count = 0
         for i in lst:
             try:
@@ -192,15 +203,22 @@ def PROCESS(process_output=''):
                 pass
         if count:
             process_counts[k] += count
+    logger.debug("-"*10)
+    logger.debug(f"process_counts -> {process_counts}")
 
     # generate process output
+    logger.debug("processes items:")
+    logger.debug("-"*10)
     for k, v in processes.items():
+        logger.debug(f"k, v -> {k}, {v}")
         try:
             c = process_counts[k]
             if c:
-                process_output += f'%{{T10}}{v}%{{T}} x{c} | '
+                logger.debug(f"ADDING {v} to process_output")
+                process_output += f'%{{T10}}{v}%{{T}} x{c}   '
         except Exception:
             pass
+    logger.debug("-"*10)
 
     logger.debug(f"process_output -> {process_output}")
     return process_output
@@ -218,6 +236,10 @@ def main():
 
 
 if __name__ == "__main__":
+
+    if DEBUG:
+        debug()
+
     logger.debug("------------ Script runs  -----------")
     main()
     logger.debug("------------ Script stops -----------\n")
