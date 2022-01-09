@@ -6,13 +6,13 @@ import logging
 
 
 # update GUIs
-GUI = True
+ENABLE_GUI = True
 
 # update processes
-PROCESS = True
+ENABLE_PROCESS = True
 
 # Debugging feature
-DEBUG = False
+ENABLE_DEBUG = True
 
 
 def debug():
@@ -225,11 +225,14 @@ def PROCESS(process_output=''):
 
 
 def main():
+    gui_output, process_output = '', ''
 
-    if GUI:
+    if ENABLE_GUI:
+        logger.debug("Including GUI apps:")
         gui_output = GUI()
 
-    if PROCESS:
+    if ENABLE_PROCESS:
+        logger.debug("Including Processes:")
         process_output = PROCESS()
 
     print(gui_output + process_output)
@@ -237,7 +240,7 @@ def main():
 
 if __name__ == "__main__":
 
-    if DEBUG:
+    if ENABLE_DEBUG:
         debug()
 
     logger.debug("------------ Script runs  -----------")
