@@ -212,6 +212,8 @@ bindkey "^U" kill-whole-line
 bindkey -s "^B" $'cd ..\r'
 ##################################################################
 
+# git-extras completions
+source /usr/share/doc/git-extras/git-extras-completion.zsh
 
 # powerlevel10K prompt theme 
 #
