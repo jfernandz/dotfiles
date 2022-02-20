@@ -1,0 +1,35 @@
+## Set the first window as 1 and same for panes
+set -g base-index 1
+set-window-option -g pane-base-index 1
+set -g renumber-windows on
+
+## Set the prefix for tmux to ^A
+unbind C-b
+set -g prefix C-a
+set -s escape-time 0
+
+## Panes style
+set -g pane-border-style fg=black
+set -g pane-active-border-style fg=blue
+
+## Quick reload
+bind-key r source-file ~/.tmux.conf
+
+## Status bar
+set -g status-position top
+set -g status-style bg=colour8,fg=colour15
+### Left side
+set -g status-left-length 20
+set -g status-left "#{?client_prefix,#[bg=colour9] #S #[bg=colour2 fg=colour9],#[fg=colour0 bg=colour24] #S #[bg=colour2 fg=colour24] }#[fg=colour0 bg=colour2] #I:#P #[fg=colour2 bg=colour8]"
+### Right side
+set -g status-right-style bg=colour233,fg=colour243
+set -g status-right-length 150
+set -g status-right "#[fg=colour235,bg=colour8] #[fg=colour240,bg=colour235] %H:%M:%S #[fg=colour240,bg=colour235] #[fg=colour233,bg=colour240] %d-%b-%y #[fg=colour245,bg=colour240] #[fg=colour232,bg=colour245,bold] #H "
+### Window status
+set -g window-status-format "#[fg=colour233,bg=colour8] #I:#W#F"
+set -g window-status-current-format "#[fg=colour8,bg=colour0] #[fg=colour1] #I:#W#F #[fg=colour8,bg=colour0] "
+set -g status-justify left
+### Current window status
+set -g window-status-current-style bg=colour100,fg=colour235
+### Window with activity status
+set -g window-status-activity-style bg=colour233,fg=colour245
