@@ -26,7 +26,7 @@ usage () {
 	printf 'will have to clone the whole repo in /root folder\n'
 	printf 'and run tis script from there.%s\n\n' "$reset"
 	printf '	%s%sUsage: %s [-h|-D|-S|-R] <distro>%s\n' "$bold" "$green" "$(basename "$0")" "$reset"
-	printf 'see: man stow'
+	printf 'see: man stow\n'
 	exit "$1"
 }
 
