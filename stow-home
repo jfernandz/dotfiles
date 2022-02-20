@@ -5,51 +5,43 @@ green=$(tput setaf 2)
 reset=$(tput sgr0)
 bold=$(tput bold)
 
+shopt -s nullglob
 
 usage () {
-	printf "\nThis script will install available dotfiles into your home folder.\n"
-	printf "Available distros are:\n\n"
-	prt=True get_available_distros
-	printf "\nListed *_root folders are intended for /root folder.\n"
-	printf "so they must be 'stowed' by the root user, %s%sbut you\n" "$red" "$bold"
-	printf "will have to clone the whole repo in /root folder\n"
-	printf "and run tis script from there.%s\n\n" "$reset"
-	printf "	%s%sUsage: %s [-D] <distro>%s\n" "$bold" "$green" "$0" "$reset"
-	exit 1
-}
-
-declare -a distros
-get_available_distros () {
-	distros=()
-	if [[ -d "./dotfiles" ]]; then
-		shopt -s nullglob
-		for dist in ./dotfiles/*
-		do
-			name=$(basename "$dist")
-			distros+=("$name")
-			if [[ "$prt" ]]; then
-				printf "	· %s\n" "$name"
-			fi
-		done
-	else
-		printf "	Any dotfiles folder can be found.\n\n"
-		exit 2
+	printf '\nThis script will install available dotfiles into your home folder.\n'
+	printf 'Available distros are:\n\n'
+	if [[ ! -d dotfiles ]]; then
+		printf '\tNo dotfiles folder found.\n\n'
+	elif pushd dotfiles &>/dev/null; then
+		distros=( * )
+		if (( ${#distros[@]} )); then
+			printf '\t* %s\n' "${distros[@]}"
+		else
+			printf '\tNo distributions found.\n'
+		fi
+		popd &>/dev/null || exit
 	fi
-	#declare -p distros
+	printf '\nListed *_root folders are intended for /root folder.\n'
+	printf 'so they must be "stowed" by the root user, %s%sbut you\n' "$red" "$bold"
+	printf 'will have to clone the whole repo in /root folder\n'
+	printf 'and run tis script from there.%s\n\n' "$reset"
+	printf '	%s%sUsage: %s [-D] <distro>%s\n' "$bold" "$green" "$(basename "$0")" "$reset"
+	exit "$1"
 }
 
-
-if [[ "$#" -lt 1 || "$#" -gt 2 || $PWD != "$HOME"?(/*) || "$1" == "-h" ]]; then
-	usage
+if [[ $# != [12] ]]; then
+	usage 1 >&2
+elif [[
+	$EUID == 0 && $1 == ?*_root ||
+	$EUID != 0 && $1 != ?*_root ||
+	$PWD != "$HOME"?(/*) ]]; 
+then
+		usage 2 >&2
+elif [[ $1 == -h ]]
+then
+	usage 0
 fi
 
-if [[ "$EUID" -eq 0  && "$1" == ?*_root || "$EUID" -ne 0 && "$1" !=  ?*_root ]]; then
-	printf "\n%sRunning: stow -v -t ~/ -d dotfiles/ %s %s%s\n" "$red" "$@" "$reset"
-	stow -v -t "$HOME" -d ./dotfiles/ "$@"
-	printf "%sFinished%s\n" "$green" "$reset"
-fi
-
-
-
-
-
+printf "\n%sRunning: stow -v -t ~/ -d dotfiles/ %s %s%s\n" "$red" "$@" "$reset"
+stow -v -t "$HOME" -d dotfiles/ "$@"
+printf "%sFinished%s\n" "$green" "$reset"
