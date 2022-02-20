@@ -25,17 +25,20 @@ usage () {
 	printf 'so they must be "stowed" by the root user, %s%sbut you\n' "$red" "$bold"
 	printf 'will have to clone the whole repo in /root folder\n'
 	printf 'and run tis script from there.%s\n\n' "$reset"
-	printf '	%s%sUsage: %s [-D] <distro>%s\n' "$bold" "$green" "$(basename "$0")" "$reset"
+	printf '	%s%sUsage: %s [-h|-D|-S|-R] <distro>%s\n' "$bold" "$green" "$(basename "$0")" "$reset"
+	printf 'see: man stow'
 	exit "$1"
 }
+
+# TODO: check if stow is installed
 
 if [[ $# != [12] ]]; then
 	usage 1 >&2
 elif [[
 	$EUID == 0 && $1 == ?*_root ||
 	$EUID != 0 && $1 != ?*_root ||
-	$PWD != "$HOME"?(/*) ]]; 
-then
+	$PWD != "$HOME"?(/*) 
+		]]; then
 		usage 2 >&2
 elif [[ $1 == -h ]]
 then
