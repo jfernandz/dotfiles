@@ -25,26 +25,52 @@ usage () {
 	printf 'so they must be "stowed" by the root user, %s%sbut you\n' "$red" "$bold"
 	printf 'will have to clone the whole repo in /root folder\n'
 	printf 'and run tis script from there.%s\n\n' "$reset"
-	printf '	%s%sUsage: %s [-h|-D|-S|-R] <distro>%s\n' "$bold" "$green" "$(basename "$0")" "$reset"
-	printf 'see: man stow\n'
-	exit "$1"
+	printf '	%s%sUsage: %s [-h] [-D|-S|-R] <distro>%s' "$bold" "$green" "$(basename "$0")" "$reset"
+	printf '\n\n'
+	stow -h
+	exit 1
 }
 
 # TODO: check if stow is installed
 
-if [[ $# != [12] ]]; then
-	usage 1 >&2
-elif [[
-	$EUID == 0 && $1 == ?*_root ||
-	$EUID != 0 && $1 != ?*_root ||
-	$PWD != "$HOME"?(/*) 
-		]]; then
-		usage 2 >&2
-elif [[ $1 == -h ]]
-then
-	usage 0
-fi
+run_stow () {
+	printf "\n%sRunning: stow -v -t ~/ -d dotfiles/ %s %s%s\n" "$red" "$@" "$reset"
+	#stow -v -t "$HOME" -d dotfiles/ "$@"
+	printf "%sFinished%s\n" "$green" "$reset"
+}
 
-printf "\n%sRunning: stow -v -t ~/ -d dotfiles/ %s %s%s\n" "$red" "$@" "$reset"
-stow -v -t "$HOME" -d dotfiles/ "$@"
-printf "%sFinished%s\n" "$green" "$reset"
+verify_context () {
+	if [[ 
+		$EUID == 0 && $1 == ?*_root || 
+		$EUID != 0 && $1 != ?*_root 
+				]] && [[ 
+				$PWD == "$HOME"?(/*) 
+				]]; then
+		return 0
+	else
+		usage
+	fi
+}
+
+if [[ $# == 1 ]]; then
+	if [[ $1 != ?(-h) ]]; then
+		# I know these kind of conditions are so week.
+		verify_context "$1"
+		run_stow "$@"	
+	else
+		usage
+	fi
+elif [[ $# == 2 ]]; then
+	echo "$1$2"
+	if [[ "$1$2" != ?*-h* ]]; then
+		# Of course this won't work with directories starting with '-h' because
+		# stow-home -S -- -hwatever 
+		# won't match this condition, so it will print usage; but I don't care.
+		verify_context "$2"
+		run_stow "$@"
+	else
+		usage
+	fi
+else
+	usage
+fi
