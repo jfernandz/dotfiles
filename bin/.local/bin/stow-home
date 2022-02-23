@@ -1,21 +1,27 @@
 #!/bin/bash
 
+
+
 red=$(tput setaf 1)
 green=$(tput setaf 2)
 reset=$(tput sgr0)
 bold=$(tput bold)
 
+
 shopt -s nullglob
 
+
 usage () {
-	printf '\nThis script will install available dotfiles into your home folder.\n'
-	printf 'Available distros are:\n\n'
+	stow -h
+	printf '\n--------------------------------------------------------------------\n'
+	printf 'This script will install available dotfiles into your home folder.\n'
+	printf 'Available dotfiles for specific distributions are:\n\n'
 	if [[ ! -d dotfiles ]]; then
 		printf '\tNo dotfiles folder found.\n\n'
 	elif pushd dotfiles &>/dev/null; then
-		distros=( * )
-		if (( ${#distros[@]} )); then
-			printf '\t* %s\n' "${distros[@]}"
+		dist=( * )
+		if (( ${#dist[@]} )); then
+			printf '\t* %s\n' "${dist[@]}"
 		else
 			printf '\tNo distributions found.\n'
 		fi
@@ -25,52 +31,85 @@ usage () {
 	printf 'so they must be "stowed" by the root user, %s%sbut you\n' "$red" "$bold"
 	printf 'will have to clone the whole repo in /root folder\n'
 	printf 'and run tis script from there.%s\n\n' "$reset"
-	printf '	%s%sUsage: %s [-h] [-D|-S|-R] <distro>%s' "$bold" "$green" "$(basename "$0")" "$reset"
-	printf '\n\n'
-	stow -h
+	printf '	%s%sUsage: %s [-h] [-D|-S|-R] <distro>%s\n' "$bold" "$green" "$(basename "$0")" "$reset"
 	exit 1
 }
 
 # TODO: check if stow is installed
 
+
 run_stow () {
-	printf "\n%sRunning: stow -v -t ~/ -d dotfiles/ %s %s%s\n" "$red" "$@" "$reset"
+	printf "\n%sRunning: stow -v -t ~/ -d dotfiles/ %s%s\n" "$red" "$*" "$reset"
 	#stow -v -t "$HOME" -d dotfiles/ "$@"
 	printf "%sFinished%s\n" "$green" "$reset"
 }
 
+# WIP: I need to export $dist outside of the scope, maybe I could move
+# the searching process into a separate function
+printf "\n%s -- %s\n" "$1" "${dist[*]}"
+
 verify_context () {
-	if [[ 
-		$EUID == 0 && $1 == ?*_root || 
-		$EUID != 0 && $1 != ?*_root 
-				]] && [[ 
-				$PWD == "$HOME"?(/*) 
-				]]; then
+	if [[ $EUID == 0 && $1 == ?*_root || $EUID != 0 && $1 != ?*_root ]] &&
+		[[	$PWD == "$HOME"?(/*) ]]; then # &&
+		#[[ "${dist[*]}" =~ "$1" ]]; then
 		return 0
 	else
 		usage
 	fi
 }
 
-if [[ $# == 1 ]]; then
-	if [[ $1 != ?(-h) ]]; then
-		# I know these kind of conditions are so week.
-		verify_context "$1"
-		run_stow "$@"	
-	else
-		usage
-	fi
-elif [[ $# == 2 ]]; then
-	echo "$1$2"
-	if [[ "$1$2" != ?*-h* ]]; then
-		# Of course this won't work with directories starting with '-h' because
-		# stow-home -S -- -hwatever 
-		# won't match this condition, so it will print usage; but I don't care.
-		verify_context "$2"
-		run_stow "$@"
-	else
-		usage
-	fi
-else
-	usage
+
+if [[ $# == 0 ]]; then
+  usage
+  exit 1
 fi
+
+
+OPTIND=1
+
+while getopts ":hD:S:R:" opt; do
+  case "$opt" in
+    D|S|R)
+			verify_context "$OPTARG"
+      run_stow "$@"
+      exit 0
+      ;;
+    h|\?)
+			usage
+      exit 1
+      ;;
+  esac
+done
+if [ $OPTIND -eq 1 ]; then
+	verify_context "$1"
+  run_stow "$1"
+  shift $((OPTIND-1))
+fi
+
+
+
+##################
+# deprecated
+##################
+#if [[ $# == 1 ]]; then
+#	if [[ $1 != ?(-h) ]]; then
+#		# I know these kind of conditions are so week.
+#		verify_context "$1"
+#		run_stow "$@"
+#	else
+#		usage
+#	fi
+#elif [[ $# == 2 ]]; then
+#	echo "$1$2"
+#	if [[ "$1$2" != ?*-h* ]]; then
+#		# Of course this won't work with directories starting with '-h' because
+#		# stow-home -S -- -hwatever
+#		# won't match this condition, so it will print usage; but I don't care.
+#		verify_context "$2"
+#		run_stow "$@"
+#	else
+#		usage
+#	fi
+#else
+#	usage
+#fi
