@@ -45,7 +45,6 @@ setopt INC_APPEND_HISTORY
 #
 #export TERM="xterm-256color"
 export LANG="en_US.UTF-8"
-export PAGER='most'
 export EDITOR='/usr/bin/nvim'
 export SUDO_EDITOR=${EDITOR}
 export VISUAL=${EDITOR}
@@ -101,6 +100,7 @@ alias ls='ls --color'
 alias vim='nvim'
 alias ytdl-mp3='youtube-dl -x --audio-quality 0 --audio-format mp3'
 alias grep="grep --color=always"
+alias man='PAGER=most man'
 
 # ibus
 #

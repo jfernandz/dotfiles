@@ -11,4 +11,4 @@
 [init]
 	defaultBranch = main
 [alias]
-lg = log --graph --pretty=tformat:'%C(bold blue)%h%Creset %C(white)(%cr)%Creset %C(bold italic magenta)<%<(10,trunc)%an>%Creset %C(auto)%d %Creset%<(50,trunc)%s' --abbrev-commit
+lg = log --graph --pretty=tformat:'%C(bold blue)%h%Creset %C(white)(%<(10,trunc)%cr)%Creset %C(bold italic magenta)<%<(10,trunc)%an>%Creset %C(auto)%d %Creset%<(50,trunc)%s' --abbrev-commit

@@ -101,6 +101,7 @@ alias vim='nvim'
 alias ytdl-mp3='youtube-dl -x --audio-quality 0 --audio-format mp3'
 #alias grep="grep --color=always"
 alias bat='bat --wrap=never'
+alias man='PAGER=most man'
 
 # ibus
 #
