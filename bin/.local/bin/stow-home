@@ -1,7 +1,6 @@
 #!/bin/bash
 
 
-
 red=$(tput setaf 1)
 green=$(tput setaf 2)
 reset=$(tput sgr0)
@@ -10,23 +9,26 @@ bold=$(tput bold)
 
 shopt -s nullglob
 
+search () {
+	if [[ ! -d dotfiles ]]; then
+		printf '\tNo dotfiles folder found.\n\n'
+	elif pushd dotfiles &>/dev/null; then
+		dist=( * )
+		if (( ${#dist[@]} )) && (( "$1" )); then
+			printf '\t* %s\n' "${dist[@]}"
+		elif (( "$1" )); then
+			printf '\tNo distributions found.\n'
+		fi
+		popd &>/dev/null || exit
+	fi
+}
 
 usage () {
 	stow -h
 	printf '\n--------------------------------------------------------------------\n'
 	printf 'This script will install available dotfiles into your home folder.\n'
 	printf 'Available dotfiles for specific distributions are:\n\n'
-	if [[ ! -d dotfiles ]]; then
-		printf '\tNo dotfiles folder found.\n\n'
-	elif pushd dotfiles &>/dev/null; then
-		dist=( * )
-		if (( ${#dist[@]} )); then
-			printf '\t* %s\n' "${dist[@]}"
-		else
-			printf '\tNo distributions found.\n'
-		fi
-		popd &>/dev/null || exit
-	fi
+	search 1
 	printf '\nListed *_root folders are intended for /root folder.\n'
 	printf 'so they must be "stowed" by the root user, %s%sbut you\n' "$red" "$bold"
 	printf 'will have to clone the whole repo in /root folder\n'
@@ -40,18 +42,19 @@ usage () {
 
 run_stow () {
 	printf "\n%sRunning: stow -v -t ~/ -d dotfiles/ %s%s\n" "$red" "$*" "$reset"
-	#stow -v -t "$HOME" -d dotfiles/ "$@"
+	stow -v -t "$HOME" -d dotfiles/ "$@"
 	printf "%sFinished%s\n" "$green" "$reset"
 }
 
 # WIP: I need to export $dist outside of the scope, maybe I could move
 # the searching process into a separate function
-printf "\n%s -- %s\n" "$1" "${dist[*]}"
+search
+#printf "\n%s -- %s\n" "$1" "${dist[*]}"
 
 verify_context () {
 	if [[ $EUID == 0 && $1 == ?*_root || $EUID != 0 && $1 != ?*_root ]] &&
-		[[	$PWD == "$HOME"?(/*) ]]; then # &&
-		#[[ "${dist[*]}" =~ "$1" ]]; then
+		[[	$PWD == "$HOME"?(/*) ]] &&
+		[[ "${dist[*]}" =~ "$1" ]]; then
 		return 0
 	else
 		usage
