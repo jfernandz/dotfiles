@@ -1,0 +1,14 @@
+[core]
+	editor = nvim
+	pager = less -S -R
+[user]
+	email = jfernandz1290@gmail.com
+	name = Javier Fernández
+#[diff]
+#	external = /home/jfernandez/.local/bin/my_diff.sh
+[color]
+	ui = auto
+[init]
+	defaultBranch = main
+[alias]
+lg = log --graph --pretty=tformat:'%C(bold blue)%h%Creset %C(white)(%cr)%Creset %C(bold italic magenta)<%<(10,trunc)%an>%Creset %C(auto)%d %Creset%<(50,trunc)%s' --abbrev-commit
