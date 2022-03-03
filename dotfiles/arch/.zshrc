@@ -31,7 +31,7 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 #
 # Modifying the shell history path and giving 
 # The largest size possible [which is $((1<<63 - 1))]
-HISTFILE="$HOME/.zhs_history"
+HISTFILE="$HOME/.zsh_history"
 HISTSIZE=$((1<<63 - 1))
 SAVEHIST=$HISTSIZE
 setopt EXTENDED_HISTORY
