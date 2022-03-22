@@ -90,7 +90,9 @@ alias sudo='sudo ' rm='rm -i'  # causes 'sudo rm' to expand to 'sudo rm -i'
 alias trash='trash-put'
 alias del='trash-put'
 alias rm="echo Use 'del' or the full path i.e. '/bin/rm'"
+alias bp="curl -X POST https://bpa.st/curl -F 'raw=<-' -F 'lexer=text'"
 alias bpy="curl -X POST https://bpa.st/curl -F 'raw=<-' -F 'lexer=python'"
+alias bpd="curl -X POST https://bpa.st/curl -F 'raw=<-' -F 'lexer=diff'"
 alias bpsh="curl -X POST https://bpa.st/curl -F 'raw=<-' -F 'lexer=bash'"
 alias i="curl -F 'f:1=<-' ix.io"
 alias rs="curl --data-binary @- https://paste.rs"
@@ -103,6 +105,7 @@ alias ytdl-mp3='youtube-dl -x --audio-quality 0 --audio-format mp3'
 #alias grep="grep --color=always"
 alias bat='bat --wrap=never'
 alias man='PAGER=most man'
+alias pacdiff="DIFFPROG='nvim -d' pacdiff"
 
 # ibus
 #
