@@ -370,3 +370,4 @@ let g:VM_maps["Select Cursor Up"]   = '<S-C-Up>'        " start selecting up
 "let g:ale_sign_warning = '⚠️'
 "
 "let g:ale_fix_on_save = 1
+au BufEnter,BufRead *conf* setf dosini

@@ -106,6 +106,7 @@ alias ytdl-mp3='youtube-dl -x --audio-quality 0 --audio-format mp3'
 alias bat='bat --wrap=never'
 alias man='PAGER=most man'
 alias pacdiff="DIFFPROG='nvim -d' pacdiff"
+alias dockerc="docker-compose"
 
 # ibus
 #
@@ -225,3 +226,9 @@ source /usr/share/doc/git-extras/git-extras-completion.zsh
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+source ~/zsh-wakatime/zsh-wakatime.plugin.zsh
+
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
+neofetch
