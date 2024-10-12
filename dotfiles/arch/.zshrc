@@ -48,6 +48,7 @@ export EDITOR='/usr/bin/nvim'
 export SUDO_EDITOR=${EDITOR}
 export VISUAL=${EDITOR}
 export PYTHONFAULTHANDLER=1
+export LS_COLORS="$(vivid generate ayu)"
 
 ######################################
 # I only need to export SSH_AUTH_SOCK
@@ -98,7 +99,7 @@ alias i="curl -F 'f:1=<-' ix.io"
 alias rs="curl --data-binary @- https://paste.rs"
 alias ptpb="curl -F c=@- https://ptpb.pw/"
 alias ptpbsh="curl -F c=@- https://ptpb.pw/u"
-alias ls='lsd'
+alias ls='lsd --color=always'
 #alias ls='ls --color'
 alias vim='nvim'
 alias ytdl-mp3='youtube-dl -x --audio-quality 0 --audio-format mp3'

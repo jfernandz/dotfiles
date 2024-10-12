@@ -25,3 +25,4 @@ typeset -U path
 # trash, AUR atom version does not work properly in Arch
 # cause cannot find gvfs-trash
 export ELECTRON_TRASH=gio
+export GSK_RENDERER=gl
